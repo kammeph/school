@@ -1,0 +1,20 @@
+{
+  "login": "Login",
+  "logout": "Logout",
+  "username": "Username",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "passwordsDontMatch": "Passwords don't match",
+  "changePassword": "Change Password",
+  "haveAccount": "You have an account?",
+  "dontHaveAccount": "You don't have an account?",
+  "register": "Register",
+  "submit": "Submit",
+  "schools": "Schools",
+  "books": "Books",
+  "schoolClasses": "School Classes",
+  "storages": "Storages",
+  "users": "Users",
+  "editProfile": "Edit Profile"
+}

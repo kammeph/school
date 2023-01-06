@@ -1,0 +1,34 @@
+<li>
+  <button
+    [cdkMenuTriggerFor]="user"
+    class="flex flex-row items-center justify-center"
+  >
+    <fa-icon icon="user" [classes]="['mr-2']"></fa-icon>
+    <span class="hidden lg:block">username</span>
+  </button>
+</li>
+<ng-template #user>
+  <div class="flex flex-col items-start bg-white rounded-md p-2 my-2" cdkMenu>
+    <button
+      class="flex gap-3 w-full items-center rounded-md px-2 py-2 hover:bg-indigo-100 hover:text-indigo-600"
+      cdkMenuItem
+    >
+      <fa-icon icon="pen" [classes]="['text-indigo-600']"></fa-icon
+      ><span translate>editProfile</span>
+    </button>
+    <button
+      class="flex gap-3 w-full items-center rounded-md px-2 py-2 hover:bg-indigo-100 hover:text-indigo-600"
+      cdkMenuItem
+    >
+      <fa-icon icon="key" [classes]="['text-indigo-600']"></fa-icon>
+      <span translate>changePassword</span>
+    </button>
+    <button
+      class="flex gap-3 w-full items-center rounded-md px-2 py-2 hover:bg-indigo-100 hover:text-indigo-600"
+      cdkMenuItem
+    >
+      <fa-icon icon="power-off" [classes]="['text-indigo-600']"></fa-icon>
+      <span translate>logout</span>
+    </button>
+  </div>
+</ng-template>

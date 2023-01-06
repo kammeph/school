@@ -1,0 +1,20 @@
+{
+  "login": "Anmelden",
+  "logout": "Abmelden",
+  "username": "Benutzername",
+  "email": "Email",
+  "password": "Passwort",
+  "confirmPassword": "Passwort bestätigen",
+  "passwordsDontMatch": "Passwörter stimmen nicht überein",
+  "changePassword": "Passwort ändern",
+  "haveAccount": "Haben Sie schon ein Konto?",
+  "dontHaveAccount": "Haben Sie noch kein Konto?",
+  "register": "Registrieren",
+  "submit": "Absenden",
+  "schools": "Schulen",
+  "books": "Bücher",
+  "schoolClasses": "Klassen",
+  "storages": "Lager",
+  "users": "Benutzer",
+  "editProfile": "Profil bearbeiten"
+}
