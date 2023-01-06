@@ -49,5 +49,9 @@
     "@nrwl/angular:component": {
       "style": "scss"
     }
-  }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/node"
+  },
+  "defaultProject": "school-book-storage-functions"
 }

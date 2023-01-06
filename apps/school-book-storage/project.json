@@ -84,6 +84,16 @@
         "jestConfig": "apps/school-book-storage/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "@angular/fire:deploy",
+      "options": {
+        "prerender": false,
+        "ssr": false,
+        "browserTarget": "school-book-storage:build:production",
+        "firebaseProject": "hale-monument-367417",
+        "firebaseHostingSite": "hale-monument-367417"
+      }
     }
   },
   "tags": []
