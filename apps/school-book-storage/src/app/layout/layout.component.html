@@ -1,0 +1,44 @@
+<main
+  class="flex flex-col-reverse justify-stretch h-screen bg-gray-100 lg:flex-col"
+>
+  <header>
+    <nav
+      class="flex items-center sticky rounded-t-sm w-full h-16 bg-indigo-600 text-white lg:justify-end lg:rounded-b-sm lg:rounded-t-none"
+    >
+      <div class="hidden mr-auto ml-10 lg:flex lg:items-center lg:gap-3">
+        <fa-icon icon="book" [classes]="['w-10', 'h-10']"></fa-icon>
+        <span>Your books in save hands!</span>
+      </div>
+      <ul class="flex flex-row justify-around items-center w-full lg:w-4/6">
+        <school-book-storage-navigation-link
+          icon="school"
+          routerLink="/schools"
+          label="Schools"
+        ></school-book-storage-navigation-link>
+        <school-book-storage-navigation-link
+          icon="book"
+          routerLink="/books"
+          label="Books"
+        ></school-book-storage-navigation-link>
+        <school-book-storage-navigation-link
+          icon="graduation-cap"
+          routerLink="/school-classes"
+          label="School classes"
+        ></school-book-storage-navigation-link>
+        <school-book-storage-navigation-link
+          icon="warehouse"
+          routerLink="/storages"
+          label="Storages"
+        ></school-book-storage-navigation-link>
+        <school-book-storage-navigation-link
+          icon="users"
+          routerLink="/users"
+          label="Users"
+        ></school-book-storage-navigation-link>
+        <school-book-storage-user-menu></school-book-storage-user-menu>
+      </ul>
+    </nav>
+  </header>
+
+  <router-outlet></router-outlet>
+</main>
