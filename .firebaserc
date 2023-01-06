@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "hale-monument-367417": {
+      "hosting": {
+        "school-book-storage": [
+          "hale-monument-367417"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "hale-monument-367417"
+  }
+}
