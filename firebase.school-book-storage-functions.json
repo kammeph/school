@@ -29,5 +29,39 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "functions": {
+    "predeploy": [
+      "npx nx build school-book-storage-functions --with-deps",
+      "npx nx lint school-book-storage-functions"
+    ],
+    "source": "dist/apps/school-book-storage-functions"
+  },
+  "database": {
+    "rules": "apps/school-book-storage-functions/database.rules.json"
+  },
+  "firestore": {
+    "rules": "apps/school-book-storage-functions/firestore.rules",
+    "indexes": "apps/school-book-storage-functions/firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "apps/school-book-storage-functions/storage.rules"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "auth": {
+      "port": 9099
+    },
+    "pubsub": {
+      "port": 8085
+    }
   }
 }
