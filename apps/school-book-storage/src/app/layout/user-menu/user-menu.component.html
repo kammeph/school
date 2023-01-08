@@ -4,7 +4,7 @@
     class="flex flex-row items-center justify-center"
   >
     <fa-icon icon="user" [classes]="['mr-2']"></fa-icon>
-    <span class="hidden lg:block">username</span>
+    <span class="hidden lg:block">{{ displayName$ | async }}</span>
   </button>
 </li>
 <ng-template #user>
@@ -26,6 +26,7 @@
     <button
       class="flex gap-3 w-full items-center rounded-md px-2 py-2 hover:bg-indigo-100 hover:text-indigo-600"
       cdkMenuItem
+      (click)="logout()"
     >
       <fa-icon icon="power-off" [classes]="['text-indigo-600']"></fa-icon>
       <span translate>logout</span>
