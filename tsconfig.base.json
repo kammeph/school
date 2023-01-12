@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@school/interfaces": ["libs/interfaces/src/index.ts"],
-      "@school/validators": ["libs/validators/src/index.ts"]
+      "@school/school-book-storage-lib": [
+        "libs/school-book-storage-lib/src/index.ts"
+      ],
+      "@school/shared": ["libs/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
