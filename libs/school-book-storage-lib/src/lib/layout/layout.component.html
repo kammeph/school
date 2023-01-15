@@ -1,44 +1,96 @@
-<main
-  class="flex flex-col-reverse justify-stretch h-screen bg-gray-100 lg:flex-col"
->
-  <header>
-    <nav
-      class="flex items-center sticky rounded-t-sm w-full h-16 bg-indigo-600 text-white lg:justify-end lg:rounded-b-sm lg:rounded-t-none"
+<ion-header>
+  <ion-toolbar color="primary">
+    <span
+      slot="start"
+      class="ion-hide-sm-down logo hidden mr-auto ml-10 lg:flex lg:items-center lg:gap-3"
     >
-      <div class="hidden mr-auto ml-10 lg:flex lg:items-center lg:gap-3">
-        <fa-icon icon="book" [classes]="['w-10', 'h-10']"></fa-icon>
-        <span>Your books in save hands!</span>
-      </div>
-      <ul class="flex flex-row justify-around items-center w-full lg:w-4/6">
-        <school-book-storage-navigation-link
-          icon="school"
-          routerLink="/schools"
-          label="schools"
-        ></school-book-storage-navigation-link>
-        <school-book-storage-navigation-link
-          icon="book"
-          routerLink="/books"
-          label="books"
-        ></school-book-storage-navigation-link>
-        <school-book-storage-navigation-link
-          icon="graduation-cap"
-          routerLink="/school-classes"
-          label="schoolClasses"
-        ></school-book-storage-navigation-link>
-        <school-book-storage-navigation-link
-          icon="warehouse"
-          routerLink="/storages"
-          label="storages"
-        ></school-book-storage-navigation-link>
-        <school-book-storage-navigation-link
-          icon="users"
-          routerLink="/users"
-          label="users"
-        ></school-book-storage-navigation-link>
-        <school-book-storage-user-menu></school-book-storage-user-menu>
-      </ul>
-    </nav>
-  </header>
+      <ion-icon size="large" name="library-sharp"></ion-icon>
+      <span>Your books in save hands!</span>
+    </span>
+    <ion-tab-bar color="primary" class="ion-hide-sm-down">
+      <ion-tab-button href="books">
+        <ion-icon name="book-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>books</ion-label>
+      </ion-tab-button>
+      <ion-tab-button href="school-classes">
+        <ion-icon name="school-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>schoolClasses</ion-label>
+      </ion-tab-button>
+      <ion-tab-button href="books">
+        <ion-icon name="book-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>books</ion-label>
+      </ion-tab-button>
+      <ion-tab-button href="school-classes">
+        <ion-icon name="school-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>schoolClasses</ion-label>
+      </ion-tab-button>
+      <ion-tab-button href="storages">
+        <ion-icon name="cloud-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>storages</ion-label>
+      </ion-tab-button>
+      <ion-tab-button (click)="openUserMenu($event)">
+        <ion-icon name="person-sharp" aria-hidden="true"></ion-icon>
+        <ion-label>{{ displayName$ | async }}</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-router-outlet></ion-router-outlet>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-tab-bar color="primary" class="ion-hide-sm-up">
+      <ion-tab-button tab="schools">
+        <ion-icon name="business-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>books</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="books">
+        <ion-icon name="book-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>books</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="school-classes">
+        <ion-icon name="school-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>schoolClasses</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="storages">
+        <ion-icon name="cloud-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>storages</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="users">
+        <ion-icon name="people-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>schoolClasses</ion-label>
+      </ion-tab-button>
+      <ion-tab-button (click)="openUserMenu($event)">
+        <ion-icon name="person-sharp" aria-hidden="true"></ion-icon>
+        <ion-label translate>user</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-footer>
 
-  <router-outlet></router-outlet>
-</main>
+<ion-popover
+  #userMenu
+  [dismissOnSelect]="true"
+  [isOpen]="isUserMenuOpen"
+  (didDismiss)="isUserMenuOpen = false"
+>
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item [button]="true" [detail]="false">
+          <ion-icon slot="start" name="pencil-sharp"></ion-icon>
+          <ion-label translate>editProfile</ion-label>
+        </ion-item>
+        <ion-item [button]="true" [detail]="false">
+          <ion-icon slot="start" s name="key-sharp"></ion-icon>
+          <ion-label translate>changePassword</ion-label>
+        </ion-item>
+        <ion-item [button]="true" [detail]="false" (click)="logout()">
+          <ion-icon slot="start" name="log-out-sharp"></ion-icon>
+          <ion-label translate>logout</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>

@@ -1,65 +1,65 @@
-<div class="flex flex-col justify-center items-center h-full">
-  <div class="card mx-6 max-w-lg">
-    <h1 class="h1 text-center font-accent mb-4 uppercase" translate>
-      register
-    </h1>
-    <form
-      class="flex flex-col"
-      [formGroup]="registerForm"
-      (submit)="onSubmit()"
-    >
-      <input
-        type="text"
-        class="input"
-        id="displayName"
-        formControlName="displayName"
-        [placeholder]="'username' | translate"
-      />
-      <input
-        type="email"
-        class="input"
-        id="email"
-        formControlName="email"
-        [placeholder]="'email' | translate"
-        email
-      />
-      <input
-        type="password"
-        class="input"
-        id="password"
-        formControlName="password"
-        [placeholder]="'password' | translate"
-      />
-      <input
-        type="password"
-        class="input"
-        id="confirmPassword"
-        formControlName="confirmPassword"
-        [placeholder]="'confirmPassword' | translate"
-      />
-      <span
-        *ngIf="registerForm.getError('mismatch')"
-        class="text-red-600 text-sm mt-2 ml-2"
-        translate
-        >passwordsDontMatch</span
-      >
-      <button
-        type="submit"
-        class="btn font-accent"
-        translate
-        [disabled]="!registerForm.valid"
-      >
-        submit
-      </button>
-    </form>
+<ion-content>
+  <div class="card">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title><h1 translate>register</h1></ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="registerForm" (submit)="onSubmit()">
+          <ion-item fill="outline">
+            <ion-input
+              type="text"
+              id="displayName"
+              formControlName="displayName"
+              [placeholder]="'username' | translate"
+            ></ion-input>
+          </ion-item>
+          <ion-item fill="outline">
+            <ion-input
+              type="email"
+              id="email"
+              formControlName="email"
+              [placeholder]="'email' | translate"
+              email
+            ></ion-input>
+          </ion-item>
+          <ion-item fill="outline">
+            <ion-input
+              type="password"
+              id="password"
+              formControlName="password"
+              [placeholder]="'password' | translate"
+            ></ion-input>
+          </ion-item>
+          <ion-item fill="outline">
+            <ion-input
+              type="password"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              [placeholder]="'confirmPassword' | translate"
+            ></ion-input>
+          </ion-item>
+          <ion-note
+            color="danger"
+            *ngIf="registerForm.getError('mismatch')"
+            translate
+            >passwordsDontMatch</ion-note
+          >
+          <ion-button
+            expand="block"
+            type="submit"
+            class="btn font-accent"
+            translate
+            [disabled]="!registerForm.valid"
+          >
+            submit
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+    <div>
+      <span translate>haveAccount</span>
+      <a routerLink="/login" translate>login</a>
+    </div>
   </div>
-  <div class="mt-2">
-    <span class="mr-2" translate>haveAccount</span>
-    <a
-      routerLink="/login"
-      class="cursor-pointer hover:underline text-blue-500"
-      translate
-      >login</a
-    >
-  </div>
-</div>
+</ion-content>

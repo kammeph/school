@@ -15,11 +15,11 @@ const routes: Routes = [
       import('./login/login.module').then((m) => m.LoginModule),
     canActivate: [AuthGuard],
   },
-  {
-    path: 'register',
-    loadChildren: () =>
-      import('./register/register.module').then((m) => m.RegisterModule),
-  },
+  // {
+  //   path: 'register',
+  //   loadChildren: () =>
+  //     import('./register/register.module').then((m) => m.RegisterModule),
+  // },
 ];
 
 @NgModule({
