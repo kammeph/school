@@ -1,0 +1,7 @@
+{
+  "name": "school-book-storage",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'school-book-storage-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'school-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor() {}
+}
