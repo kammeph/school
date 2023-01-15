@@ -15,11 +15,30 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@school/interfaces": ["libs/interfaces/src/index.ts"],
-      "@school/school-book-storage-lib": [
-        "libs/school-book-storage-lib/src/index.ts"
+      "@school-book-storage/auth/data-access": [
+        "libs/school-book-storage/auth/data-access/src/index.ts"
       ],
-      "@school/shared": ["libs/shared/src/index.ts"]
+      "@school-book-storage/auth/login": [
+        "libs/school-book-storage/auth/feature/login/src/index.ts"
+      ],
+      "@school-book-storage/auth/register": [
+        "libs/school-book-storage/auth/feature/register/src/index.ts"
+      ],
+      "@school-book-storage/shared/auth-guard": [
+        "libs/school-book-storage/shared/guards/auth-guard/src/index.ts"
+      ],
+      "@school-book-storage/shared/password-validator": [
+        "libs/school-book-storage/shared/validators/password-validator/src/index.ts"
+      ],
+      "@school-book-storage/shell": [
+        "libs/school-book-storage/shell/feature/shell/src/index.ts"
+      ],
+      "@school-book-storage/shell/layout": [
+        "libs/school-book-storage/shell/feature/layout/src/index.ts"
+      ],
+      "@school-book-storage/shell/navigation": [
+        "libs/school-book-storage/shell/ui/navigation/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
