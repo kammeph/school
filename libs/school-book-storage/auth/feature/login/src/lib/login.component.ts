@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@school-book-storage/auth/data-access';
 
@@ -9,12 +9,12 @@ import { AuthActions } from '@school-book-storage/auth/data-access';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
-  constructor(private store: Store) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   onSubmit() {
     const { email, password } = this.loginForm.value;

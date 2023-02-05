@@ -3,12 +3,12 @@ import { User } from '../models';
 import { AuthActions } from './auth.actions';
 
 export interface AuthState {
-  user: User;
+  user?: User;
   isLoggedIn: boolean;
 }
 
 export const initialState: AuthState = {
-  user: { uid: 'init', email: '', displayName: '', roles: [], schoolId: '' },
+  user: undefined,
   isLoggedIn: false,
 };
 

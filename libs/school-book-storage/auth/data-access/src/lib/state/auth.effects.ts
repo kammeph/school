@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { AuthActions } from './auth.actions';
 
@@ -22,6 +22,9 @@ export class AuthEffects {
       map((user) => {
         this.router.navigate(['']);
         return AuthActions.loginSuccess({ user });
+      }),
+      catchError((error) => {
+        return of(AuthActions.loginFailure({ error: error?.message }));
       })
     );
   });
