@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent {
-  @Input() displayName$: Observable<string> | undefined;
+  @Input() displayName$!: Observable<string | undefined>;
   @Output() logout = new EventEmitter<void>();
   @ViewChild('userMenu') userMenu!: IonPopover;
   isUserMenuOpen = false;
