@@ -22,7 +22,7 @@ describe('AuthEffects', () => {
         provideMockActions(() => actions$),
         {
           provide: AuthService,
-          useValue: { login: jest.fn() },
+          useValue: { login: jest.fn(), register: jest.fn() },
         },
       ],
     });
@@ -64,6 +64,49 @@ describe('AuthEffects', () => {
     );
 
     effects.login$.subscribe((result) => {
+      expect(result).toEqual(completion);
+      done();
+    });
+  });
+
+  it('should be able to register', (done) => {
+    const credentials = {
+      displayName: 'Test User',
+      email: 'test@test.com',
+      password: '123456',
+    };
+    const loginRespone = {
+      uid: '123',
+      email: 'test@test.com',
+      displayName: 'Test User',
+    };
+
+    const action = AuthActions.register(credentials);
+    const completion = AuthActions.loginSuccess({ user: loginRespone });
+    actions$ = of(action);
+    (authService.register as jest.Mock).mockReturnValue(of(loginRespone));
+
+    effects.register$.subscribe((result) => {
+      expect(result).toEqual(completion);
+      done();
+    });
+  });
+
+  it('should not be able to register with existing email', (done) => {
+    const credentials = {
+      displayName: 'Test User',
+      email: 'existing@email.com',
+      password: '123456',
+    };
+    const loginRespone = 'Email already exists';
+    const action = AuthActions.register(credentials);
+    const completion = AuthActions.registerFailure({ error: loginRespone });
+    actions$ = of(action);
+    (authService.register as jest.Mock).mockReturnValue(
+      throwError(() => new Error(loginRespone))
+    );
+
+    effects.register$.subscribe((result) => {
       expect(result).toEqual(completion);
       done();
     });

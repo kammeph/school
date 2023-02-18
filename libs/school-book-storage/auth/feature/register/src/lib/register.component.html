@@ -41,9 +41,16 @@
           </ion-item>
           <ion-note
             color="danger"
+            id="passwordsDontMatch"
             *ngIf="registerForm.getError('mismatch')"
             translate
             >passwordsDontMatch</ion-note
+          >
+          <ion-note
+            color="danger"
+            id="authError"
+            *ngIf="authError$ | async as authError"
+            >{{ authError }}</ion-note
           >
           <ion-button
             expand="block"

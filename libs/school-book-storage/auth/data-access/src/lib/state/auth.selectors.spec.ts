@@ -32,4 +32,13 @@ describe('AuthSelectors', () => {
       'Test User'
     );
   });
+
+  it('should select error', () => {
+    expect(
+      AuthSelectors.selectAuthError.projector({
+        ...initialState,
+        error: 'Error',
+      })
+    ).toEqual('Error');
+  });
 });

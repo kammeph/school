@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { NavigationComponent } from './navigation.component';
 
@@ -11,6 +12,7 @@ describe('NavigationComponent', () => {
     await TestBed.configureTestingModule({
       imports: [IonicModule],
       declarations: [NavigationComponent],
+      providers: [provideMockStore()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavigationComponent);

@@ -42,6 +42,9 @@ export class AuthEffects {
       map((user) => {
         this.router.navigate(['']);
         return AuthActions.loginSuccess({ user });
+      }),
+      catchError((error) => {
+        return of(AuthActions.registerFailure({ error: error?.message }));
       })
     );
   });

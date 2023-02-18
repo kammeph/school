@@ -22,3 +22,8 @@ export const selectDisplayName = createSelector(
   selectAuth,
   (state: AuthState) => state?.user?.displayName
 );
+
+export const selectAuthError = createSelector(
+  selectAuth,
+  (state: AuthState) => state.error
+);

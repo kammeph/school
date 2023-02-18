@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'libs-school-book-storage-shell-feature-shell',
-  preset: '../../../../../../jest.preset.js',
+  preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -10,7 +10,7 @@ export default {
     },
   },
   coverageDirectory:
-    '../../../../../../coverage/libs/libs/school-book-storage/shell/feature/shell',
+    '../../../../../../coverage/libs/school-book-storage/shell/feature/shell',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
