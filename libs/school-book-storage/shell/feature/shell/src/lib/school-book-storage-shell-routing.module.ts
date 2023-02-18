@@ -15,13 +15,13 @@ const routes: Routes = [
       import('@school-book-storage/auth/login').then((m) => m.LoginModule),
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'register',
-  //   loadChildren: () =>
-  //     import('@school-book-storage/auth/register').then(
-  //       (m) => m.RegisterModule
-  //     ),
-  // },
+  {
+    path: 'register',
+    loadChildren: () =>
+      import('@school-book-storage/auth/register').then(
+        (m) => m.RegisterModule
+      ),
+  },
 ];
 
 @NgModule({
