@@ -23,6 +23,12 @@
               [placeholder]="'password' | translate"
             ></ion-input>
           </ion-item>
+          <ion-note
+            color="danger"
+            id="authError"
+            *ngIf="error$ | async as error"
+            >{{ error }}</ion-note
+          >
           <ion-button
             expand="block"
             type="submit"
