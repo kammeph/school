@@ -26,6 +26,30 @@ describe('AuthReducer', () => {
     });
   });
 
+  it('should return the state with error on login failure', () => {
+    const error = 'Error';
+    expect(
+      authReducer(initialState, AuthActions.loginFailure({ error }))
+    ).toEqual({
+      ...initialState,
+      user: undefined,
+      isLoggedIn: false,
+      error,
+    });
+  });
+
+  it('should return the state with error on register failure', () => {
+    const error = 'Error';
+    expect(
+      authReducer(initialState, AuthActions.registerFailure({ error }))
+    ).toEqual({
+      ...initialState,
+      user: undefined,
+      isLoggedIn: false,
+      error,
+    });
+  });
+
   it('should return the initial state on logout', () => {
     expect(authReducer(initialState, AuthActions.logoutSuccess())).toEqual(
       initialState

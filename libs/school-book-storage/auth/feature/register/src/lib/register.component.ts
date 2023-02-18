@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '@school-book-storage/auth/data-access';
+import {
+  AuthActions,
+  selectAuthError,
+} from '@school-book-storage/auth/data-access';
 import { passwordMatchValidator } from '@school-book-storage/shared/password-validator';
 
 @Component({
@@ -19,6 +22,8 @@ export class RegisterComponent {
     },
     { validators: passwordMatchValidator }
   );
+
+  authError$ = this.store.select(selectAuthError);
 
   constructor(private store: Store) {}
 
