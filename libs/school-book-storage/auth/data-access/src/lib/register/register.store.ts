@@ -5,26 +5,33 @@ import { Observable, switchMap, tap } from 'rxjs';
 import { AuthService } from '../service';
 import { AuthActions } from '../state';
 
-interface LoginState {
+interface RegisterState {
   error: string | null;
   pending: boolean;
 }
 
 @Injectable()
-export class LoginStore extends ComponentStore<LoginState> {
+export class RegisterStore extends ComponentStore<RegisterState> {
   constructor(private authService: AuthService, private store: Store) {
     super({ error: null, pending: false });
   }
 
-  readonly error$ = this.select((state) => state.error);
   readonly pending$ = this.select((state) => state.pending);
 
-  readonly login = this.effect(
-    (credentials$: Observable<{ email: string; password: string }>) => {
-      return credentials$.pipe(
+  readonly error$ = this.select((state) => state.error);
+
+  readonly register = this.effect(
+    (
+      registerData$: Observable<{
+        displayName: string;
+        email: string;
+        password: string;
+      }>
+    ) => {
+      return registerData$.pipe(
         tap(() => this.patchState({ pending: true })),
-        switchMap(({ email, password }) =>
-          this.authService.login(email, password).pipe(
+        switchMap(({ displayName, email, password }) => {
+          return this.authService.register(displayName, email, password).pipe(
             tapResponse(
               (user) => {
                 if (!user) {
@@ -39,12 +46,11 @@ export class LoginStore extends ComponentStore<LoginState> {
                   AuthActions.authenticationSuccess({ user })
                 );
               },
-              (error: Error) => {
-                this.setState({ error: error.message, pending: false });
-              }
+              (error: Error) =>
+                this.setState({ error: error.message, pending: false })
             )
-          )
-        )
+          );
+        })
       );
     }
   );

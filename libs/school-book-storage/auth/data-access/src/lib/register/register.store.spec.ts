@@ -1,30 +1,28 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { combineLatest, of, throwError } from 'rxjs';
-import { AuthService } from '../service/auth.service';
-import { LoginStore } from './login.store';
+import { AuthService } from '../service';
+import { RegisterStore } from './register.store';
 
-describe('LoginStore', () => {
-  let store: LoginStore;
+describe('RegisterStore', () => {
+  let store: RegisterStore;
   let authService: AuthService;
-  let credentials: { email: string; password: string };
+  let registerData: { displayName: string; email: string; password: string };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
       providers: [
-        LoginStore,
+        RegisterStore,
         provideMockStore(),
-        {
-          provide: AuthService,
-          useValue: { login: jest.fn() },
-        },
+        { provide: AuthService, useValue: { register: jest.fn() } },
       ],
     });
-    store = TestBed.inject(LoginStore);
+    store = TestBed.inject(RegisterStore);
     authService = TestBed.inject(AuthService);
-    credentials = {
-      email: 'test@test.com',
+    registerData = {
+      displayName: 'Test User',
+      email: 'test@test.de',
       password: 'password',
     };
   });
@@ -33,23 +31,19 @@ describe('LoginStore', () => {
     expect(store).toBeTruthy();
   });
 
-  it('should be pending when login is called', (done) => {
-    store.login(credentials);
+  it('should be pending when register is called', (done) => {
+    store.register(registerData);
     store.pending$.subscribe((pending) => {
       expect(pending).toBeTruthy();
       done();
     });
   });
 
-  it('should be able to login', (done) => {
-    (authService.login as jest.Mock).mockReturnValue(
-      of({
-        uid: '123',
-        email: 'test@test.com',
-        displayName: 'Test User',
-      })
+  it('should be able to register', (done) => {
+    (authService.register as jest.Mock).mockReturnValue(
+      of({ displayName: 'Test User', email: 'test@test.de', uid: '123' })
     );
-    store.login(credentials);
+    store.register(registerData);
     combineLatest([store.error$, store.pending$]).subscribe(
       ([error, pending]) => {
         expect(error).toBeNull();
@@ -59,9 +53,9 @@ describe('LoginStore', () => {
     );
   });
 
-  it('should error when login returns null user', (done) => {
-    (authService.login as jest.Mock).mockReturnValue(of(null));
-    store.login(credentials);
+  it('should error when register returns null user', (done) => {
+    (authService.register as jest.Mock).mockReturnValue(of(null));
+    store.register(registerData);
     combineLatest([store.error$, store.pending$]).subscribe(
       ([error, pending]) => {
         expect(error).toBeTruthy();
@@ -71,14 +65,14 @@ describe('LoginStore', () => {
     );
   });
 
-  it('should not be able to login with invalid credentials', (done) => {
-    (authService.login as jest.Mock).mockReturnValue(
-      throwError(() => new Error('Invalid email or password'))
+  it('should not be able to register with invalid credentials', (done) => {
+    (authService.register as jest.Mock).mockReturnValue(
+      throwError(() => new Error('Invalid credentials'))
     );
-    store.login(credentials);
+    store.register(registerData);
     combineLatest([store.error$, store.pending$]).subscribe(
       ([error, pending]) => {
-        expect(error).toBe('Invalid email or password');
+        expect(error).toBeTruthy();
         expect(pending).toBeFalsy();
         done();
       }
