@@ -49,8 +49,8 @@
           <ion-note
             color="danger"
             id="authError"
-            *ngIf="authError$ | async as authError"
-            >{{ authError }}</ion-note
+            *ngIf="error$ | async as error"
+            >{{ error }}</ion-note
           >
           <ion-button
             expand="block"

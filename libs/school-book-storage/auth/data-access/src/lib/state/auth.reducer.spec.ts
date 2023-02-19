@@ -18,23 +18,11 @@ describe('AuthReducer', () => {
     };
 
     expect(
-      authReducer(initialState, AuthActions.loginSuccess({ user }))
+      authReducer(initialState, AuthActions.authenticationSuccess({ user }))
     ).toEqual({
       ...initialState,
       user,
       isLoggedIn: true,
-    });
-  });
-
-  it('should return the state with error on register failure', () => {
-    const error = 'Error';
-    expect(
-      authReducer(initialState, AuthActions.registerFailure({ error }))
-    ).toEqual({
-      ...initialState,
-      user: undefined,
-      isLoggedIn: false,
-      error,
     });
   });
 
