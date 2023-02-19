@@ -17,7 +17,6 @@ export class RegisterStore extends ComponentStore<RegisterState> {
   }
 
   readonly pending$ = this.select((state) => state.pending);
-
   readonly error$ = this.select((state) => state.error);
 
   readonly register = this.effect(
