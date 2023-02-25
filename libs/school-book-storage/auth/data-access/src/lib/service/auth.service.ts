@@ -4,21 +4,35 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
-  UserCredential,
 } from '@angular/fire/auth';
-import { Observable, tap } from 'rxjs';
-import { from, map } from 'rxjs';
+import {
+  Firestore,
+  collection,
+  CollectionReference,
+  docData,
+  doc,
+  setDoc,
+} from '@angular/fire/firestore';
+import { Observable, switchMap, tap } from 'rxjs';
+import { from } from 'rxjs';
 import { User } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth) {}
+  private usersRef: CollectionReference<User>;
+
+  constructor(private auth: Auth, fireStore: Firestore) {
+    this.usersRef = collection(fireStore, 'users') as CollectionReference<User>;
+  }
 
   login(email: string, password: string): Observable<User> {
     return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
-      map(this.mapUser)
+      switchMap((userCredential) => {
+        const userDoc = doc(this.usersRef, userCredential.user.uid);
+        return from(docData(userDoc, { idField: 'uid' }));
+      })
     );
   }
 
@@ -33,25 +47,22 @@ export class AuthService {
       tap((userCredential) =>
         updateProfile(userCredential.user, { displayName })
       ),
-      map((userCredential) => {
-        const user = this.mapUser(userCredential);
-        user.displayName = displayName;
-        return user;
+      switchMap((userCredential) => {
+        const { uid, email } = userCredential.user;
+        const userDoc = doc(this.usersRef, uid);
+        return from(
+          setDoc(userDoc, {
+            email: email ?? '',
+            displayName,
+            roles: [],
+            schoolId: '',
+          })
+        ).pipe(switchMap(() => docData(userDoc, { idField: 'uid' })));
       })
     );
   }
 
   logout(): Observable<void> {
     return from(this.auth.signOut());
-  }
-
-  private mapUser(userCredential: UserCredential): User {
-    const { uid, email, displayName } = userCredential.user;
-    return {
-      uid,
-      email: email ?? '',
-      displayName: displayName ?? '',
-      roles: [],
-    };
   }
 }

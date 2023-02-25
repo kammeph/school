@@ -16,7 +16,9 @@ admin.firestore().settings({
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
 
-export const helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info('Hello logs!', { structuredData: true });
-  response.send('Hello from Firebase!');
+export const schoolFunctions = functions.region('europe-west1');
+
+export const deleteUser = schoolFunctions.auth.user().onDelete((user) => {
+  functions.logger.log('User deleted', user);
+  return admin.firestore().collection('users').doc(user.uid).delete();
 });
