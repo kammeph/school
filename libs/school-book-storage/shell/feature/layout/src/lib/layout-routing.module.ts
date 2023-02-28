@@ -10,7 +10,7 @@ const routes: Routes = [
       {
         path: 'users',
         loadChildren: () =>
-          import('@school-book-storage/users/feature/shell').then(
+          import('@school-book-storage/users/shell').then(
             (m) => m.UsersShellModule
           ),
       },

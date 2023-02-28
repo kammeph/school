@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { User } from '@school-book-storage/auth/data-access';
-import { switchMap, tap } from 'rxjs';
+import { distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { UserService } from '../service/user.service';
 
 interface UserState {
@@ -27,12 +27,14 @@ export class UserStore extends ComponentStore<UserState> {
   readonly users$ = this.select((state) => state.users);
   readonly user$ = this.select((state) => state.user);
   readonly error$ = this.select((state) => state.error);
+  readonly success$ = this.select((state) => state.success);
 
   readonly getAll = this.effect<void>((triggers$) => {
     return triggers$.pipe(
       tap(() => this.patchState({ pending: true, success: false })),
       switchMap(() =>
         this.userService.getAll().pipe(
+          distinctUntilChanged(),
           tapResponse(
             (users) =>
               this.patchState({ users, pending: false, success: false }),

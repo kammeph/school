@@ -5,8 +5,13 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('@school-book-storage/users/feature/list').then(
-        (m) => m.UsersModule
+      import('@school-book-storage/users/list').then((m) => m.UsersModule),
+  },
+  {
+    path: ':id',
+    loadChildren: () =>
+      import('@school-book-storage/users/detail').then(
+        (m) => m.UserDetailModule
       ),
   },
 ];
