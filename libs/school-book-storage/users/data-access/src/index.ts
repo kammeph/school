@@ -1,1 +1,2 @@
-export * from './lib/school-book-storage-users-data-access.module';
+export * from './lib/store';
+export * from './lib/service';
