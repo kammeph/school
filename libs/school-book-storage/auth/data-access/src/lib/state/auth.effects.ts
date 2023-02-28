@@ -17,7 +17,7 @@ export class AuthEffects {
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.authenticationSuccess),
-        tap(() => this.router.navigate(['']))
+        tap(() => this.router.navigate(['app']))
       );
     },
     { dispatch: false }
@@ -28,7 +28,7 @@ export class AuthEffects {
       ofType(AuthActions.logout),
       switchMap(() => this.authService.logout()),
       map(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['login']);
         return AuthActions.logoutSuccess();
       })
     );

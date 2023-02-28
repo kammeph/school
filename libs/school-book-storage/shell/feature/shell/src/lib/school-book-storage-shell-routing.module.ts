@@ -3,8 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@school-book-storage/shared/auth-guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'app', pathMatch: 'full' },
   {
-    path: '',
+    path: 'app',
     loadChildren: () =>
       import('@school-book-storage/shell/layout').then((m) => m.LayoutModule),
     canActivate: [AuthGuard],

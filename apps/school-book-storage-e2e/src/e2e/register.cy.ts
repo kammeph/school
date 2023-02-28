@@ -23,7 +23,7 @@ describe('Login Form', () => {
     cy.get('ion-input[id="password"]').type('123456');
     cy.get('ion-input[id="confirmPassword"]').type('123456');
     cy.get('ion-button[type="submit"]').click();
-    cy.url().should('include', '/');
+    cy.url().should('include', '/app');
     cy.exec('node ./src/support/cleanupFirebase.js', {
       env: { email },
     });

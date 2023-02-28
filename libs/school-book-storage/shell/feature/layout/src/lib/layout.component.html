@@ -1,23 +1,23 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <span slot="start" class="ion-hide-sm-down logo">
-      <ion-icon size="large" name="library-sharp"></ion-icon>
-      <span>Your books in save hands!</span>
-    </span>
+<ion-tabs>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <span slot="start" class="ion-hide-sm-down logo">
+        <ion-icon size="large" name="library-sharp"></ion-icon>
+        <span>Your books in save hands!</span>
+      </span>
+      <school-navigation
+        class="ion-hide-sm-down"
+        [displayName$]="displayName$"
+        (logout)="logout()"
+      ></school-navigation>
+    </ion-toolbar>
+  </ion-header>
+  <ion-router-outlet></ion-router-outlet>
+  <ion-footer>
     <school-navigation
-      class="ion-hide-sm-down"
+      class="ion-hide-sm-up"
       [displayName$]="displayName$"
       (logout)="logout()"
     ></school-navigation>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-router-outlet></ion-router-outlet>
-</ion-content>
-<ion-footer>
-  <school-navigation
-    class="ion-hide-sm-up"
-    [displayName$]="displayName$"
-    (logout)="logout()"
-  ></school-navigation>
-</ion-footer>
+  </ion-footer>
+</ion-tabs>
