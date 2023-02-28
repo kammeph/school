@@ -16,5 +16,7 @@
   "schoolClasses": "School Classes",
   "storages": "Storages",
   "users": "Users",
-  "editProfile": "Edit Profile"
+  "editProfile": "Edit Profile",
+  "roles": "User roles",
+  "school": "School"
 }

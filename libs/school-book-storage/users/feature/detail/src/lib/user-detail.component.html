@@ -1,0 +1,41 @@
+<ng-container *ngIf="user$ | async as user">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ user.displayName }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="updateUser()">Save</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <form [formGroup]="userForm">
+      <ion-item>
+        <ion-label position="floating" translate>username</ion-label>
+        <ion-input formControlName="displayName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" translate>email</ion-label>
+        <ion-input formControlName="email" email></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" translate>roles</ion-label>
+        <ion-select formControlName="roles" multiple>
+          <ion-select-option value="TEACHER">Teacher</ion-select-option>
+          <ion-select-option value="LIBRARIAN">Librarian</ion-select-option>
+          <ion-select-option value="ADMIN">Admin</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" translate>school</ion-label>
+        <ion-select formControlName="schoolId">
+          <ion-select-option value="a">School A</ion-select-option>
+          <ion-select-option value="b">School B</ion-select-option>
+          <ion-select-option value="c">School C</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </form>
+  </ion-content>
+</ng-container>

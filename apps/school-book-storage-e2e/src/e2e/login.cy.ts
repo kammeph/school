@@ -21,7 +21,7 @@ describe('Login Form', () => {
     cy.get('ion-input[id="email"]').type(email);
     cy.get('ion-input[id="password"]').type(password);
     cy.get('ion-button[type="submit"]').click();
-    cy.url().should('include', '/');
+    cy.url().should('include', '/app');
   });
 
   it('should not be possible to login with an unknown email', () => {
