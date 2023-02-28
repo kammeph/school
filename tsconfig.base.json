@@ -38,6 +38,9 @@
       ],
       "@school-book-storage/shell/navigation": [
         "libs/school-book-storage/shell/ui/navigation/src/index.ts"
+      ],
+      "@school-book-storage/users/feature/list": [
+        "libs/school-book-storage/users/feature/list/src/index.ts"
       ]
     }
   },
