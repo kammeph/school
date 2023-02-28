@@ -16,5 +16,7 @@
   "schoolClasses": "Klassen",
   "storages": "Lager",
   "users": "Benutzer",
-  "editProfile": "Profil bearbeiten"
+  "editProfile": "Profil bearbeiten",
+  "roles": "Benutzerrollen",
+  "school": "Schule"
 }
