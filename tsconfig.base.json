@@ -50,6 +50,9 @@
       ],
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
+      ],
+      "@school-book-storage/schools/data-access": [
+        "libs/school-book-storage/schools/data-access/src/index.ts"
       ]
     }
   },
