@@ -1,1 +1,1 @@
-export * from './lib/school-book-storage-schools-feature-list.module';
+export * from './lib/school-list.module';
