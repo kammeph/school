@@ -54,6 +54,9 @@
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
       ],
+      "@school/school-book-storage/schools/feature/detail": [
+        "libs/school-book-storage/schools/feature/detail/src/index.ts"
+      ],
       "@school/school-book-storage/schools/feature/list": [
         "libs/school-book-storage/schools/feature/list/src/index.ts"
       ],
