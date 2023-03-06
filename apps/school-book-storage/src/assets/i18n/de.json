@@ -18,5 +18,9 @@
   "users": "Benutzer",
   "editProfile": "Profil bearbeiten",
   "roles": "Benutzerrollen",
-  "school": "Schule"
+  "school": "Schule",
+  "addNewSchool": "Neue Schule",
+  "details": "Details",
+  "name": "Name",
+  "description": "Beschreibung"
 }

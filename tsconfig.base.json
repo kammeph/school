@@ -24,6 +24,24 @@
       "@school-book-storage/auth/register": [
         "libs/school-book-storage/auth/feature/register/src/index.ts"
       ],
+      "@school-book-storage/schools/add": [
+        "libs/school-book-storage/schools/feature/add/src/index.ts"
+      ],
+      "@school-book-storage/schools/data-access": [
+        "libs/school-book-storage/schools/data-access/src/index.ts"
+      ],
+      "@school-book-storage/schools/detail": [
+        "libs/school-book-storage/schools/feature/detail/src/index.ts"
+      ],
+      "@school-book-storage/schools/form": [
+        "libs/school-book-storage/schools/ui/form/src/index.ts"
+      ],
+      "@school-book-storage/schools/list": [
+        "libs/school-book-storage/schools/feature/list/src/index.ts"
+      ],
+      "@school-book-storage/schools/shell": [
+        "libs/school-book-storage/schools/feature/shell/src/index.ts"
+      ],
       "@school-book-storage/shared/auth-guard": [
         "libs/school-book-storage/shared/guards/auth-guard/src/index.ts"
       ],

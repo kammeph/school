@@ -14,6 +14,13 @@ const routes: Routes = [
             (m) => m.UsersShellModule
           ),
       },
+      {
+        path: 'schools',
+        loadChildren: () =>
+          import('@school-book-storage/schools/shell').then(
+            (m) => m.SchoolsShellModule
+          ),
+      },
     ],
   },
 ];
