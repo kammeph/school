@@ -6,11 +6,11 @@ import {
   CollectionReference,
   deleteDoc,
   doc,
-  docData,
   Firestore,
   updateDoc,
 } from '@angular/fire/firestore';
-import { of } from 'rxjs';
+import { getDoc } from 'firebase/firestore';
+import { from, map, of } from 'rxjs';
 import { School } from '../models';
 
 @Injectable({
@@ -29,9 +29,9 @@ export class SchoolService {
   }
 
   getById(id: string) {
-    return docData(doc(this.schoolsCollection, id), {
-      idField: 'id',
-    });
+    return from(getDoc(doc(this.schoolsCollection, id))).pipe(
+      map((school) => school.data())
+    );
   }
 
   create(school: School) {

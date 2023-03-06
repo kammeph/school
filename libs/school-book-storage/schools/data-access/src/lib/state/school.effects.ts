@@ -30,7 +30,14 @@ export class SchoolEffects {
       ofType(SchoolActions.loadSchool),
       switchMap(({ id }) =>
         this.schoolService.getById(id).pipe(
-          map((school) => SchoolActions.loadedSchool({ school })),
+          map((school) => {
+            if (!school) {
+              return SchoolActions.loadSchoolError({
+                error: `School with id ${id} not found`,
+              });
+            }
+            return SchoolActions.loadedSchool({ school });
+          }),
           catchError((error: Error) =>
             of(SchoolActions.loadSchoolError({ error: error.message }))
           )
