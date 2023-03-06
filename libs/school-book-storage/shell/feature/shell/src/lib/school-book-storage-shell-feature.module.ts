@@ -11,14 +11,18 @@ import {
   AuthEffects,
   authReducer,
 } from '@school-book-storage/auth/data-access';
+import {
+  SchoolEffects,
+  schoolReducer,
+} from '@school-book-storage/schools/data-access';
 
 @NgModule({
   imports: [
     CommonModule,
     SchoolBookStorageLibRoutingModule,
     IonicModule.forRoot(),
-    StoreModule.forRoot({ auth: authReducer }),
-    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot({ auth: authReducer, school: schoolReducer }),
+    EffectsModule.forRoot([AuthEffects, SchoolEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 })
