@@ -1,1 +1,1 @@
-export * from './lib/school-deatil.module';
+export * from './lib/school-detail.module';
