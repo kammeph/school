@@ -7,7 +7,9 @@ const routes: Routes = [
   {
     path: 'app',
     loadChildren: () =>
-      import('@school-book-storage/shell/layout').then((m) => m.LayoutModule),
+      import('@school/school-book-storage/shell/feature/app-layout').then(
+        (m) => m.LayoutModule
+      ),
     canActivate: [AuthGuard],
   },
   {

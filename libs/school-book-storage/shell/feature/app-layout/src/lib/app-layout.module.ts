@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LayoutRoutingModule } from './layout-routing.module';
-import { LayoutComponent } from './layout.component';
+import { AppLayoutRoutingModule } from './app-layout-routing.module';
+import { AppLayoutComponent } from './app-layout.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 import { NavigationModule } from '@school-book-storage/shell/navigation';
 
 @NgModule({
-  declarations: [LayoutComponent],
+  declarations: [AppLayoutComponent],
   imports: [
     CommonModule,
-    LayoutRoutingModule,
+    AppLayoutRoutingModule,
     NavigationModule,
     TranslateModule,
     IonicModule,
   ],
 })
-export class LayoutModule {}
+export class AppLayoutModule {}

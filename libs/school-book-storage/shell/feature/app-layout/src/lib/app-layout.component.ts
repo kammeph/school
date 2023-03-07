@@ -7,11 +7,11 @@ import {
 } from '@school-book-storage/auth/data-access';
 
 @Component({
-  selector: 'school-book-storage-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+  selector: 'school-book-storage-app-layout',
+  templateUrl: './app-layout.component.html',
+  styleUrls: ['./app-layout.component.scss'],
 })
-export class LayoutComponent {
+export class AppLayoutComponent {
   isUserMenuOpen = false;
   @ViewChild('userMenu') userMenu: IonPopover;
 

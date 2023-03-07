@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 
-import { LayoutComponent } from './layout.component';
+import { LayoutComponent } from './app-layout.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { selectDisplayName } from '@school-book-storage/auth/data-access';

@@ -51,9 +51,6 @@
       "@school-book-storage/shell": [
         "libs/school-book-storage/shell/feature/shell/src/index.ts"
       ],
-      "@school-book-storage/shell/layout": [
-        "libs/school-book-storage/shell/feature/layout/src/index.ts"
-      ],
       "@school-book-storage/shell/navigation": [
         "libs/school-book-storage/shell/ui/navigation/src/index.ts"
       ],
@@ -68,6 +65,9 @@
       ],
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
+      ],
+      "@school-book-storage/shell/feature/app-layout": [
+        "libs/school-book-storage/shell/feature/app-layout/src/index.ts"
       ]
     }
   },
