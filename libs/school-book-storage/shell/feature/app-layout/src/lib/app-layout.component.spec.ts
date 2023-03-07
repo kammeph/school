@@ -2,26 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 
-import { LayoutComponent } from './app-layout.component';
+import { AppLayoutComponent } from './app-layout.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { selectDisplayName } from '@school-book-storage/auth/data-access';
-import { NavigationModule } from '@school-book-storage/shell/navigation';
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('LayoutComponent', () => {
-  let component: LayoutComponent;
-  let fixture: ComponentFixture<LayoutComponent>;
+  let component: AppLayoutComponent;
+  let fixture: ComponentFixture<AppLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LayoutComponent],
-      imports: [
-        IonicModule,
-        RouterTestingModule,
-        NavigationModule,
-        TranslateModule.forRoot(),
-      ],
+      declarations: [AppLayoutComponent],
+      imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
       providers: [
         provideMockStore({
           selectors: [{ selector: selectDisplayName, value: 'test' }],
@@ -29,7 +23,7 @@ describe('LayoutComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LayoutComponent);
+    fixture = TestBed.createComponent(AppLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

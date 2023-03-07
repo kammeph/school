@@ -1,22 +1,8 @@
 <ion-tabs>
-  <!-- <ion-header>
-    <ion-toolbar color="primary">
-      <span slot="start" class="ion-hide-sm-down logo">
-        <ion-icon size="large" name="library-sharp"></ion-icon>
-        <span>Your books in save hands!</span>
-      </span>
-      <school-navigation
-        class="ion-hide-sm-down"
-        [displayName$]="displayName$"
-        (logout)="logout()"
-      ></school-navigation>
-    </ion-toolbar>
-    class="ion-hide-sm-up"
-  </ion-header> -->
   <ion-footer>
-    <school-navigation
+    <school-app-navigation
       [displayName$]="displayName$"
       (logout)="logout()"
-    ></school-navigation>
+    ></school-app-navigation>
   </ion-footer>
 </ion-tabs>

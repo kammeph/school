@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'school-book-storage-shell-ui-navigation',
+  displayName: 'school-book-storage-shell-ui-admin-navigation',
   preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +10,7 @@ export default {
     },
   },
   coverageDirectory:
-    '../../../../../coverage/libs/school-book-storage/shell/ui/navigation',
+    '../../../../../coverage/libs/school-book-storage/shell/ui/admin-navigation',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

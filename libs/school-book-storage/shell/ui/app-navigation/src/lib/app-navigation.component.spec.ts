@@ -2,20 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 
-import { NavigationComponent } from './navigation.component';
+import { AppNavigationComponent } from './app-navigation.component';
 
-describe('NavigationComponent', () => {
-  let component: NavigationComponent;
-  let fixture: ComponentFixture<NavigationComponent>;
+describe('AppNavigationComponent', () => {
+  let component: AppNavigationComponent;
+  let fixture: ComponentFixture<AppNavigationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [IonicModule],
-      declarations: [NavigationComponent],
+      declarations: [AppNavigationComponent],
       providers: [provideMockStore()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NavigationComponent);
+    fixture = TestBed.createComponent(AppNavigationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

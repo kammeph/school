@@ -8,17 +8,17 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
-        path: 'users',
-        loadChildren: () =>
-          import('@school-book-storage/users/shell').then(
-            (m) => m.UsersShellModule
-          ),
-      },
-      {
         path: 'schools',
         loadChildren: () =>
           import('@school-book-storage/schools/shell').then(
             (m) => m.SchoolsShellModule
+          ),
+      },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('@school-book-storage/users/shell').then(
+            (m) => m.UsersShellModule
           ),
       },
     ],

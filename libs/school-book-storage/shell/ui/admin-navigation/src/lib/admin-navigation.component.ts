@@ -6,16 +6,21 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { IonPopover } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { IonicModule, IonPopover } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'school-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss'],
+  selector: 'school-admin-navigation',
+  standalone: true,
+  imports: [CommonModule, IonicModule, RouterModule, TranslateModule],
+  templateUrl: './admin-navigation.component.html',
+  styleUrls: ['./admin-navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigationComponent {
+export class AdminNavigationComponent {
   @Input() displayName$!: Observable<string | undefined>;
   @Output() logout = new EventEmitter<void>();
   @ViewChild('userMenu') userMenu!: IonPopover;

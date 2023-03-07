@@ -1,15 +1,15 @@
 {
-  "name": "school-book-storage-shell-ui-navigation",
+  "name": "school-book-storage-shell-ui-app-navigation",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/school-book-storage/shell/ui/navigation/src",
+  "sourceRoot": "libs/school-book-storage/shell/ui/app-navigation/src",
   "prefix": "school",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/school-book-storage/shell/ui/navigation/jest.config.ts",
+        "jestConfig": "libs/school-book-storage/shell/ui/app-navigation/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -18,8 +18,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/school-book-storage/shell/ui/navigation/**/*.ts",
-          "libs/school-book-storage/shell/ui/navigation/**/*.html"
+          "libs/school-book-storage/shell/ui/app-navigation/**/*.ts",
+          "libs/school-book-storage/shell/ui/app-navigation/**/*.html"
         ]
       }
     }
