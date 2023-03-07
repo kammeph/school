@@ -7,8 +7,16 @@ const routes: Routes = [
   {
     path: 'app',
     loadChildren: () =>
-      import('@school/school-book-storage/shell/feature/app-layout').then(
-        (m) => m.LayoutModule
+      import('@school-book-storage/shell/app-layout').then(
+        (m) => m.AppLayoutModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('@school-book-storage/shell/admin-layout').then(
+        (m) => m.AdminLayoutModule
       ),
     canActivate: [AuthGuard],
   },

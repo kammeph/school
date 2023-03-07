@@ -6,22 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
-    children: [
-      {
-        path: 'users',
-        loadChildren: () =>
-          import('@school-book-storage/users/shell').then(
-            (m) => m.UsersShellModule
-          ),
-      },
-      {
-        path: 'schools',
-        loadChildren: () =>
-          import('@school-book-storage/schools/shell').then(
-            (m) => m.SchoolsShellModule
-          ),
-      },
-    ],
+    children: [],
   },
 ];
 
