@@ -22,5 +22,7 @@
   "addNewSchool": "Neue Schule",
   "details": "Details",
   "name": "Name",
-  "description": "Beschreibung"
+  "description": "Beschreibung",
+  "app": "App",
+  "adminArea": "Admin-Bereich"
 }

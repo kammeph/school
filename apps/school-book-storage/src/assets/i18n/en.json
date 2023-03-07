@@ -22,5 +22,7 @@
   "addNewSchool": "Add new school",
   "details": "Details",
   "name": "Name",
-  "description": "Description"
+  "description": "Description",
+  "app": "App",
+  "adminAea": "Admin area"
 }
