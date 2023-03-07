@@ -10,7 +10,7 @@ const routes: Routes = [
       import('@school-book-storage/shell/app-layout').then(
         (m) => m.AppLayoutModule
       ),
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'admin',
@@ -18,7 +18,7 @@ const routes: Routes = [
       import('@school-book-storage/shell/admin-layout').then(
         (m) => m.AdminLayoutModule
       ),
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
