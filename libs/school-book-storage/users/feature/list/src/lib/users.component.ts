@@ -1,14 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { User } from '@school-book-storage/auth/data-access';
 import { UserStore } from '@school-book-storage/users/data-access';
-import { Subscription } from 'rxjs';
+import { combineLatest, map, startWith } from 'rxjs';
 
 @Component({
   selector: 'school-users',
@@ -16,22 +12,29 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./users.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UsersComponent implements OnInit, OnDestroy {
-  private subscription = new Subscription();
-  users$ = this.userStore.users$;
+export class UsersComponent {
+  filterCtrl = new FormControl('');
+  users$ = combineLatest([
+    this.userStore.users$,
+    this.filterCtrl.valueChanges.pipe(startWith('')),
+  ]).pipe(
+    map(([users, filter]) =>
+      users?.filter(
+        (user) =>
+          user.displayName
+            .toLowerCase()
+            .includes(filter?.toLowerCase() || '') ||
+          user.email.toLowerCase().includes(filter?.toLowerCase() || '')
+      )
+    )
+  );
 
   constructor(
     public userStore: UserStore,
     private route: ActivatedRoute,
     private navCtrl: NavController
-  ) {}
-
-  ngOnInit(): void {
-    this.subscription.add(this.userStore.getAll());
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  ) {
+    this.userStore.getAll();
   }
 
   openUser(user: User) {
