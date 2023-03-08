@@ -21,7 +21,8 @@
             "glob": "**/*.svg",
             "input": "node_modules/ionicons/dist/ionicons/svg",
             "output": "./svg"
-          }
+          },
+          "apps/school-book-storage/src/manifest.webmanifest"
         ],
         "styles": [
           "apps/school-book-storage/src/styles.scss",
@@ -29,7 +30,9 @@
             "input": "apps/school-book-storage/src/theme/variables.scss"
           }
         ],
-        "scripts": []
+        "scripts": [],
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/school-book-storage/ngsw-config.json"
       },
       "configurations": {
         "production": {
