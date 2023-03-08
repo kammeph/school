@@ -24,5 +24,8 @@
   "name": "Name",
   "description": "Description",
   "app": "App",
-  "adminAea": "Admin area"
+  "adminAea": "Admin area",
+  "yes": "Yes",
+  "no": "No",
+  "deleteSchool": "Are you sure you want to delete this school?"
 }

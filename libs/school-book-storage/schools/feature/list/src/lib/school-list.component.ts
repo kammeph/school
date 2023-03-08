@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { AlertController, IonList, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   SchoolActions,
   selectSchools,
@@ -14,8 +15,10 @@ import { combineLatest, map, startWith } from 'rxjs';
   templateUrl: './school-list.component.html',
   styleUrls: ['./school-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [TranslatePipe],
 })
 export class SchoolListComponent {
+  @ViewChild('schoolList') schoolList!: IonList;
   filterCtrl = new FormControl('');
   schools$ = combineLatest([
     this.store.select(selectSchools),
@@ -31,7 +34,9 @@ export class SchoolListComponent {
   constructor(
     private store: Store,
     private route: ActivatedRoute,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private alertController: AlertController,
+    private translatePipe: TranslatePipe
   ) {
     this.store.dispatch(SchoolActions.loadSchools());
   }
@@ -47,5 +52,25 @@ export class SchoolListComponent {
     this.navCtrl.navigateForward([schoolId], {
       relativeTo: this.route,
     });
+  }
+
+  async openDeleteSchoolAlert(schoolId?: string) {
+    const alert = await this.alertController.create({
+      header: this.translatePipe.transform('deleteSchool'),
+      buttons: [
+        { text: this.translatePipe.transform('no'), role: 'cancel' },
+        {
+          text: this.translatePipe.transform('yes'),
+          handler: () => this.deleteSchool(schoolId),
+        },
+      ],
+    });
+    alert.present();
+    this.schoolList.closeSlidingItems();
+  }
+
+  private deleteSchool(schoolId?: string) {
+    if (!schoolId) return;
+    this.store.dispatch(SchoolActions.deleteSchool({ id: schoolId }));
   }
 }
