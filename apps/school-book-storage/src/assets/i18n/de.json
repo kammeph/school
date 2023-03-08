@@ -24,5 +24,8 @@
   "name": "Name",
   "description": "Beschreibung",
   "app": "App",
-  "adminArea": "Admin-Bereich"
+  "adminArea": "Admin-Bereich",
+  "yes": "Ja",
+  "no": "Nein",
+  "deleteSchool": "Sind Sie sicher, dass Sie diese Schule löschen möchten?"
 }
