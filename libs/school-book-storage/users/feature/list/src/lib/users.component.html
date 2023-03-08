@@ -3,6 +3,9 @@
     <ion-title translate>users</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-toolbar color="primary">
+  <ion-searchbar [formControl]="filterCtrl"></ion-searchbar>
+</ion-toolbar>
 <ion-content>
   <ion-list>
     <ion-item

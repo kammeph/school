@@ -6,7 +6,9 @@
       </ion-buttons>
       <ion-title>{{ user.displayName }}</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="updateUser()">Save</ion-button>
+        <ion-button (click)="updateUser()">
+          <ion-icon slot="icon-only" name="save"></ion-icon>
+        </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
