@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { Store } from '@ngrx/store';
 import { Observable, switchMap, tap } from 'rxjs';
 import { AuthService } from '../service';
-import { AuthActions } from '../state';
 
 interface RegisterState {
   error: string | null;
@@ -12,7 +11,7 @@ interface RegisterState {
 
 @Injectable()
 export class RegisterStore extends ComponentStore<RegisterState> {
-  constructor(private authService: AuthService, private store: Store) {
+  constructor(private authService: AuthService, private router: Router) {
     super({ error: null, pending: false });
   }
 
@@ -32,18 +31,9 @@ export class RegisterStore extends ComponentStore<RegisterState> {
         switchMap(({ displayName, email, password }) => {
           return this.authService.register(displayName, email, password).pipe(
             tapResponse(
-              (user) => {
-                if (!user) {
-                  this.setState({
-                    error: 'No user returned from Firebase',
-                    pending: false,
-                  });
-                  return;
-                }
+              () => {
                 this.setState({ error: null, pending: false });
-                this.store.dispatch(
-                  AuthActions.authenticationSuccess({ user })
-                );
+                this.router.navigate(['login']);
               },
               (error: Error) =>
                 this.setState({ error: error.message, pending: false })

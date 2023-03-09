@@ -34,3 +34,14 @@ export const userUpdated = schoolFunctions.firestore
       disabled: !newValue.canLogin,
     });
   });
+
+export const userCreated = schoolFunctions.firestore
+  .document('users/{userId}')
+  .onCreate((snap, context) => {
+    const newValue = snap.data();
+    functions.logger.log('User created', { newValue });
+    return admin.auth().updateUser(context.params.userId, {
+      displayName: newValue.displayName,
+      disabled: !newValue.canLogin,
+    });
+  });

@@ -3,7 +3,6 @@ import {
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile,
   signOut,
 } from '@angular/fire/auth';
 import {
@@ -14,7 +13,7 @@ import {
   setDoc,
   getDoc,
 } from '@angular/fire/firestore';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { from } from 'rxjs';
 import { User } from '../models';
 
@@ -42,13 +41,10 @@ export class AuthService {
     displayName: string,
     email: string,
     password: string
-  ): Observable<User | undefined> {
+  ): Observable<void> {
     return from(
       createUserWithEmailAndPassword(this.auth, email, password)
     ).pipe(
-      tap((userCredential) =>
-        updateProfile(userCredential.user, { displayName })
-      ),
       switchMap((userCredential) => {
         const { uid, email } = userCredential.user;
         const userDoc = doc(this.usersRef, uid);
@@ -61,11 +57,9 @@ export class AuthService {
             schoolId: '',
             canLogin: false,
           })
-        ).pipe(
-          switchMap(() => getDoc(userDoc)),
-          map((userSnapshot) => userSnapshot.data())
         );
-      })
+      }),
+      switchMap(() => this.logout())
     );
   }
 
