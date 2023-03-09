@@ -27,5 +27,7 @@
   "adminArea": "Admin-Bereich",
   "yes": "Ja",
   "no": "Nein",
-  "deleteSchool": "Sind Sie sicher, dass Sie diese Schule löschen möchten?"
+  "deleteSchool": "Sind Sie sicher, dass Sie diese Schule löschen möchten?",
+  "updateAvailable": "Update verfügbar",
+  "updateWillBeInstalled": "Das Update wird installiert! Die App wird neu gestartet."
 }
