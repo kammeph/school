@@ -7,6 +7,7 @@ import {
   deleteDoc,
   doc,
   Firestore,
+  snapToData,
   updateDoc,
 } from '@angular/fire/firestore';
 import { getDoc } from 'firebase/firestore';
@@ -30,7 +31,7 @@ export class SchoolService {
 
   getById(id: string) {
     return from(getDoc(doc(this.schoolsCollection, id))).pipe(
-      map((school) => school.data())
+      map((school) => snapToData(school, { idField: 'id' }) as School)
     );
   }
 
