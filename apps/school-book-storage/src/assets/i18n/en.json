@@ -27,5 +27,7 @@
   "adminAea": "Admin area",
   "yes": "Yes",
   "no": "No",
-  "deleteSchool": "Are you sure you want to delete this school?"
+  "deleteSchool": "Are you sure you want to delete this school?",
+  "updateAvailable": "Update available",
+  "updateWillBeInstalled": "Update will be installed! The app will be restarted."
 }

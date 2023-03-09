@@ -54,8 +54,14 @@
       "@school-book-storage/shell/admin-layout": [
         "libs/school-book-storage/shell/feature/admin-layout/src/index.ts"
       ],
+      "@school-book-storage/shell/admin-navigation": [
+        "libs/school-book-storage/shell/ui/admin-navigation/src/index.ts"
+      ],
       "@school-book-storage/shell/app-layout": [
         "libs/school-book-storage/shell/feature/app-layout/src/index.ts"
+      ],
+      "@school-book-storage/shell/app-navigation": [
+        "libs/school-book-storage/shell/ui/app-navigation/src/index.ts"
       ],
       "@school-book-storage/users/data-access": [
         "libs/school-book-storage/users/data-access/src/index.ts"
@@ -69,11 +75,8 @@
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
       ],
-      "@school-book-storage/shell/admin-navigation": [
-        "libs/school-book-storage/shell/ui/admin-navigation/src/index.ts"
-      ],
-      "@school-book-storage/shell/app-navigation": [
-        "libs/school-book-storage/shell/ui/app-navigation/src/index.ts"
+      "@school-book-storage/shared/pwa-update": [
+        "libs/school-book-storage/shared/pwa-update/src/index.ts"
       ]
     }
   },
