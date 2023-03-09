@@ -24,6 +24,7 @@ export class UserDetailComponent implements OnDestroy {
     email: [''],
     roles: [[] as string[]],
     schoolId: [''],
+    canLogin: [false],
   });
   user$ = this.userStore.user$.pipe(
     tap((user) => this.userForm.patchValue({ ...user }))

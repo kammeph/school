@@ -59,6 +59,7 @@ export class AuthService {
             displayName,
             roles: [],
             schoolId: '',
+            canLogin: false,
           })
         ).pipe(
           switchMap(() => getDoc(userDoc)),

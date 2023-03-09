@@ -22,3 +22,15 @@ export const deleteUser = schoolFunctions.auth.user().onDelete((user) => {
   functions.logger.log('User deleted', user);
   return admin.firestore().collection('users').doc(user.uid).delete();
 });
+
+export const userUpdated = schoolFunctions.firestore
+  .document('users/{userId}')
+  .onUpdate((change, context) => {
+    const newValue = change.after.data();
+    const previousValue = change.before.data();
+    functions.logger.log('User updated', { newValue, previousValue });
+    return admin.auth().updateUser(context.params.userId, {
+      displayName: newValue.displayName,
+      disabled: !newValue.canLogin,
+    });
+  });
