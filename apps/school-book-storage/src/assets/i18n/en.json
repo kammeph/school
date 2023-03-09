@@ -29,5 +29,6 @@
   "no": "No",
   "deleteSchool": "Are you sure you want to delete this school?",
   "updateAvailable": "Update available",
-  "updateWillBeInstalled": "Update will be installed! The app will be restarted."
+  "updateWillBeInstalled": "Update will be installed! The app will be restarted.",
+  "none": "None"
 }

@@ -33,9 +33,13 @@
       <ion-item>
         <ion-label position="floating" translate>school</ion-label>
         <ion-select formControlName="schoolId">
-          <ion-select-option value="a">School A</ion-select-option>
-          <ion-select-option value="b">School B</ion-select-option>
-          <ion-select-option value="c">School C</ion-select-option>
+          <ion-select-option value="" translate>none</ion-select-option>
+          <ion-select-option
+            *ngFor="let school of schools$ | async"
+            [value]="school.id"
+          >
+            {{ school.name }}
+          </ion-select-option>
         </ion-select>
       </ion-item>
     </form>

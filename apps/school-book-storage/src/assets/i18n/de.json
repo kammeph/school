@@ -29,5 +29,6 @@
   "no": "Nein",
   "deleteSchool": "Sind Sie sicher, dass Sie diese Schule löschen möchten?",
   "updateAvailable": "Update verfügbar",
-  "updateWillBeInstalled": "Das Update wird installiert! Die App wird neu gestartet."
+  "updateWillBeInstalled": "Das Update wird installiert! Die App wird neu gestartet.",
+  "none": "Keine"
 }
