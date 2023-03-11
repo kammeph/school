@@ -75,7 +75,8 @@ export class UserStore extends ComponentStore<UserState> {
       switchMap((user) =>
         this.userService.update(user).pipe(
           tapResponse(
-            () => this.patchState({ success: true, pending: false }),
+            () =>
+              this.patchState({ user: user, success: true, pending: false }),
             (error: Error) =>
               this.patchState({
                 error: error.message,

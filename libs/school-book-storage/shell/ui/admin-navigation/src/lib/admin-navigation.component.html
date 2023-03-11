@@ -26,7 +26,11 @@
   <ng-template>
     <ion-content>
       <ion-list>
-        <ion-item [button]="true" [detail]="false">
+        <ion-item
+          [button]="true"
+          [detail]="false"
+          (click)="navigateToProfile.emit()"
+        >
           <ion-icon slot="start" name="pencil-sharp"></ion-icon>
           <ion-label translate>editProfile</ion-label>
         </ion-item>

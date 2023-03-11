@@ -1,9 +1,12 @@
 <ion-tabs>
   <ion-footer>
     <school-app-navigation
+      *ngIf="userId$ | async as userId"
       [displayName$]="displayName$"
+      [isAdmin$]="isAdmin$"
       (logout)="logout()"
       (changePassword)="openChangePasswordModal()"
+      (navigateToProfile)="navigateToProfile(userId)"
     ></school-app-navigation>
   </ion-footer>
 </ion-tabs>

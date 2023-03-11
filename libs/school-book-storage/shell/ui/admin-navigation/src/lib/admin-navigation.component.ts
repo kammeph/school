@@ -24,6 +24,7 @@ export class AdminNavigationComponent {
   @Input() displayName$!: Observable<string | undefined>;
   @Output() logout = new EventEmitter<void>();
   @Output() changePassword = new EventEmitter<void>();
+  @Output() navigateToProfile = new EventEmitter<void>();
   @ViewChild('userMenu') userMenu!: IonPopover;
   isUserMenuOpen = false;
 

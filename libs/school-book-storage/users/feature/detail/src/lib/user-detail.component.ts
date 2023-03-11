@@ -5,11 +5,16 @@ import { NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { selectUserRoles } from '@school-book-storage/administration/data-access';
 import {
+  AuthActions,
+  selectIsAdmin,
+  selectUid,
+} from '@school-book-storage/auth/data-access';
+import {
   SchoolActions,
   selectSchools,
 } from '@school-book-storage/schools/data-access';
 import { UserStore } from '@school-book-storage/users/data-access';
-import { filter, Subscription, tap } from 'rxjs';
+import { combineLatest, filter, Subscription, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'school-user-detail',
@@ -32,6 +37,8 @@ export class UserDetailComponent implements OnDestroy {
   );
   schools$ = this.store.select(selectSchools);
   userRoles$ = this.store.select(selectUserRoles);
+  isAdmin$ = this.store.select(selectIsAdmin);
+  loggedInUserId$ = this.store.select(selectUid);
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +51,15 @@ export class UserDetailComponent implements OnDestroy {
     if (uid) this.subscription.add(this.userStore.getById(uid));
     this.subscription.add(
       this.userStore.success$
-        .pipe(filter((success) => success))
+        .pipe(
+          filter((success) => success),
+          switchMap(() => combineLatest([this.user$, this.loggedInUserId$])),
+          tap(([user, loggedInUserId]) => {
+            if (user && user.uid === loggedInUserId) {
+              this.store.dispatch(AuthActions.authenticationSuccess({ user }));
+            }
+          })
+        )
         .subscribe(() => this.navCtrl.back())
     );
     this.store.dispatch(SchoolActions.loadSchools());
