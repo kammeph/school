@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
+import { selectUserRoles } from '@school-book-storage/administration/data-access';
 import {
   SchoolActions,
   selectSchools,
@@ -30,6 +31,7 @@ export class UserDetailComponent implements OnDestroy {
     tap((user) => this.userForm.patchValue({ ...user }))
   );
   schools$ = this.store.select(selectSchools);
+  userRoles$ = this.store.select(selectUserRoles);
 
   constructor(
     private fb: FormBuilder,
