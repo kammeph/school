@@ -30,6 +30,9 @@
       "@school-book-storage/books/data-access": [
         "libs/school-book-storage/books/data-access/src/index.ts"
       ],
+      "@school-book-storage/books/feature/detail": [
+        "libs/school-book-storage/books/feature/detail/src/index.ts"
+      ],
       "@school-book-storage/schools/add": [
         "libs/school-book-storage/schools/feature/add/src/index.ts"
       ],
