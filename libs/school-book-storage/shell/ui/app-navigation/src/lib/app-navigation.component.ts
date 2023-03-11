@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 export class AppNavigationComponent {
   @Input() displayName$!: Observable<string | undefined>;
   @Output() logout = new EventEmitter<void>();
+  @Output() changePassword = new EventEmitter<void>();
   @ViewChild('userMenu') userMenu!: IonPopover;
 
   isUserMenuOpen = false;
