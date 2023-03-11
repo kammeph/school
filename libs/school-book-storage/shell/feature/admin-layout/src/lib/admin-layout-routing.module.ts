@@ -7,6 +7,7 @@ const routes: Routes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
+      { path: '', redirectTo: 'schools', pathMatch: 'full' },
       {
         path: 'schools',
         loadChildren: () =>

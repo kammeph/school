@@ -1,12 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProfileGuard } from '@school-book-storage/shared/guards/profile-guard';
+import { UserStore } from '@school-book-storage/users/data-access';
 import { AppLayoutComponent } from './app-layout.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
-    children: [],
+    children: [
+      {
+        path: 'profile/:id',
+        loadChildren: () =>
+          import('@school-book-storage/users/detail').then(
+            (m) => m.UserDetailModule
+          ),
+        providers: [UserStore],
+        canActivate: [ProfileGuard],
+      },
+    ],
   },
 ];
 

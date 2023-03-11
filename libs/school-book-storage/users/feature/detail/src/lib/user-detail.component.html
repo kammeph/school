@@ -18,11 +18,11 @@
         <ion-label position="floating" translate>username</ion-label>
         <ion-input formControlName="displayName"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item disabled>
         <ion-label position="floating" translate>email</ion-label>
         <ion-input formControlName="email" email></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [disabled]="(isAdmin$ | async) === false">
         <ion-label position="floating" translate>roles</ion-label>
         <ion-select formControlName="roles" multiple>
           <ion-select-option
@@ -34,7 +34,7 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-item [disabled]="(isAdmin$ | async) === false">
         <ion-label position="floating" translate>school</ion-label>
         <ion-select formControlName="schoolId">
           <ion-select-option value="" translate>none</ion-select-option>
@@ -46,7 +46,7 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="isAdmin$ | async">
         <ion-label translate>canLogin</ion-label>
         <ion-toggle formControlName="canLogin" slot="end"></ion-toggle>
       </ion-item>
