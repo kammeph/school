@@ -14,7 +14,7 @@ import {
   selectSchools,
 } from '@school-book-storage/schools/data-access';
 import { UserStore } from '@school-book-storage/users/data-access';
-import { combineLatest, filter, Subscription, switchMap, tap } from 'rxjs';
+import { filter, Subscription, tap, withLatestFrom } from 'rxjs';
 
 @Component({
   selector: 'school-user-detail',
@@ -50,17 +50,20 @@ export class UserDetailComponent implements OnDestroy {
     const uid = route.snapshot.paramMap.get('id');
     if (uid) this.subscription.add(this.userStore.getById(uid));
     this.subscription.add(
-      this.userStore.success$
+      this.user$
         .pipe(
-          filter((success) => success),
-          switchMap(() => combineLatest([this.user$, this.loggedInUserId$])),
+          withLatestFrom(this.loggedInUserId$, this.userStore.success$),
+          filter(
+            ([user, loggedInUserId, success]) =>
+              success && user?.uid === loggedInUserId
+          ),
           tap(([user, loggedInUserId]) => {
             if (user && user.uid === loggedInUserId) {
               this.store.dispatch(AuthActions.authenticationSuccess({ user }));
             }
           })
         )
-        .subscribe(() => this.navCtrl.back())
+        .subscribe(() => this.navCtrl.navigateBack('/admin/users'))
     );
     this.store.dispatch(SchoolActions.loadSchools());
   }

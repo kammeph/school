@@ -11,7 +11,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { getDoc } from 'firebase/firestore';
-import { from, map, of } from 'rxjs';
+import { from, map } from 'rxjs';
 import { School } from '../models';
 
 @Injectable({
@@ -36,14 +36,14 @@ export class SchoolService {
   }
 
   create(school: School) {
-    return of(addDoc(this.schoolsCollection, school));
+    return from(addDoc(this.schoolsCollection, school));
   }
 
   update(school: School) {
-    return of(updateDoc(doc(this.schoolsCollection, school.id), school));
+    return from(updateDoc(doc(this.schoolsCollection, school.id), school));
   }
 
   delete(id: string) {
-    return of(deleteDoc(doc(this.schoolsCollection, id)));
+    return from(deleteDoc(doc(this.schoolsCollection, id)));
   }
 }
