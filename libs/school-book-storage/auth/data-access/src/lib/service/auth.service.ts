@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updatePassword,
 } from '@angular/fire/auth';
 import {
   Firestore,
@@ -65,5 +66,13 @@ export class AuthService {
 
   logout(): Observable<void> {
     return from(signOut(this.auth));
+  }
+
+  changePassword(newPassword: string): Observable<void> {
+    return from(
+      this.auth.currentUser
+        ? updatePassword(this.auth.currentUser, newPassword)
+        : Promise.resolve()
+    );
   }
 }

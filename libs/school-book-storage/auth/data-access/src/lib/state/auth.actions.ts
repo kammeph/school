@@ -9,5 +9,8 @@ export const AuthActions = createActionGroup({
     }>(),
     Logout: emptyProps(),
     'Logout Success': emptyProps(),
+    'Change Password': props<{ newPassword: string }>(),
+    'Change Password Success': emptyProps(),
+    'Change Password Failure': props<{ error: string }>(),
   },
 });

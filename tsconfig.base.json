@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@school-book-storage/administration/data-access": [
+        "libs/school-book-storage/administration/data-access/src/index.ts"
+      ],
       "@school-book-storage/auth/data-access": [
         "libs/school-book-storage/auth/data-access/src/index.ts"
       ],
@@ -78,8 +81,8 @@
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
       ],
-      "@school-book-storage/administration/data-access": [
-        "libs/school-book-storage/administration/data-access/src/index.ts"
+      "@school-book-storage/shared/ui/change-password-form": [
+        "libs/school-book-storage/shared/ui/change-password-form/src/index.ts"
       ]
     }
   },
