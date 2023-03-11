@@ -6,8 +6,11 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectIsLoggedIn } from '@school-book-storage/auth/data-access';
-import { map, Observable, tap } from 'rxjs';
+import {
+  selectIsAdmin,
+  selectIsLoggedIn,
+} from '@school-book-storage/auth/data-access';
+import { map, Observable, tap, withLatestFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,18 +24,30 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.store.select(selectIsLoggedIn).pipe(
-      map((isLoggedIn) => {
-        if (isLoggedIn) {
-          return route.routeConfig?.path !== 'login';
-        }
-        return route.routeConfig?.path === 'login';
-      }),
-      tap((canActivate) => {
-        if (route.routeConfig?.path !== 'login' && !canActivate) {
-          this.router.navigate(['/login']);
-        }
-      })
-    );
+    return this.store
+      .select(selectIsLoggedIn)
+      .pipe(withLatestFrom(this.store.select(selectIsAdmin)))
+      .pipe(
+        map(([isLoggedIn, isAdmin]) => {
+          switch (route.routeConfig?.path) {
+            case 'app':
+              return isLoggedIn;
+            case 'admin':
+              return isLoggedIn && isAdmin;
+            case 'login':
+              return !isLoggedIn;
+            default:
+              return false;
+          }
+        }),
+        tap((canActivate) => {
+          if (route.routeConfig?.path !== 'login' && !canActivate) {
+            this.router.navigate(['/login']);
+          }
+          if (route.routeConfig?.path === 'admin' && !canActivate) {
+            this.router.navigate(['/app']);
+          }
+        })
+      );
   }
 }

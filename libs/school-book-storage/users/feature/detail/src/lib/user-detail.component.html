@@ -25,9 +25,13 @@
       <ion-item>
         <ion-label position="floating" translate>roles</ion-label>
         <ion-select formControlName="roles" multiple>
-          <ion-select-option value="TEACHER">Teacher</ion-select-option>
-          <ion-select-option value="LIBRARIAN">Librarian</ion-select-option>
-          <ion-select-option value="ADMIN">Admin</ion-select-option>
+          <ion-select-option
+            *ngFor="let userRole of userRoles$ | async"
+            [value]="userRole"
+            translate
+          >
+            {{ userRole }}
+          </ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>

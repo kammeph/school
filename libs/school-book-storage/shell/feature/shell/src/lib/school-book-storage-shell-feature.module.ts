@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SchoolBookStorageLibRoutingModule } from './school-book-storage-shell-routing.module';
 
 import { CommonModule } from '@angular/common';
+import { administrationReducer } from '@school-book-storage/administration/data-access';
 import {
   AuthEffects,
   authReducer,
@@ -21,7 +22,11 @@ import {
     CommonModule,
     SchoolBookStorageLibRoutingModule,
     IonicModule.forRoot(),
-    StoreModule.forRoot({ auth: authReducer, school: schoolReducer }),
+    StoreModule.forRoot({
+      auth: authReducer,
+      school: schoolReducer,
+      administration: administrationReducer,
+    }),
     EffectsModule.forRoot([AuthEffects, SchoolEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],

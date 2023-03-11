@@ -26,7 +26,12 @@
   <ng-template>
     <ion-content>
       <ion-list>
-        <ion-item [button]="true" [detail]="false" routerLink="/admin">
+        <ion-item
+          *ngIf="isAdmin$ | async"
+          [button]="true"
+          [detail]="false"
+          routerLink="/admin"
+        >
           <ion-icon slot="start" name="shield-sharp"></ion-icon>
           <ion-label translate>adminArea</ion-label>
         </ion-item>

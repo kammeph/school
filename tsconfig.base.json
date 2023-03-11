@@ -48,6 +48,9 @@
       "@school-book-storage/shared/password-validator": [
         "libs/school-book-storage/shared/validators/password-validator/src/index.ts"
       ],
+      "@school-book-storage/shared/pwa-update": [
+        "libs/school-book-storage/shared/pwa-update/src/index.ts"
+      ],
       "@school-book-storage/shell": [
         "libs/school-book-storage/shell/feature/shell/src/index.ts"
       ],
@@ -75,8 +78,8 @@
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
       ],
-      "@school-book-storage/shared/pwa-update": [
-        "libs/school-book-storage/shared/pwa-update/src/index.ts"
+      "@school-book-storage/administration/data-access": [
+        "libs/school-book-storage/administration/data-access/src/index.ts"
       ]
     }
   },

@@ -34,5 +34,10 @@
   "canLogin": "Kann sich anmelden",
   "deleteUser": "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?",
   "delete": "Löschen",
-  "cancel": "Abbrechen"
+  "cancel": "Abbrechen",
+  "STUDENT": "Schüler",
+  "TEACHER": "Lehrer",
+  "PRINCIPAL": "Schulleitung",
+  "WAREHOUSER": "Lagerist",
+  "ADMIN": "Administrator"
 }

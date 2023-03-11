@@ -9,7 +9,9 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule, IonPopover } from '@ionic/angular';
+import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { selectIsAdmin } from '@school-book-storage/auth/data-access';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -24,7 +26,11 @@ export class AppNavigationComponent {
   @Input() displayName$!: Observable<string | undefined>;
   @Output() logout = new EventEmitter<void>();
   @ViewChild('userMenu') userMenu!: IonPopover;
+
   isUserMenuOpen = false;
+  isAdmin$ = this.store.select(selectIsAdmin);
+
+  constructor(private store: Store) {}
 
   openUserMenu(e: Event) {
     this.userMenu.event = e;

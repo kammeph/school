@@ -6,3 +6,11 @@ export interface User {
   schoolId?: string;
   canLogin: boolean;
 }
+
+export enum UserRole {
+  Student = 'STUDENT',
+  Teacher = 'TEACHER',
+  Principal = 'PRINCIPAL',
+  Warehouser = 'WAREHOUSER',
+  Admin = 'ADMIN',
+}
