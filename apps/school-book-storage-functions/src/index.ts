@@ -45,3 +45,10 @@ export const userCreated = schoolFunctions.firestore
       disabled: !newValue.canLogin,
     });
   });
+
+export const userDeleted = schoolFunctions.firestore
+  .document('users/{userId}')
+  .onDelete((snap, context) => {
+    functions.logger.log('User deleted', { userId: context.params.userId });
+    return admin.auth().deleteUser(context.params.userId);
+  });

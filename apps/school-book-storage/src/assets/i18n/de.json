@@ -31,5 +31,8 @@
   "updateAvailable": "Update verfügbar",
   "updateWillBeInstalled": "Das Update wird installiert! Die App wird neu gestartet.",
   "none": "Keine",
-  "canLogin": "Kann sich anmelden"
+  "canLogin": "Kann sich anmelden",
+  "deleteUser": "Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?",
+  "delete": "Löschen",
+  "cancel": "Abbrechen"
 }

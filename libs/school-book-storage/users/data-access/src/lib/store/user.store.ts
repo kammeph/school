@@ -86,4 +86,22 @@ export class UserStore extends ComponentStore<UserState> {
       )
     );
   });
+
+  readonly delete = this.effect<string>((uid$) => {
+    return uid$.pipe(
+      tap(() => this.patchState({ pending: true })),
+      switchMap((uid) =>
+        this.userService.delete(uid).pipe(
+          tapResponse(
+            () => this.patchState({ success: true, pending: false }),
+            (error: Error) =>
+              this.patchState({
+                error: error.message,
+                pending: false,
+              })
+          )
+        )
+      )
+    );
+  });
 }

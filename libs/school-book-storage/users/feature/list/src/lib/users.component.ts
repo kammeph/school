@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ActionSheetController, NavController } from '@ionic/angular';
+import { TranslatePipe } from '@ngx-translate/core';
 import { User } from '@school-book-storage/auth/data-access';
 import { UserStore } from '@school-book-storage/users/data-access';
 import { combineLatest, map, startWith } from 'rxjs';
@@ -11,6 +12,7 @@ import { combineLatest, map, startWith } from 'rxjs';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [TranslatePipe],
 })
 export class UsersComponent {
   filterCtrl = new FormControl('');
@@ -32,7 +34,9 @@ export class UsersComponent {
   constructor(
     public userStore: UserStore,
     private route: ActivatedRoute,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private actionSheetCtrl: ActionSheetController,
+    private translatePipe: TranslatePipe
   ) {
     this.userStore.getAll();
   }
@@ -41,5 +45,28 @@ export class UsersComponent {
     this.navCtrl.navigateForward([user.uid], {
       relativeTo: this.route,
     });
+  }
+
+  async openDeleteUserDialog(userId?: string) {
+    const sheet = await this.actionSheetCtrl.create({
+      header: this.translatePipe.transform('deleteUser'),
+      buttons: [
+        {
+          text: this.translatePipe.transform('delete'),
+          role: 'destructive',
+          handler: () => this.deleteUser(userId),
+        },
+        {
+          text: this.translatePipe.transform('cancel'),
+          role: 'cancel',
+        },
+      ],
+    });
+
+    sheet.present();
+  }
+
+  private deleteUser(userId?: string) {
+    if (userId) this.userStore.delete(userId);
   }
 }
