@@ -31,5 +31,8 @@
   "updateAvailable": "Update available",
   "updateWillBeInstalled": "Update will be installed! The app will be restarted.",
   "none": "None",
-  "canLogin": "Can login"
+  "canLogin": "Can login",
+  "deleteUser": "Are you sure you want to delete this user?",
+  "delete": "Delete",
+  "cancel": "Cancel"
 }

@@ -3,6 +3,7 @@ import {
   collection,
   collectionData,
   CollectionReference,
+  deleteDoc,
   doc,
   Firestore,
   getDoc,
@@ -36,5 +37,10 @@ export class UserService {
   update(user: User) {
     const userDoc = doc(this.usersCollectionRef, user.uid);
     return from(updateDoc(userDoc, { ...user }));
+  }
+
+  delete(id: string) {
+    const userDoc = doc(this.usersCollectionRef, id);
+    return from(deleteDoc(userDoc));
   }
 }
