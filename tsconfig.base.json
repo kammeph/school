@@ -36,6 +36,9 @@
       "@school-book-storage/books/feature/list": [
         "libs/school-book-storage/books/feature/list/src/index.ts"
       ],
+      "@school-book-storage/books/feature/shell": [
+        "libs/school-book-storage/books/feature/shell/src/index.ts"
+      ],
       "@school-book-storage/schools/add": [
         "libs/school-book-storage/schools/feature/add/src/index.ts"
       ],
