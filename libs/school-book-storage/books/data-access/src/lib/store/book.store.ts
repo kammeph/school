@@ -30,7 +30,7 @@ export class BookStore extends ComponentStore<BooksState> {
   readonly pending$ = this.select((state) => state.pending);
   readonly success$ = this.select((state) => state.success);
 
-  readonly getAll = this.effect((schoolId$: Observable<string>) => {
+  readonly getAll = this.effect((schoolId$: Observable<string | undefined>) => {
     return schoolId$.pipe(
       tap(() => this.patchState({ pending: true, success: false })),
       switchMap((schoolId) =>

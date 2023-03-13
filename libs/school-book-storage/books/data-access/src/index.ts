@@ -1,1 +1,3 @@
-export * from './lib/school-book-storage-books-data-access.module';
+export * from './lib/models';
+export * from './lib/service';
+export * from './lib/store';

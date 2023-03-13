@@ -9,3 +9,12 @@ export const selectUserRoles = createSelector(
   (state) => state.userRoles
 );
 
+export const selectSubjects = createSelector(
+  selectAdministration,
+  (state) => state.subjects
+);
+
+export const selectGrades = createSelector(
+  selectAdministration,
+  (state) => state.grades
+);

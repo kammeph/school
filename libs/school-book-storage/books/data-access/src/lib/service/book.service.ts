@@ -11,7 +11,7 @@ import {
   snapToData,
   updateDoc,
 } from '@angular/fire/firestore';
-import { from, map } from 'rxjs';
+import { from, map, of } from 'rxjs';
 import { Book } from '../models';
 
 @Injectable({
@@ -27,8 +27,11 @@ export class BookService {
     ) as CollectionReference<Book>;
   }
 
-  getBooksBySchool(schoolId: string) {
-    return collectionData(this.getCollection(schoolId), { idField: 'id' });
+  getBooksBySchool(schoolId?: string) {
+    if (!schoolId) return of([]);
+    return collectionData(this.getCollection(schoolId), {
+      idField: 'id',
+    });
   }
 
   getById(schoolId: string, bookId: string) {
