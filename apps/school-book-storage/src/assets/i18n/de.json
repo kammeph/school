@@ -39,5 +39,16 @@
   "TEACHER": "Lehrer",
   "PRINCIPAL": "Schulleitung",
   "WAREHOUSER": "Lagerist",
-  "ADMIN": "Administrator"
+  "ADMIN": "Administrator",
+  "isbn": "ISBN",
+  "subject": "Fach",
+  "grades": "Klassen",
+  "newBook": "Neues Buch",
+  "GERMAN": "Deutsch",
+  "ENGLISH": "Englisch",
+  "MATHEMATICS": "Mathematik",
+  "MUSIC": "Musik",
+  "GENERAL_EDUCATION": "Sachkunde",
+  "RELIGION": "Religion",
+  "deleteBook": "Sind Sie sicher, dass Sie dieses Buch löschen möchten?"
 }

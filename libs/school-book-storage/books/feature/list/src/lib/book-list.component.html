@@ -1,0 +1,65 @@
+<ng-container *ngIf="schoolId$ | async as schoolId">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title translate>books</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="openAddBookModal()">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="primary">
+      <ion-searchbar [formControl]="filterCtrl"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item-sliding *ngFor="let book of books$ | async">
+        <ion-item
+          [button]="true"
+          [detail]="true"
+          (click)="navigateToBookDetails(book?.id)"
+        >
+          <ion-label>
+            <h2>{{ book.name }}</h2>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option
+            color="danger"
+            (click)="openDeleteBookSheet(schoolId, book.id)"
+          >
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-modal>
+      <ng-template>
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-title translate>newBook</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="createBook(schoolId)">
+                <ion-icon slot="icon-only" name="save"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <school-book-form
+            #addBookForm
+            [subjects$]="subjects$"
+            [grades$]="grades$"
+          ></school-book-form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ion-content>
+</ng-container>

@@ -27,6 +27,21 @@
       "@school-book-storage/auth/register": [
         "libs/school-book-storage/auth/feature/register/src/index.ts"
       ],
+      "@school-book-storage/books/data-access": [
+        "libs/school-book-storage/books/data-access/src/index.ts"
+      ],
+      "@school-book-storage/books/feature/details": [
+        "libs/school-book-storage/books/feature/details/src/index.ts"
+      ],
+      "@school-book-storage/books/feature/list": [
+        "libs/school-book-storage/books/feature/list/src/index.ts"
+      ],
+      "@school-book-storage/books/feature/shell": [
+        "libs/school-book-storage/books/feature/shell/src/index.ts"
+      ],
+      "@school-book-storage/books/ui/book-form": [
+        "libs/school-book-storage/books/ui/book-form/src/index.ts"
+      ],
       "@school-book-storage/schools/add": [
         "libs/school-book-storage/schools/feature/add/src/index.ts"
       ],
@@ -47,6 +62,9 @@
       ],
       "@school-book-storage/shared/auth-guard": [
         "libs/school-book-storage/shared/guards/auth-guard/src/index.ts"
+      ],
+      "@school-book-storage/shared/guards/profile-guard": [
+        "libs/school-book-storage/shared/guards/profile-guard/src/index.ts"
       ],
       "@school-book-storage/shared/password-validator": [
         "libs/school-book-storage/shared/validators/password-validator/src/index.ts"
@@ -83,9 +101,6 @@
       ],
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
-      ],
-      "@school-book-storage/shared/guards/profile-guard": [
-        "libs/school-book-storage/shared/guards/profile-guard/src/index.ts"
       ]
     }
   },

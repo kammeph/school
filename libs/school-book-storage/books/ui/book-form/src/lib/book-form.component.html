@@ -1,0 +1,35 @@
+<form [formGroup]="form">
+  <ion-item>
+    <ion-label position="floating" translate>isbn</ion-label>
+    <ion-input formControlName="isbn"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" translate>name</ion-label>
+    <ion-input formControlName="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" translate>description</ion-label>
+    <ion-input formControlName="description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" translate>subject</ion-label>
+    <ion-select formControlName="subject">
+      <ion-select-option value="" translate>none</ion-select-option>
+      <ion-select-option
+        *ngFor="let subject of subjects$ | async"
+        [value]="subject"
+        translate
+      >
+        {{ subject }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" translate>grades</ion-label>
+    <ion-select formControlName="grades" multiple>
+      <ion-select-option *ngFor="let grade of grades$ | async" [value]="grade">
+        {{ grade }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+</form>

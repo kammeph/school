@@ -1,0 +1,26 @@
+<ng-container *ngIf="schoolId$ | async as schoolId">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ (book$ | async)?.name }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="updateBook(schoolId)">
+          <ion-icon slot="icon-only" name="save"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ng-container *ngIf="book$ | async as book">
+      <school-book-form
+        *ngIf="book"
+        #bookForm
+        [book]="book"
+        [subjects$]="subjects$"
+        [grades$]="grades$"
+      ></school-book-form>
+    </ng-container>
+  </ion-content>
+</ng-container>

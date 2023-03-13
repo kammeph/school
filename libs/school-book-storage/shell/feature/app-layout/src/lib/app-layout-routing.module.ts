@@ -9,6 +9,14 @@ const routes: Routes = [
     path: '',
     component: AppLayoutComponent,
     children: [
+      { path: '', redirectTo: 'books', pathMatch: 'full' },
+      {
+        path: 'books',
+        loadChildren: () =>
+          import('@school-book-storage/books/feature/shell').then(
+            (m) => m.BooksShellModule
+          ),
+      },
       {
         path: 'profile/:id',
         loadChildren: () =>
