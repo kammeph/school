@@ -1,4 +1,4 @@
-<ion-tabs>
+<ion-tabs [environmentInjector]="environmentInjector">
   <ion-footer>
     <school-app-navigation
       *ngIf="userId$ | async as userId"

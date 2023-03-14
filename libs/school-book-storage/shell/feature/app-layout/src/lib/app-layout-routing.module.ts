@@ -18,6 +18,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'storages',
+        loadChildren: () =>
+          import('@school-book-storage/storages/feature/shell').then(
+            (m) => m.StoragesShellModule
+          ),
+      },
+      {
         path: 'profile/:id',
         loadChildren: () =>
           import('@school-book-storage/users/detail').then(

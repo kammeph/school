@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EnvironmentInjector, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonPopover, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
@@ -26,7 +26,8 @@ export class AppLayoutComponent {
   constructor(
     private store: Store,
     private modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    public environmentInjector: EnvironmentInjector
   ) {}
 
   logout() {

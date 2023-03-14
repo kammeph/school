@@ -50,5 +50,8 @@
   "MUSIC": "Music",
   "GENERAL_EDUCATION": "General Education",
   "RELIGION": "Religion",
-  "deleteBook": "Are you sure you want to delete this book?"
+  "deleteBook": "Are you sure you want to delete this book?",
+  "location": "Location",
+  "newStorage": "New Storage",
+  "deleteStorage": "Are you sure you want to delete this storage?"
 }
