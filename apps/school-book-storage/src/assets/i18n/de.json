@@ -50,5 +50,8 @@
   "MUSIC": "Musik",
   "GENERAL_EDUCATION": "Sachkunde",
   "RELIGION": "Religion",
-  "deleteBook": "Sind Sie sicher, dass Sie dieses Buch löschen möchten?"
+  "deleteBook": "Sind Sie sicher, dass Sie dieses Buch löschen möchten?",
+  "location": "Standort",
+  "newStorage": "Neues Lager",
+  "deleteStorage": "Sind Sie sicher, dass Sie dieses Lager löschen möchten?"
 }

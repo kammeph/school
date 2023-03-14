@@ -90,6 +90,21 @@
       "@school-book-storage/shell/app-navigation": [
         "libs/school-book-storage/shell/ui/app-navigation/src/index.ts"
       ],
+      "@school-book-storage/storages/data-access": [
+        "libs/school-book-storage/storages/data-access/src/index.ts"
+      ],
+      "@school-book-storage/storages/feature/details": [
+        "libs/school-book-storage/storages/feature/details/src/index.ts"
+      ],
+      "@school-book-storage/storages/feature/list": [
+        "libs/school-book-storage/storages/feature/list/src/index.ts"
+      ],
+      "@school-book-storage/storages/feature/shell": [
+        "libs/school-book-storage/storages/feature/shell/src/index.ts"
+      ],
+      "@school-book-storage/storages/ui/form": [
+        "libs/school-book-storage/storages/ui/form/src/index.ts"
+      ],
       "@school-book-storage/users/data-access": [
         "libs/school-book-storage/users/data-access/src/index.ts"
       ],
