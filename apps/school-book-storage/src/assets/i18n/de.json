@@ -53,5 +53,12 @@
   "deleteBook": "Sind Sie sicher, dass Sie dieses Buch löschen möchten?",
   "location": "Standort",
   "newStorage": "Neues Lager",
-  "deleteStorage": "Sind Sie sicher, dass Sie dieses Lager löschen möchten?"
+  "deleteStorage": "Sind Sie sicher, dass Sie dieses Lager löschen möchten?",
+  "newSchoolClass": "Neue Klasse",
+  "deleteSchoolClass": "Sind Sie sicher, dass Sie diese Klasse löschen möchten?",
+  "grade": "Klasse",
+  "letter": "Buchstabe",
+  "numberOfPupils": "Anzahl der Schüler",
+  "dateFrom": "Datum von",
+  "dateTo": "Datum bis"
 }

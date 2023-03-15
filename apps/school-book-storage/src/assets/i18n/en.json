@@ -53,5 +53,12 @@
   "deleteBook": "Are you sure you want to delete this book?",
   "location": "Location",
   "newStorage": "New Storage",
-  "deleteStorage": "Are you sure you want to delete this storage?"
+  "deleteStorage": "Are you sure you want to delete this storage?",
+  "newSchoolClass": "New School Class",
+  "deleteSchoolClass": "Are you sure you want to delete this school class?",
+  "grade": "Grade",
+  "letter": "Letter",
+  "numberOfPupils": "Number of pupils",
+  "dateFrom": "Date from",
+  "dateTo": "Date to"
 }

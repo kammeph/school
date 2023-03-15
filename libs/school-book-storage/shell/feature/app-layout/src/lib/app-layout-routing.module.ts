@@ -18,6 +18,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'school-classes',
+        loadChildren: () =>
+          import('@school-book-storage/school-classes/feature/shell').then(
+            (m) => m.SchoolClassesShellModule
+          ),
+      },
+      {
         path: 'storages',
         loadChildren: () =>
           import('@school-book-storage/storages/feature/shell').then(

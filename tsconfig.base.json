@@ -42,6 +42,21 @@
       "@school-book-storage/books/ui/book-form": [
         "libs/school-book-storage/books/ui/book-form/src/index.ts"
       ],
+      "@school-book-storage/school-classes/data-access": [
+        "libs/school-book-storage/school-classes/data-access/src/index.ts"
+      ],
+      "@school-book-storage/school-classes/feature/details": [
+        "libs/school-book-storage/school-classes/feature/details/src/index.ts"
+      ],
+      "@school-book-storage/school-classes/feature/list": [
+        "libs/school-book-storage/school-classes/feature/list/src/index.ts"
+      ],
+      "@school-book-storage/school-classes/feature/shell": [
+        "libs/school-book-storage/school-classes/feature/shell/src/index.ts"
+      ],
+      "@school-book-storage/school-classes/ui/form": [
+        "libs/school-book-storage/school-classes/ui/form/src/index.ts"
+      ],
       "@school-book-storage/schools/add": [
         "libs/school-book-storage/schools/feature/add/src/index.ts"
       ],
