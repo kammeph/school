@@ -59,6 +59,6 @@
   "grade": "Grade",
   "letter": "Letter",
   "numberOfPupils": "Number of pupils",
-  "dateFrom": "Date from",
-  "dateTo": "Date to"
+  "newEntry": "New Entry",
+  "selectStorage": "Select storage"
 }

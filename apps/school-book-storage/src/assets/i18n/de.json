@@ -59,6 +59,6 @@
   "grade": "Klasse",
   "letter": "Buchstabe",
   "numberOfPupils": "Anzahl der Schüler",
-  "dateFrom": "Datum von",
-  "dateTo": "Datum bis"
+  "newEntry": "Neuer Eintrag",
+  "selectStorage": "Lager auswählen"
 }

@@ -6,11 +6,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BookFormComponent } from '@school-book-storage/books/ui/book-form';
+import { BooksInStorageFormComponent } from '@school-book-storage/books/ui/books-in-storage-form';
 
 @NgModule({
   imports: [
     BookDetailsRoutingModule,
     BookFormComponent,
+    BooksInStorageFormComponent,
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
