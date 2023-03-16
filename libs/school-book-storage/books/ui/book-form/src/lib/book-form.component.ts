@@ -31,7 +31,6 @@ export class BookFormComponent implements OnInit {
   @Input() grades$!: Observable<number[]>;
 
   form!: FormGroup<{
-    id: FormControl<string | undefined>;
     isbn: FormControl<string>;
     name: FormControl<string>;
     description: FormControl<string | undefined>;
@@ -43,7 +42,6 @@ export class BookFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.nonNullable.group({
-      id: [this.book?.id],
       isbn: [this.book?.isbn ?? '', Validators.required],
       name: [this.book?.name ?? '', Validators.required],
       description: [this.book?.description],

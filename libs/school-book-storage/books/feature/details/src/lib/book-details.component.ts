@@ -23,13 +23,14 @@ export class BookDetailsComponent {
 
   schoolId$ = this.store.select(selectSchoolId).pipe(
     tap((schoolId) => {
-      const bookId = this.route.snapshot.params['id'] as string;
-      if (schoolId && bookId) this.bookStore.getById({ schoolId, bookId });
+      if (schoolId && this.bookId)
+        this.bookStore.getById({ schoolId, bookId: this.bookId });
     })
   );
   book$ = this.bookStore.book$;
   subjects$ = this.store.select(selectSubjects);
   grades$ = this.store.select(selectGrades);
+  private bookId = this.route.snapshot.params['id'] as string;
 
   constructor(
     private store: Store,
@@ -39,7 +40,11 @@ export class BookDetailsComponent {
   ) {}
 
   updateBook(schoolId: string) {
-    this.bookStore.update({ schoolId, book: this.bookForm.form.getRawValue() });
+    this.bookStore.update({
+      schoolId,
+      bookId: this.bookId,
+      book: this.bookForm.form.getRawValue(),
+    });
     this.navCtrl.navigateBack('/app/books');
   }
 }

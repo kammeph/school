@@ -7,11 +7,11 @@ export enum Subject {
   Religion = 'RELIGION',
 }
 
-export interface Book {
+export type Book = {
   id?: string;
   isbn: string;
   name: string;
   description?: string;
   subject?: Subject;
   grades: number[];
-}
+};

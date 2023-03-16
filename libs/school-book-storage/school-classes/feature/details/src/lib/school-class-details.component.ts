@@ -31,16 +31,14 @@ export class SchoolClassDetailsComponent {
     })
   );
   schoolClass$ = this.schoolClassStore.schoolClass$;
-  private schoolClassId: string;
+  private schoolClassId = this.route.snapshot.params['id'] as string;
 
   constructor(
     private store: Store,
     private schoolClassStore: SchoolClassStore,
     private navCtrl: NavController,
     private route: ActivatedRoute
-  ) {
-    this.schoolClassId = this.route.snapshot.params['id'] as string;
-  }
+  ) {}
 
   updateSchoolClass(schoolId: string) {
     this.schoolClassStore.update({
