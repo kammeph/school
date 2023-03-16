@@ -82,11 +82,13 @@ export class BookStore extends ComponentStore<BooksState> {
   );
 
   readonly update = this.effect(
-    (triggers$: Observable<{ schoolId: string; book: Book }>) => {
+    (
+      triggers$: Observable<{ schoolId: string; bookId: string; book: Book }>
+    ) => {
       return triggers$.pipe(
         tap(() => this.patchState({ pending: true, success: false })),
-        switchMap(({ schoolId, book }) =>
-          this.bookService.update(schoolId, book).pipe(
+        switchMap(({ schoolId, bookId, book }) =>
+          this.bookService.update(schoolId, bookId, book).pipe(
             tapResponse(
               () => this.patchState({ pending: false, success: true }),
               (error: Error) =>
