@@ -27,24 +27,18 @@ export class SchoolClassFormComponent implements OnInit {
   @Input() schoolClass!: SchoolClass;
 
   form!: FormGroup<{
-    id: FormControl<string | undefined>;
     grade: FormControl<number>;
     letter: FormControl<string>;
     numberOfPupils: FormControl<number>;
-    dateFrom: FormControl<number>;
-    dateTo: FormControl<number>;
   }>;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.nonNullable.group({
-      id: [this.schoolClass?.id],
       grade: [this.schoolClass?.grade ?? 0],
       letter: [this.schoolClass?.letter ?? ''],
       numberOfPupils: [this.schoolClass?.numberOfPupils ?? 0],
-      dateFrom: [this.schoolClass?.dateFrom ?? 0],
-      dateTo: [this.schoolClass?.dateTo ?? 0],
     });
   }
 }
