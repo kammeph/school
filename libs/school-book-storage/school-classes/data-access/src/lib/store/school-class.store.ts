@@ -4,13 +4,13 @@ import { Observable, switchMap, tap } from 'rxjs';
 import { SchoolClass } from '../models';
 import { SchoolClassService } from '../service/school-class.service';
 
-interface SchoolClassesState {
+type SchoolClassesState = {
   schoolClasses: SchoolClass[];
   schoolClass?: SchoolClass;
   error?: string;
   pending: boolean;
   success: boolean;
-}
+};
 
 @Injectable()
 export class SchoolClassStore extends ComponentStore<SchoolClassesState> {

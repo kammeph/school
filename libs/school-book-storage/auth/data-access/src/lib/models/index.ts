@@ -1,11 +1,11 @@
-export interface User {
+export type User = {
   uid?: string;
   email: string;
   displayName: string;
   roles: string[];
   schoolId?: string;
   canLogin: boolean;
-}
+};
 
 export enum UserRole {
   Student = 'STUDENT',

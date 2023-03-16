@@ -5,10 +5,10 @@ import { Observable, switchMap, tap } from 'rxjs';
 import { AuthService } from '../service';
 import { AuthActions } from '../state';
 
-interface LoginState {
+type LoginState = {
   error: string | null;
   pending: boolean;
-}
+};
 
 @Injectable()
 export class LoginStore extends ComponentStore<LoginState> {
