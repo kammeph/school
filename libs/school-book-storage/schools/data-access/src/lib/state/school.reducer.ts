@@ -2,11 +2,11 @@ import { createReducer, on } from '@ngrx/store';
 import { School } from '../models';
 import { SchoolActions } from './school.actions';
 
-export interface SchoolState {
+export type SchoolState = {
   schools?: School[];
   school?: School;
   error?: string;
-}
+};
 
 export const initialState: SchoolState = {
   schools: undefined,

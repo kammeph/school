@@ -2,11 +2,11 @@ import { createReducer, on } from '@ngrx/store';
 import { User } from '../models';
 import { AuthActions } from './auth.actions';
 
-export interface AuthState {
+export type AuthState = {
   user?: User;
   isLoggedIn: boolean;
   error?: string;
-}
+};
 
 export const initialState: AuthState = {
   user: undefined,
