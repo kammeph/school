@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, IonList, NavController } from '@ionic/angular';
+import { ActionSheetController, IonList, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
@@ -35,7 +35,7 @@ export class SchoolListComponent {
     private store: Store,
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private alertController: AlertController,
+    private actionSheetCtrl: ActionSheetController,
     private translatePipe: TranslatePipe
   ) {
     this.store.dispatch(SchoolActions.loadSchools());
@@ -55,7 +55,7 @@ export class SchoolListComponent {
   }
 
   async openDeleteSchoolAlert(schoolId?: string) {
-    const alert = await this.alertController.create({
+    const sheet = await this.actionSheetCtrl.create({
       header: this.translatePipe.transform('deleteSchool'),
       buttons: [
         { text: this.translatePipe.transform('no'), role: 'cancel' },
@@ -65,7 +65,7 @@ export class SchoolListComponent {
         },
       ],
     });
-    alert.present();
+    sheet.present();
     this.schoolList.closeSlidingItems();
   }
 
