@@ -17,7 +17,6 @@ import { tap } from 'rxjs';
 })
 export class SchoolDetailComponent {
   schoolForm = this.fb.nonNullable.group({
-    id: this.fb.nonNullable.control<string | undefined>(undefined),
     name: ['', Validators.required],
     description: this.fb.nonNullable.control<string | undefined>(undefined),
   });
@@ -25,6 +24,7 @@ export class SchoolDetailComponent {
   school$ = this.store
     .select(selectSchool)
     .pipe(tap((school) => this.schoolForm.patchValue({ ...school })));
+  private schoolId = this.route.snapshot.params['id'] as string;
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +38,10 @@ export class SchoolDetailComponent {
 
   save() {
     this.store.dispatch(
-      SchoolActions.updateSchool({ school: this.schoolForm.getRawValue() })
+      SchoolActions.updateSchool({
+        schoolId: this.schoolId,
+        school: this.schoolForm.getRawValue(),
+      })
     );
     this.navCtrl.back();
   }
