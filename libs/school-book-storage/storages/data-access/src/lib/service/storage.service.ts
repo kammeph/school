@@ -8,7 +8,6 @@ import {
   doc,
   Firestore,
   getDoc,
-  snapToData,
   updateDoc,
 } from '@angular/fire/firestore';
 import { from, map, of } from 'rxjs';
@@ -36,7 +35,7 @@ export class StorageService {
 
   get(schoolId: string, storageId: string) {
     return from(getDoc(doc(this.getCollection(schoolId), storageId))).pipe(
-      map((storage) => snapToData(storage, { idField: 'id' }) as Storage)
+      map((storage) => storage.data())
     );
   }
 
@@ -44,9 +43,9 @@ export class StorageService {
     return from(addDoc(this.getCollection(schoolId), storage));
   }
 
-  update(schoolId: string, storage: Storage) {
+  update(schoolId: string, storageId: string, storage: Storage) {
     return from(
-      updateDoc(doc(this.getCollection(schoolId), storage.id), storage)
+      updateDoc(doc(this.getCollection(schoolId), storageId), storage)
     );
   }
 

@@ -28,7 +28,6 @@ export class StorageFormComponent implements OnInit {
   @Input() storage!: Storage;
 
   form!: FormGroup<{
-    id: FormControl<string | undefined>;
     name: FormControl<string>;
     location: FormControl<string>;
   }>;
@@ -37,7 +36,6 @@ export class StorageFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.nonNullable.group({
-      id: [this.storage?.id],
       name: [this.storage?.name ?? '', Validators.required],
       location: [this.storage?.location ?? '', Validators.required],
     });
