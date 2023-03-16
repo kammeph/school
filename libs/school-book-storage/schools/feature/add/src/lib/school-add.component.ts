@@ -12,7 +12,6 @@ import { SchoolActions } from '@school-book-storage/schools/data-access';
 })
 export class SchoolAddComponent {
   schoolForm = this.fb.nonNullable.group({
-    id: this.fb.nonNullable.control<string | undefined>(undefined),
     name: ['', Validators.required],
     description: this.fb.nonNullable.control<string | undefined>(undefined),
   });

@@ -63,8 +63,8 @@ export class SchoolEffects {
   updateSchool$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SchoolActions.updateSchool),
-      switchMap(({ school }) =>
-        this.schoolService.update(school).pipe(
+      switchMap(({ schoolId, school }) =>
+        this.schoolService.update(schoolId, school).pipe(
           map(() => SchoolActions.mutationSuccess()),
           catchError((error: Error) =>
             of(SchoolActions.mutationError({ error: error.message }))

@@ -11,7 +11,7 @@ export const SchoolActions = createActionGroup({
     'Loaded School': props<{ school: School }>(),
     'Load School Error': props<{ error: string }>(),
     'Create School': props<{ school: School }>(),
-    'Update School': props<{ school: School }>(),
+    'Update School': props<{ schoolId: string; school: School }>(),
     'Delete School': props<{ id: string }>(),
     'Mutation Success': emptyProps(),
     'Mutation Error': props<{ error: string }>(),
