@@ -1,5 +1,5 @@
-export interface Storage {
+export type Storage = {
   id?: string;
   name: string;
   location: string;
-}
+};

@@ -76,8 +76,8 @@ export class StorageStore extends ComponentStore<StoragesState> {
     (triggers$: Observable<{ schoolId: string; storage: Storage }>) => {
       return triggers$.pipe(
         tap(() => this.patchState({ pending: true, success: false })),
-        switchMap(({ schoolId, storage: Storage }) =>
-          this.StorageService.create(schoolId, Storage).pipe(
+        switchMap(({ schoolId, storage }) =>
+          this.StorageService.create(schoolId, storage).pipe(
             tapResponse(
               () => this.patchState({ pending: false, success: true }),
               (error: Error) =>
@@ -90,11 +90,17 @@ export class StorageStore extends ComponentStore<StoragesState> {
   );
 
   readonly update = this.effect(
-    (triggers$: Observable<{ schoolId: string; storage: Storage }>) => {
+    (
+      triggers$: Observable<{
+        schoolId: string;
+        storageId: string;
+        storage: Storage;
+      }>
+    ) => {
       return triggers$.pipe(
         tap(() => this.patchState({ pending: true, success: false })),
-        switchMap(({ schoolId, storage: Storage }) =>
-          this.StorageService.update(schoolId, Storage).pipe(
+        switchMap(({ schoolId, storageId, storage }) =>
+          this.StorageService.update(schoolId, storageId, storage).pipe(
             tapResponse(
               () => this.patchState({ pending: false, success: true }),
               (error: Error) =>

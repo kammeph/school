@@ -22,12 +22,12 @@ export class StorageDetailsComponent {
 
   schoolId$ = this.store.select(selectSchoolId).pipe(
     tap((schoolId) => {
-      const storageId = this.route.snapshot.params['id'] as string;
-      if (schoolId && storageId)
-        this.storageStore.getById({ schoolId, storageId });
+      if (schoolId && this.storageId)
+        this.storageStore.getById({ schoolId, storageId: this.storageId });
     })
   );
   storage$ = this.storageStore.storage$;
+  private storageId = this.route.snapshot.params['id'] as string;
 
   constructor(
     private store: Store,
@@ -39,6 +39,7 @@ export class StorageDetailsComponent {
   updateStorage(schoolId: string) {
     this.storageStore.update({
       schoolId,
+      storageId: this.storageId,
       storage: this.storageForm.form.getRawValue(),
     });
     this.navCtrl.navigateBack('/app/storages');
