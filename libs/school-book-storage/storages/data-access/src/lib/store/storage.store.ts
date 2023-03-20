@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { Observable, switchMap, tap } from 'rxjs';
-import { Storage } from '../models';
+import { Storage } from '@school-book-storage/shared-models';
 import { StorageService } from '../service';
 
 interface StoragesState {

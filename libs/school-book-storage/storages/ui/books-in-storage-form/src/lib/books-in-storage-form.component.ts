@@ -7,8 +7,12 @@ import {
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  Book,
+  BooksInStorage,
+  StorageBook,
+} from '@school-book-storage/shared-models';
 import {
   FormBuilder,
   FormControl,
@@ -16,16 +20,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
-import {
-  BooksInStorage,
-  BookStorage,
-  Storage,
-} from '@school-book-storage/shared-models';
 import { BooksInStorageStore } from '@school-book-storage/shared/data-access';
+import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'school-books-books-in-storage-form',
+  selector: 'school-storages-books-in-storage-form',
   standalone: true,
   imports: [CommonModule, IonicModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './books-in-storage-form.component.html',
@@ -34,10 +34,10 @@ import { BooksInStorageStore } from '@school-book-storage/shared/data-access';
 })
 export class BooksInStorageFormComponent implements OnInit {
   @Input() schoolId!: string;
-  @Input() bookId!: string;
-  @Input() bookName!: string;
-  @Input() availableStorages$!: Observable<Storage[]>;
-  @Input() storage?: BookStorage;
+  @Input() storageId!: string;
+  @Input() storageName!: string;
+  @Input() availableBooks$!: Observable<Book[]>;
+  @Input() book?: StorageBook;
   @Output() saved = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
@@ -54,12 +54,9 @@ export class BooksInStorageFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.booksInStorageForm = this.fb.nonNullable.group({
-      storageId: [this.storage?.id ?? '', [Validators.required]],
-      bookId: [this.bookId, [Validators.required]],
-      count: [
-        this.storage?.count ?? 0,
-        [Validators.required, Validators.min(0)],
-      ],
+      storageId: [this.storageId ?? '', [Validators.required]],
+      bookId: [this.book?.id ?? '', [Validators.required]],
+      count: [this.book?.count ?? 0, [Validators.required, Validators.min(0)]],
     });
   }
 

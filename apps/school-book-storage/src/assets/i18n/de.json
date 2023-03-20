@@ -60,5 +60,6 @@
   "letter": "Buchstabe",
   "numberOfPupils": "Anzahl der Schüler",
   "newEntry": "Neuer Eintrag",
-  "selectStorage": "Lager auswählen"
+  "selectStorage": "Lager auswählen",
+  "selectBook": "Buch auswählen"
 }

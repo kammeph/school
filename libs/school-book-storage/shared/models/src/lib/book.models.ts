@@ -42,6 +42,7 @@ export const Book = z.object({
   isbn: z.string(),
   name: z.string(),
   description: z.string().optional(),
+  totalCount: z.number().optional(),
   subject: z.nativeEnum(Subject).optional(),
   grades: z.array(z.number()),
   storages: z.array(BookStorage).optional(),

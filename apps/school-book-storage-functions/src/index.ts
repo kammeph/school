@@ -105,7 +105,13 @@ const updateBoosInStorage = async (
   const setBookStorages$ = admin
     .firestore()
     .doc(`schools/${schoolId}/books/${booksInStorage.bookId}`)
-    .set({ storages }, { merge: true });
+    .set(
+      {
+        totalCount: storages?.reduce((total, s) => (total += s.count), 0),
+        storages,
+      },
+      { merge: true }
+    );
 
   const books = (storage?.books ?? []).filter(
     (b) => b.id !== booksInStorage.bookId
@@ -120,7 +126,10 @@ const updateBoosInStorage = async (
   const setStorageBooks$ = admin
     .firestore()
     .doc(`schools/${schoolId}/storages/${booksInStorage.storageId}`)
-    .set({ books }, { merge: true });
+    .set(
+      { totalCount: books?.reduce((total, b) => (total += b.count), 0), books },
+      { merge: true }
+    );
 
   return Promise.all([setBookStorages$, setStorageBooks$]);
 };

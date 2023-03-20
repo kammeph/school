@@ -140,6 +140,9 @@
       ],
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
+      ],
+      "@school-book-storages/storages/ui/books-in-storage-form": [
+        "libs/school-book-storage/storages/ui/books-in-storage-form/src/index.ts"
       ]
     }
   },

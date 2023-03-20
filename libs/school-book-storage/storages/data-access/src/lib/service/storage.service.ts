@@ -6,12 +6,12 @@ import {
   CollectionReference,
   deleteDoc,
   doc,
+  docData,
   Firestore,
-  getDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { from, map, of } from 'rxjs';
-import { Storage } from '../models';
+import { from, of } from 'rxjs';
+import { Storage } from '@school-book-storage/shared-models';
 
 @Injectable({
   providedIn: 'root',
@@ -34,9 +34,7 @@ export class StorageService {
   }
 
   get(schoolId: string, storageId: string) {
-    return from(getDoc(doc(this.getCollection(schoolId), storageId))).pipe(
-      map((storage) => storage.data())
-    );
+    return from(docData(doc(this.getCollection(schoolId), storageId)));
   }
 
   create(schoolId: string, storage: Storage) {

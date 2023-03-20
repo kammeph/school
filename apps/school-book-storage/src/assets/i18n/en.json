@@ -60,5 +60,6 @@
   "letter": "Letter",
   "numberOfPupils": "Number of pupils",
   "newEntry": "New Entry",
-  "selectStorage": "Select storage"
+  "selectStorage": "Select storage",
+  "selectBook": "Select book"
 }

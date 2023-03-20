@@ -14,7 +14,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Storage } from '@school-book-storage/storages/data-access';
+import { Storage } from '@school-book-storage/shared-models';
 
 @Component({
   selector: 'school-storage-form',
@@ -30,6 +30,7 @@ export class StorageFormComponent implements OnInit {
   form!: FormGroup<{
     name: FormControl<string>;
     location: FormControl<string>;
+    totalCount: FormControl<number>;
   }>;
 
   constructor(private fb: FormBuilder) {}
@@ -38,6 +39,7 @@ export class StorageFormComponent implements OnInit {
     this.form = this.fb.nonNullable.group({
       name: [this.storage?.name ?? '', Validators.required],
       location: [this.storage?.location ?? '', Validators.required],
+      totalCount: [this.storage?.totalCount ?? 0],
     });
   }
 }

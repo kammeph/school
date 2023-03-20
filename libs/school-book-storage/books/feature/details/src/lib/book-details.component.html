@@ -60,15 +60,16 @@
       </ion-item-group>
       <ion-modal #booksInStorageModal>
         <ng-template>
-          <school-books-in-storage-form
+          <school-books-books-in-storage-form
             class="full-height"
             [schoolId]="schoolId"
             [bookId]="bookId"
+            [bookName]="book.name"
             [storage]="selectedStorage"
             [availableStorages$]="availableStorages$"
             (saved)="saveBooksInStorage()"
             (cancel)="booksInStorageModal.dismiss()"
-          ></school-books-in-storage-form>
+          ></school-books-books-in-storage-form>
         </ng-template>
       </ion-modal>
     </ng-container>

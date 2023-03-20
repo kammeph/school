@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" icon="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ bookName }}</ion-title>
+    <ion-title>{{ storageName }}</ion-title>
     <ion-buttons slot="end">
       <ion-button [disabled]="booksInStorageForm.invalid" (click)="submit()">
         <ion-icon slot="icon-only" icon="save"></ion-icon>
@@ -15,18 +15,18 @@
 </ion-header>
 <ion-content>
   <form [formGroup]="booksInStorageForm">
-    <ion-item *ngIf="storage" class="storage-label">
+    <ion-item *ngIf="book" class="book-label">
       <ion-label>
-        <h2>{{ storage.name }}</h2>
+        <h2>{{ book.name }}</h2>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="!storage">
-      <ion-label position="floating" translate>selectStorage</ion-label>
-      <ion-select formControlName="storageId">
+    <ion-item *ngIf="!book">
+      <ion-label position="floating" translate>selectBook</ion-label>
+      <ion-select formControlName="bookId">
         <ion-select-option
-          [value]="storage.id"
-          *ngFor="let storage of availableStorages$ | async"
-          >{{ storage.name }}</ion-select-option
+          [value]="book.id"
+          *ngFor="let book of availableBooks$ | async"
+          >{{ book.name }}</ion-select-option
         >
       </ion-select>
     </ion-item>
