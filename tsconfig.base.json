@@ -42,6 +42,9 @@
       "@school-book-storage/books/ui/book-form": [
         "libs/school-book-storage/books/ui/book-form/src/index.ts"
       ],
+      "@school-book-storage/books/ui/books-in-storage-form": [
+        "libs/school-book-storage/books/ui/books-in-storage-form/src/index.ts"
+      ],
       "@school-book-storage/school-classes/data-access": [
         "libs/school-book-storage/school-classes/data-access/src/index.ts"
       ],
@@ -75,8 +78,14 @@
       "@school-book-storage/schools/shell": [
         "libs/school-book-storage/schools/feature/shell/src/index.ts"
       ],
+      "@school-book-storage/shared-models": [
+        "libs/school-book-storage/shared/models/src/index.ts"
+      ],
       "@school-book-storage/shared/auth-guard": [
         "libs/school-book-storage/shared/guards/auth-guard/src/index.ts"
+      ],
+      "@school-book-storage/shared/data-access": [
+        "libs/school-book-storage/shared/data-access/src/index.ts"
       ],
       "@school-book-storage/shared/guards/profile-guard": [
         "libs/school-book-storage/shared/guards/profile-guard/src/index.ts"
@@ -131,6 +140,9 @@
       ],
       "@school-book-storage/users/shell": [
         "libs/school-book-storage/users/feature/shell/src/index.ts"
+      ],
+      "@school-book-storages/storages/ui/books-in-storage-form": [
+        "libs/school-book-storage/storages/ui/books-in-storage-form/src/index.ts"
       ]
     }
   },

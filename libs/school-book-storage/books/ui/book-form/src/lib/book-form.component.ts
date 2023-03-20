@@ -14,8 +14,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { Book, Subject } from '@school-book-storage/books/data-access';
 import { Observable } from 'rxjs';
+import { Book, Subject } from '@school-book-storage/shared-models';
 
 @Component({
   selector: 'school-book-form',
@@ -34,6 +34,7 @@ export class BookFormComponent implements OnInit {
     isbn: FormControl<string>;
     name: FormControl<string>;
     description: FormControl<string | undefined>;
+    totalCount: FormControl<number>;
     subject: FormControl<Subject | undefined>;
     grades: FormControl<number[]>;
   }>;
@@ -45,6 +46,7 @@ export class BookFormComponent implements OnInit {
       isbn: [this.book?.isbn ?? '', Validators.required],
       name: [this.book?.name ?? '', Validators.required],
       description: [this.book?.description],
+      totalCount: [this.book?.totalCount ?? 0],
       subject: [this.book?.subject],
       grades: [this.book?.grades ?? []],
     });
