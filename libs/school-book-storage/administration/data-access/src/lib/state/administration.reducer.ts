@@ -1,7 +1,6 @@
 import { createReducer } from '@ngrx/store';
 import { UserRole } from '@school-book-storage/auth/data-access';
-import { Subject } from '@school-book-storage/books/data-access';
-
+import { Subject } from '@school-book-storage/shared-models';
 export interface AdministrationState {
   userRoles: UserRole[];
   subjects: Subject[];

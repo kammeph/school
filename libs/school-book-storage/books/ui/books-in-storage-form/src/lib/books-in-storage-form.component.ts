@@ -7,15 +7,22 @@ import {
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  BooksInStorage,
-  BookStorage,
-} from '@school-book-storage/books/data-access';
 import { Storage } from '@school-book-storage/storages/data-access';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
+import {
+  BooksInStorage,
+  BookStorage,
+} from '@school-book-storage/shared-models';
+import { BooksInStorageStore } from '@school-book-storage/shared/data-access';
 
 @Component({
   selector: 'school-books-in-storage-form',
@@ -26,45 +33,61 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BooksInStorageFormComponent implements OnInit {
+  @Input() schoolId!: string;
   @Input() bookId!: string;
   @Input() availableStorages$!: Observable<Storage[]>;
   @Input() storage?: BookStorage;
-  @Output() save = new EventEmitter<BooksInStorage>();
+  @Output() saved = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
-  bookCount!: FormControl<number>;
-  storageId!: FormControl<string>;
+  booksInStorageForm!: FormGroup<{
+    storageId: FormControl<string>;
+    bookId: FormControl<string>;
+    count: FormControl<number>;
+  }>;
+
+  constructor(
+    private fb: FormBuilder,
+    private booksInStorageStore: BooksInStorageStore
+  ) {}
 
   ngOnInit(): void {
-    this.bookCount = new FormControl(this.storage?.count ?? 0, {
-      nonNullable: true,
-      validators: [Validators.required, Validators.min(0)],
+    this.booksInStorageForm = this.fb.nonNullable.group({
+      storageId: [this.storage?.id ?? '', [Validators.required]],
+      bookId: [this.bookId, [Validators.required]],
+      count: [
+        this.storage?.count ?? 0,
+        [Validators.required, Validators.min(0)],
+      ],
     });
-    this.storageId = new FormControl(this.storage?.id ?? '', {
-      nonNullable: true,
-      validators: [Validators.required],
-    });
+  }
+
+  get countCtrl() {
+    return this.booksInStorageForm.get('count');
   }
 
   submit() {
-    if (this.isValid())
-      this.save.emit({
-        storageId: this.storageId.value,
-        bookId: this.bookId,
-        count: this.bookCount.value,
+    const booksInStorage = BooksInStorage.parse(this.booksInStorageForm.value);
+    if (booksInStorage.count > 0) {
+      this.booksInStorageStore.set({
+        schoolId: this.schoolId,
+        booksInStorage,
       });
-  }
-
-  isValid() {
-    return this.bookId && this.storageId.valid && this.bookCount.valid;
+    } else {
+      this.booksInStorageStore.delete({
+        schoolId: this.schoolId,
+        booksInStorage,
+      });
+    }
+    this.saved.emit();
   }
 
   increaseCount() {
-    this.bookCount.setValue(this.bookCount.value + 1);
+    if (this.countCtrl) this.countCtrl.setValue(this.countCtrl.value + 1);
   }
 
   decreaseCount() {
-    if (this.bookCount.value > 0)
-      this.bookCount.setValue(this.bookCount.value - 1);
+    if (this.countCtrl && this.countCtrl.value > 0)
+      this.countCtrl.setValue(this.countCtrl.value - 1);
   }
 }

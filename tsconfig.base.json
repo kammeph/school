@@ -78,8 +78,14 @@
       "@school-book-storage/schools/shell": [
         "libs/school-book-storage/schools/feature/shell/src/index.ts"
       ],
+      "@school-book-storage/shared-models": [
+        "libs/school-book-storage/shared/models/src/index.ts"
+      ],
       "@school-book-storage/shared/auth-guard": [
         "libs/school-book-storage/shared/guards/auth-guard/src/index.ts"
+      ],
+      "@school-book-storage/shared/data-access": [
+        "libs/school-book-storage/shared/data-access/src/index.ts"
       ],
       "@school-book-storage/shared/guards/profile-guard": [
         "libs/school-book-storage/shared/guards/profile-guard/src/index.ts"

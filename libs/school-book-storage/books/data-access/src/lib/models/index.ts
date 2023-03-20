@@ -7,13 +7,6 @@ export enum Subject {
   Religion = 'RELIGION',
 }
 
-export type BooksInStorage = {
-  id?: string;
-  storageId: string;
-  bookId: string;
-  count: number;
-};
-
 export type BookStorage = {
   id: string;
   name: string;

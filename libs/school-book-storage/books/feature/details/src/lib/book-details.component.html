@@ -30,15 +30,25 @@
         <ion-item-divider>
           <ion-label translate>storages</ion-label>
         </ion-item-divider>
-        <ion-item
-          *ngFor="let storage of book?.storages"
-          [button]="true"
-          detail="true"
-          (click)="openBooksInStorageModal(storage)"
-        >
-          <ion-label>{{ storage.name }}</ion-label>
-          <ion-badge slot="end">{{ storage.count }}</ion-badge>
-        </ion-item>
+        <ion-item-sliding *ngFor="let storage of book?.storages">
+          <ion-item
+            [button]="true"
+            detail="true"
+            (click)="openBooksInStorageModal(storage)"
+          >
+            <ion-label>{{ storage.name }}</ion-label>
+            <ion-badge slot="end">{{ storage.count }}</ion-badge>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option
+              color="danger"
+              (click)="deleteBooksInStorage(schoolId, storage)"
+            >
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
         <ion-item
           [button]="true"
           detail="false"
@@ -52,10 +62,11 @@
         <ng-template>
           <school-books-in-storage-form
             class="full-height"
+            [schoolId]="schoolId"
             [bookId]="bookId"
             [storage]="selectedStorage"
             [availableStorages$]="availableStorages$"
-            (save)="saveBooksInStorage($event)"
+            (saved)="saveBooksInStorage()"
             (cancel)="booksInStorageModal.dismiss()"
           ></school-books-in-storage-form>
         </ng-template>

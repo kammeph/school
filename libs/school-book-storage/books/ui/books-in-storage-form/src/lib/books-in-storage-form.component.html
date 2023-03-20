@@ -7,49 +7,51 @@
     </ion-buttons>
     <ion-title>Books in Storage</ion-title>
     <ion-buttons slot="end">
-      <ion-button [disabled]="!isValid()" (click)="submit()">
+      <ion-button [disabled]="booksInStorageForm.invalid" (click)="submit()">
         <ion-icon slot="icon-only" icon="save"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-item *ngIf="storage" class="storage-label">
-    <ion-label>
-      <h2>{{ storage.name }}</h2>
-    </ion-label>
-  </ion-item>
-  <ion-item *ngIf="!storage">
-    <ion-label position="floating" translate>selectStorage</ion-label>
-    <ion-select [formControl]="storageId">
-      <ion-select-option
-        [value]="storage.id"
-        *ngFor="let storage of availableStorages$ | async"
-        >{{ storage.name }}</ion-select-option
-      >
-    </ion-select>
-  </ion-item>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-fab>
-          <ion-fab-button color="primary" (click)="decreaseCount()">
-            <ion-icon name="remove"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
-      </ion-col>
-      <ion-col>
-        <ion-item fill="outline">
-          <ion-input type="number" [formControl]="bookCount"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-fab>
-          <ion-fab-button color="primary" (click)="increaseCount()">
-            <ion-icon name="add"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <form [formGroup]="booksInStorageForm">
+    <ion-item *ngIf="storage" class="storage-label">
+      <ion-label>
+        <h2>{{ storage.name }}</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="!storage">
+      <ion-label position="floating" translate>selectStorage</ion-label>
+      <ion-select formControlName="storageId">
+        <ion-select-option
+          [value]="storage.id"
+          *ngFor="let storage of availableStorages$ | async"
+          >{{ storage.name }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-fab>
+            <ion-fab-button color="primary" (click)="decreaseCount()">
+              <ion-icon name="remove"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-col>
+        <ion-col>
+          <ion-item fill="outline">
+            <ion-input type="number" formControlName="count"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-fab>
+            <ion-fab-button color="primary" (click)="increaseCount()">
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

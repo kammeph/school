@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { Book } from '@school-book-storage/shared-models';
 import { Observable, switchMap, tap } from 'rxjs';
-import { Book } from '../models';
 import { BookService } from '../service';
 
 interface BooksState {

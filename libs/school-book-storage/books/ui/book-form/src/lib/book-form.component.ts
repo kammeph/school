@@ -14,8 +14,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { Book, Subject } from '@school-book-storage/books/data-access';
 import { Observable } from 'rxjs';
+import { Book, Subject } from '@school-book-storage/shared-models';
 
 @Component({
   selector: 'school-book-form',
