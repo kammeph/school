@@ -4,13 +4,13 @@ import { Book } from '@school-book-storage/shared-models';
 import { Observable, switchMap, tap } from 'rxjs';
 import { BookService } from '../service';
 
-interface BooksState {
+type BooksState = {
   books: Book[];
   book?: Book;
   error?: string;
   pending: boolean;
   success: boolean;
-}
+};
 
 @Injectable()
 export class BookStore extends ComponentStore<BooksState> {

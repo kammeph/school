@@ -1,11 +1,12 @@
 import { createReducer } from '@ngrx/store';
 import { UserRole } from '@school-book-storage/auth/data-access';
 import { Subject } from '@school-book-storage/shared-models';
-export interface AdministrationState {
+
+export type AdministrationState = {
   userRoles: UserRole[];
   subjects: Subject[];
   grades: number[];
-}
+};
 
 export const initialState: AdministrationState = {
   userRoles: Object.values(UserRole),

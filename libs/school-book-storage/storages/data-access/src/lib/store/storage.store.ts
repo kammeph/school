@@ -4,13 +4,13 @@ import { Observable, switchMap, tap } from 'rxjs';
 import { Storage } from '@school-book-storage/shared-models';
 import { StorageService } from '../service';
 
-interface StoragesState {
+type StoragesState = {
   storages: Storage[];
   storage?: Storage;
   error?: string;
   pending: boolean;
   success: boolean;
-}
+};
 
 @Injectable()
 export class StorageStore extends ComponentStore<StoragesState> {

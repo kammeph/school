@@ -4,13 +4,13 @@ import { User } from '@school-book-storage/auth/data-access';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { UserService } from '../service/user.service';
 
-interface UserState {
+type UserState = {
   users: User[] | null;
   user: User | null;
   pending: boolean;
   error: string | null;
   success: boolean;
-}
+};
 
 @Injectable()
 export class UserStore extends ComponentStore<UserState> {
