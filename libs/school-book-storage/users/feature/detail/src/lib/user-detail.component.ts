@@ -3,7 +3,10 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import { selectUserRoles } from '@school-book-storage/administration/data-access';
+import {
+  selectLanguages,
+  selectUserRoles,
+} from '@school-book-storage/administration/data-access';
 import {
   AuthActions,
   selectIsAdmin,
@@ -13,6 +16,7 @@ import {
   SchoolActions,
   selectSchools,
 } from '@school-book-storage/schools/data-access';
+import { Language, User, UserRole } from '@school-book-storage/shared-models';
 import { UserStore } from '@school-book-storage/users/data-access';
 import { filter, Subscription, tap, withLatestFrom } from 'rxjs';
 
@@ -28,15 +32,19 @@ export class UserDetailComponent implements OnDestroy {
     uid: [''],
     displayName: [''],
     email: [''],
-    roles: [[] as string[]],
+    roles: [[] as UserRole[]],
     schoolId: [''],
     canLogin: [false],
+    language: [Language.German],
   });
   user$ = this.userStore.user$.pipe(
-    tap((user) => this.userForm.patchValue({ ...user }))
+    tap((user) => {
+      this.userForm.patchValue({ ...user });
+    })
   );
   schools$ = this.store.select(selectSchools);
   userRoles$ = this.store.select(selectUserRoles);
+  languages$ = this.store.select(selectLanguages);
   isAdmin$ = this.store.select(selectIsAdmin);
   loggedInUserId$ = this.store.select(selectUid);
 
@@ -73,7 +81,7 @@ export class UserDetailComponent implements OnDestroy {
   }
 
   updateUser() {
-    const update = this.userForm.getRawValue();
+    const update = User.parse(this.userForm.getRawValue());
     this.userStore.update(update);
   }
 }

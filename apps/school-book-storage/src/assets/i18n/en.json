@@ -65,5 +65,9 @@
   "bookType": "Book type",
   "BOOK": "Book",
   "WORK_BOOK": "Work book",
-  "DAILY_EXERCISE_BOOK": "Daily exercise book"
+  "DAILY_EXERCISE_BOOK": "Daily exercise book",
+  "ATTACHMENTS": "Attachments",
+  "language": "Language",
+  "EN": "English",
+  "DE": "German"
 }

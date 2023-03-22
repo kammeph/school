@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { User } from '@school-book-storage/auth/data-access';
+import { User } from '@school-book-storage/shared-models';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { UserService } from '../service/user.service';
 

@@ -9,7 +9,7 @@ import {
   getDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { User } from '@school-book-storage/auth/data-access';
+import { User } from '@school-book-storage/shared-models';
 import { from, map } from 'rxjs';
 
 @Injectable({
