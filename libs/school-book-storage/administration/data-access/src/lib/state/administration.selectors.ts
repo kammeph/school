@@ -18,3 +18,8 @@ export const selectGrades = createSelector(
   selectAdministration,
   (state) => state.grades
 );
+
+export const selectBookTypes = createSelector(
+  selectAdministration,
+  (state) => state.bookTypes
+);

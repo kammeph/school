@@ -25,6 +25,19 @@
     </ion-select>
   </ion-item>
   <ion-item>
+    <ion-label position="floating" translate>bookType</ion-label>
+    <ion-select formControlName="type">
+      <ion-select-option value="" translate>none</ion-select-option>
+      <ion-select-option
+        *ngFor="let type of bookTypes$ | async"
+        [value]="type"
+        translate
+      >
+        {{ type }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
     <ion-label position="floating" translate>grades</ion-label>
     <ion-select formControlName="grades" multiple>
       <ion-select-option *ngFor="let grade of grades$ | async" [value]="grade">

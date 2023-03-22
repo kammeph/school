@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IonModal, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import {
+  selectBookTypes,
   selectGrades,
   selectSubjects,
 } from '@school-book-storage/administration/data-access';
@@ -49,6 +50,7 @@ export class BookDetailsComponent {
   );
   subjects$ = this.store.select(selectSubjects);
   grades$ = this.store.select(selectGrades);
+  bookTypes$ = this.store.select(selectBookTypes);
   bookId = z.string().parse(this.route.snapshot.params['id']);
   selectedStorage: BookStorage | undefined;
 

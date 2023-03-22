@@ -5,6 +5,7 @@ import { ActionSheetController, IonModal, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
+  selectBookTypes,
   selectGrades,
   selectSubjects,
 } from '@school-book-storage/administration/data-access';
@@ -30,6 +31,7 @@ export class BookListComponent {
   books$ = this.bookStore.books$;
   subjects$ = this.store.select(selectSubjects);
   grades$ = this.store.select(selectGrades);
+  bookTypes$ = this.store.select(selectBookTypes);
   filterCtrl = new FormControl('');
 
   constructor(
