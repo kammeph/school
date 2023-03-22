@@ -9,25 +9,11 @@ export enum Subject {
   Religion = 'RELIGION',
 }
 
-// export const SUBJECT = {
-//   German: 'GERMAN',
-//   Mathematics: 'MATHEMATICS',
-//   English: 'ENGLISH',
-//   Music: 'MUSIC',
-//   GeneralEducation: 'GENERAL_EDUCATION',
-//   Religion: 'RELIGION',
-// } as const;
-
-// export const SubjectSchema = z.enum([
-//   'GERMAN',
-//   'MATHEMATICS',
-//   'ENGLISH',
-//   'MUSIC',
-//   'GENERAL_EDUCATION',
-//   'RELIGION',
-// ]);
-
-// export type Subject = z.infer<typeof SubjectSchema>;
+export enum BookType {
+  Book = 'BOOK',
+  WorkBook = 'WORK_BOOK',
+  DailyExerciseBook = 'DAILY_EXERCISE_BOOK',
+}
 
 export const BookStorage = z.object({
   id: z.string(),
@@ -44,6 +30,7 @@ export const Book = z.object({
   description: z.string().optional(),
   totalCount: z.number().optional(),
   subject: z.nativeEnum(Subject).optional(),
+  type: z.nativeEnum(BookType).optional(),
   grades: z.array(z.number()),
   storages: z.array(BookStorage).optional(),
 });

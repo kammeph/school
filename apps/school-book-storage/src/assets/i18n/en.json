@@ -61,5 +61,9 @@
   "numberOfPupils": "Number of pupils",
   "newEntry": "New Entry",
   "selectStorage": "Select storage",
-  "selectBook": "Select book"
+  "selectBook": "Select book",
+  "bookType": "Book type",
+  "BOOK": "Book",
+  "WORK_BOOK": "Work book",
+  "DAILY_EXERCISE_BOOK": "Daily exercise book"
 }

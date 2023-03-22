@@ -61,5 +61,9 @@
   "numberOfPupils": "Anzahl der Schüler",
   "newEntry": "Neuer Eintrag",
   "selectStorage": "Lager auswählen",
-  "selectBook": "Buch auswählen"
+  "selectBook": "Buch auswählen",
+  "bookType": "Buchtyp",
+  "BOOK": "Buch",
+  "WORK_BOOK": "Arbeitsheft",
+  "DAILY_EXERCISE_BOOK": "TÜ-Heft"
 }
