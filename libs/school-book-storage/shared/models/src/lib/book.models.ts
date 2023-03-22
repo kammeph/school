@@ -13,6 +13,7 @@ export enum BookType {
   Book = 'BOOK',
   WorkBook = 'WORK_BOOK',
   DailyExerciseBook = 'DAILY_EXERCISE_BOOK',
+  Attachments = 'ATTACHMENTS',
 }
 
 export const BookStorage = z.object({

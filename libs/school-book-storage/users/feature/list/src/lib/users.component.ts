@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
-import { User } from '@school-book-storage/auth/data-access';
+import { User } from '@school-book-storage/shared-models';
 import { UserStore } from '@school-book-storage/users/data-access';
 import { combineLatest, map, startWith } from 'rxjs';
 

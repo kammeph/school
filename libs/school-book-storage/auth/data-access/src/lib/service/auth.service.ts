@@ -14,9 +14,9 @@ import {
   setDoc,
   getDoc,
 } from '@angular/fire/firestore';
+import { Language, User } from '@school-book-storage/shared-models';
 import { map, Observable, switchMap } from 'rxjs';
 import { from } from 'rxjs';
-import { User } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +57,7 @@ export class AuthService {
             roles: [],
             schoolId: '',
             canLogin: false,
+            language: Language.German,
           })
         );
       }),

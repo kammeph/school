@@ -23,3 +23,8 @@ export const selectBookTypes = createSelector(
   selectAdministration,
   (state) => state.bookTypes
 );
+
+export const selectLanguages = createSelector(
+  selectAdministration,
+  (state) => state.languages
+);

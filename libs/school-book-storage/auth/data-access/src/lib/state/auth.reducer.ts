@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { User } from '../models';
+import { User } from '@school-book-storage/shared-models';
 import { AuthActions } from './auth.actions';
 
 export type AuthState = {

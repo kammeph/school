@@ -22,6 +22,18 @@
         <ion-label position="floating" translate>email</ion-label>
         <ion-input formControlName="email" email></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label position="floating" translate>language</ion-label>
+        <ion-select formControlName="language">
+          <ion-select-option
+            *ngFor="let language of languages$ | async"
+            [value]="language"
+            translate
+          >
+            {{ language }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
       <ion-item [disabled]="(isAdmin$ | async) === false">
         <ion-label position="floating" translate>roles</ion-label>
         <ion-select formControlName="roles" multiple>

@@ -65,5 +65,9 @@
   "bookType": "Buchtyp",
   "BOOK": "Buch",
   "WORK_BOOK": "Arbeitsheft",
-  "DAILY_EXERCISE_BOOK": "TÜ-Heft"
+  "DAILY_EXERCISE_BOOK": "TÜ-Heft",
+  "ATTACHMENTS": "Beilagen",
+  "language": "Sprache",
+  "EN": "Englisch",
+  "DE": "Deutsch"
 }

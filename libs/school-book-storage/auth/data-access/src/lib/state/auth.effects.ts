@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { AuthActions } from './auth.actions';
@@ -10,14 +11,18 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {}
 
   loginSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(AuthActions.authenticationSuccess),
-        tap(() => this.router.navigate(['app']))
+        tap(({ user }) => {
+          this.router.navigate(['app']);
+          this.translate.use(user.language.toLowerCase());
+        })
       );
     },
     { dispatch: false }

@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { User } from '../models';
+import { User } from '@school-book-storage/shared-models';
 
 export const AuthActions = createActionGroup({
   source: 'Auth',
