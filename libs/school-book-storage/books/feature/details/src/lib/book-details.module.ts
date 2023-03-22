@@ -7,11 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BookFormComponent } from '@school-book-storage/books/ui/book-form';
 import { BooksInStorageFormComponent } from '@school-book-storage/books/ui/books-in-storage-form';
+import { BooksUiBooksInSchoolClassFormComponent } from '@school-book-storage/books/ui/books-in-school-class-form';
 
 @NgModule({
   imports: [
     BookDetailsRoutingModule,
     BookFormComponent,
+    BooksUiBooksInSchoolClassFormComponent,
     BooksInStorageFormComponent,
     CommonModule,
     IonicModule,

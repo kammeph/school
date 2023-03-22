@@ -42,6 +42,9 @@
       "@school-book-storage/books/ui/book-form": [
         "libs/school-book-storage/books/ui/book-form/src/index.ts"
       ],
+      "@school-book-storage/books/ui/books-in-school-class-form": [
+        "libs/school-book-storage/books/ui/books-in-school-class-form/src/index.ts"
+      ],
       "@school-book-storage/books/ui/books-in-storage-form": [
         "libs/school-book-storage/books/ui/books-in-storage-form/src/index.ts"
       ],

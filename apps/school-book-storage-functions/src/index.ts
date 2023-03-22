@@ -5,7 +5,9 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import {
   Book,
+  BooksInSchoolClass,
   BooksInStorage,
+  SchoolClass,
   Storage,
 } from '@school-book-storage/shared-models';
 
@@ -73,6 +75,24 @@ export const booksInStorageDelete = schoolFunctions.firestore
     return updateBoosInStorage(context.params.schoolId, deletedValue, true);
   });
 
+export const booksInSchoolClassWrite = schoolFunctions.firestore
+  .document('schools/{schoolId}/books-in-school-class/{booksInSchoolClassId}')
+  .onWrite(async (snap, context) => {
+    const newValue = BooksInSchoolClass.parse(snap.after.data());
+    return updateBooksInSchoolClass(context.params.schoolId, newValue);
+  });
+
+export const booksInSchoolClassDelete = schoolFunctions.firestore
+  .document('schools/{schoolId}/books-in-school-class/{booksInSchoolClassId}')
+  .onDelete(async (snap, context) => {
+    const deletedValue = BooksInSchoolClass.parse(snap.data());
+    return updateBooksInSchoolClass(
+      context.params.schoolId,
+      deletedValue,
+      true
+    );
+  });
+
 const updateBoosInStorage = async (
   schoolId: string,
   booksInStorage: BooksInStorage,
@@ -102,16 +122,13 @@ const updateBoosInStorage = async (
       count: booksInStorage.count,
     });
   }
+  const totalCount =
+    book?.schoolClasses?.reduce((total, s) => (total += s.count), 0) +
+    storages?.reduce((total, s) => (total += s.count), 0);
   const setBookStorages$ = admin
     .firestore()
     .doc(`schools/${schoolId}/books/${booksInStorage.bookId}`)
-    .set(
-      {
-        totalCount: storages?.reduce((total, s) => (total += s.count), 0),
-        storages,
-      },
-      { merge: true }
-    );
+    .set({ totalCount, storages }, { merge: true });
 
   const books = (storage?.books ?? []).filter(
     (b) => b.id !== booksInStorage.bookId
@@ -126,6 +143,68 @@ const updateBoosInStorage = async (
   const setStorageBooks$ = admin
     .firestore()
     .doc(`schools/${schoolId}/storages/${booksInStorage.storageId}`)
+    .set(
+      { totalCount: books?.reduce((total, b) => (total += b.count), 0), books },
+      { merge: true }
+    );
+
+  return Promise.all([setBookStorages$, setStorageBooks$]);
+};
+
+const updateBooksInSchoolClass = async (
+  schoolId: string,
+  booksInSchoolClass: BooksInSchoolClass,
+  remove?: boolean
+) => {
+  const schoolClass$ = admin
+    .firestore()
+    .doc(
+      `schools/${schoolId}/school-classes/${booksInSchoolClass.schoolClassId}`
+    )
+    .get()
+    .then((doc) => SchoolClass.parse(doc.data()));
+
+  const book$ = admin
+    .firestore()
+    .doc(`schools/${schoolId}/books/${booksInSchoolClass.bookId}`)
+    .get()
+    .then((doc) => Book.parse(doc.data()));
+
+  const [schoolClass, book] = await Promise.all([schoolClass$, book$]);
+
+  const schoolClasses = (book?.storages ?? []).filter(
+    (s) => s.id !== booksInSchoolClass.schoolClassId
+  );
+  if (!remove) {
+    schoolClasses.push({
+      id: booksInSchoolClass.schoolClassId,
+      name: `${schoolClass.grade}${schoolClass.letter}`,
+      count: booksInSchoolClass.count,
+    });
+  }
+  const totalCount =
+    schoolClasses?.reduce((total, s) => (total += s.count), 0) +
+    book?.storages?.reduce((total, s) => (total += s.count), 0);
+  const setBookStorages$ = admin
+    .firestore()
+    .doc(`schools/${schoolId}/books/${booksInSchoolClass.bookId}`)
+    .set({ totalCount, schoolClasses }, { merge: true });
+
+  const books = (schoolClass?.books ?? []).filter(
+    (b) => b.id !== booksInSchoolClass.bookId
+  );
+  if (!remove) {
+    books.push({
+      id: booksInSchoolClass.bookId,
+      name: book.name,
+      count: booksInSchoolClass.count,
+    });
+  }
+  const setStorageBooks$ = admin
+    .firestore()
+    .doc(
+      `schools/${schoolId}/school-classes/${booksInSchoolClass.schoolClassId}`
+    )
     .set(
       { totalCount: books?.reduce((total, b) => (total += b.count), 0), books },
       { merge: true }

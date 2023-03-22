@@ -59,6 +59,29 @@
           <ion-icon slot="end" name="add"></ion-icon>
         </ion-item>
       </ion-item-group>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label translate>schoolClasses</ion-label>
+        </ion-item-divider>
+        <ion-item-sliding *ngFor="let schoolClass of book?.schoolClasses">
+          <ion-item
+            [button]="true"
+            detail="true"
+            (click)="openBooksInSchoolClassModal(schoolClass)"
+          >
+            <ion-label>{{ schoolClass.name }}</ion-label>
+            <ion-badge slot="end">{{ schoolClass.count }}</ion-badge>
+          </ion-item>
+        </ion-item-sliding>
+        <ion-item
+          [button]="true"
+          detail="false"
+          (click)="openBooksInSchoolClassModal()"
+        >
+          <ion-label translate>newEntry</ion-label>
+          <ion-icon slot="end" name="add"></ion-icon>
+        </ion-item>
+      </ion-item-group>
       <ion-modal #booksInStorageModal>
         <ng-template>
           <school-books-books-in-storage-form
@@ -71,6 +94,21 @@
             (saved)="saveBooksInStorage()"
             (cancel)="booksInStorageModal.dismiss()"
           ></school-books-books-in-storage-form>
+        </ng-template>
+      </ion-modal>
+      <ion-modal #booksInSchoolClassModal>
+        <ng-template>
+          <school-books-ui-books-in-school-class-form
+            class="full-height"
+            [schoolId]="schoolId"
+            [bookId]="bookId"
+            [bookName]="book.name"
+            [availableStorages]="book.storages"
+            [schoolClass]="selectedSchoolClass"
+            [availableSchoolClasses$]="availableSchoolClasses$"
+            (saved)="saveBooksInStorage()"
+            (cancel)="booksInSchoolClassModal.dismiss()"
+          ></school-books-ui-books-in-school-class-form>
         </ng-template>
       </ion-modal>
     </ng-container>

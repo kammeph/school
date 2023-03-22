@@ -24,6 +24,14 @@ export const BookStorage = z.object({
 
 export type BookStorage = z.infer<typeof BookStorage>;
 
+export const BookSchoolClass = z.object({
+  id: z.string().optional(),
+  name: z.string(),
+  count: z.number(),
+});
+
+export type BookSchoolClass = z.infer<typeof BookSchoolClass>;
+
 export const Book = z.object({
   id: z.string().optional(),
   isbn: z.string(),
@@ -34,6 +42,7 @@ export const Book = z.object({
   type: z.nativeEnum(BookType).optional(),
   grades: z.array(z.number()),
   storages: z.array(BookStorage).optional(),
+  schoolClasses: z.array(BookSchoolClass).optional(),
 });
 
 export type Book = z.infer<typeof Book>;
@@ -45,3 +54,11 @@ export const BooksInStorage = z.object({
 });
 
 export type BooksInStorage = z.infer<typeof BooksInStorage>;
+
+export const BooksInSchoolClass = z.object({
+  schoolClassId: z.string(),
+  bookId: z.string(),
+  count: z.number(),
+});
+
+export type BooksInSchoolClass = z.infer<typeof BooksInSchoolClass>;

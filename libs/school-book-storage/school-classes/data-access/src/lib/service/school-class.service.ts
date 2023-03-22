@@ -10,8 +10,8 @@ import {
   getDoc,
   updateDoc,
 } from '@angular/fire/firestore';
+import { SchoolClass } from '@school-book-storage/shared-models';
 import { from, map, of } from 'rxjs';
-import { SchoolClass } from '../models';
 
 @Injectable({
   providedIn: 'root',
