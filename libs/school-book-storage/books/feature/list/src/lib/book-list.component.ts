@@ -10,9 +10,8 @@ import {
   selectSubjects,
 } from '@school-book-storage/administration/data-access';
 import { selectSchoolId } from '@school-book-storage/auth/data-access';
-import { BookStore } from '@school-book-storage/books/data-access';
+import { BookStore, selectBooks } from '@school-book-storage/books/data-access';
 import { BookFormComponent } from '@school-book-storage/books/ui/book-form';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'school-book-list',
@@ -25,10 +24,8 @@ export class BookListComponent {
   @ViewChild(IonModal) addBookModal!: IonModal;
   @ViewChild(BookFormComponent) addbookForm!: BookFormComponent;
 
-  schoolId$ = this.store
-    .select(selectSchoolId)
-    .pipe(tap((schoolId) => this.bookStore.getAll(schoolId)));
-  books$ = this.bookStore.books$;
+  schoolId$ = this.store.select(selectSchoolId);
+  books$ = this.store.select(selectBooks);
   subjects$ = this.store.select(selectSubjects);
   grades$ = this.store.select(selectGrades);
   bookTypes$ = this.store.select(selectBookTypes);

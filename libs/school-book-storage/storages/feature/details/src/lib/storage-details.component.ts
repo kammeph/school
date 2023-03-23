@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { selectSchoolId } from '@school-book-storage/auth/data-access';
 import { combineLatest, map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { BookStore } from '@school-book-storage/books/data-access';
+import { selectBooks } from '@school-book-storage/books/data-access';
 import { BooksInStorageStore } from '@school-book-storage/shared/data-access';
 import { BooksInStorageFormComponent } from '@school-book-storages/storages/ui/books-in-storage-form';
 import { StorageBook } from '@school-book-storage/shared-models';
@@ -27,7 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './storage-details.component.html',
   styleUrls: ['./storage-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [StorageStore, BookStore, BooksInStorageStore],
+  providers: [StorageStore, BooksInStorageStore],
 })
 export class StorageDetailsComponent {
   @ViewChild(StorageFormComponent) storageForm!: StorageFormComponent;
@@ -37,12 +37,14 @@ export class StorageDetailsComponent {
     tap((schoolId) => {
       if (schoolId && this.storageId) {
         this.storageStore.getById({ schoolId, storageId: this.storageId });
-        this.bookStore.getAll(schoolId);
       }
     })
   );
   storage$ = this.storageStore.storage$;
-  availableBooks$ = combineLatest([this.storage$, this.bookStore.books$]).pipe(
+  availableBooks$ = combineLatest([
+    this.storage$,
+    this.store.select(selectBooks),
+  ]).pipe(
     map(([storage, books]) => {
       return books.filter(
         (book) =>
@@ -57,7 +59,6 @@ export class StorageDetailsComponent {
   constructor(
     private store: Store,
     private storageStore: StorageStore,
-    private bookStore: BookStore,
     private booksInStorageStore: BooksInStorageStore,
     private navCtrl: NavController,
     private route: ActivatedRoute

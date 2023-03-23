@@ -8,7 +8,10 @@ import {
   selectSubjects,
 } from '@school-book-storage/administration/data-access';
 import { selectSchoolId } from '@school-book-storage/auth/data-access';
-import { BookStore } from '@school-book-storage/books/data-access';
+import {
+  BookStore,
+  selectBookById,
+} from '@school-book-storage/books/data-access';
 import { BookFormComponent } from '@school-book-storage/books/ui/book-form';
 import { SchoolClassStore } from '@school-book-storage/school-classes/data-access';
 import {
@@ -41,16 +44,17 @@ export class BookDetailsComponent {
   @ViewChild('booksInStorageModal') booksInStorageModal!: IonModal;
   @ViewChild('booksInSchoolClassModal') booksInSchoolClassModal!: IonModal;
 
+  bookId = z.string().parse(this.route.snapshot.params['id']);
+
   schoolId$ = this.store.select(selectSchoolId).pipe(
     tap((schoolId) => {
       if (schoolId && this.bookId) {
-        this.bookStore.getById({ schoolId, bookId: this.bookId });
         this.storageStore.getAll(schoolId);
         this.schoolClassStore.getAll(schoolId);
       }
     })
   );
-  book$ = this.bookStore.book$;
+  book$ = this.store.select(selectBookById(this.bookId));
   availableStorages$ = combineLatest([
     this.book$,
     this.storageStore.storages$,
@@ -81,7 +85,6 @@ export class BookDetailsComponent {
   subjects$ = this.store.select(selectSubjects);
   grades$ = this.store.select(selectGrades);
   bookTypes$ = this.store.select(selectBookTypes);
-  bookId = z.string().parse(this.route.snapshot.params['id']);
   selectedStorage: BookStorage | undefined;
   selectedSchoolClass: BookSchoolClass | undefined;
 
