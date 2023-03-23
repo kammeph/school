@@ -13,7 +13,7 @@ import {
   selectBookById,
 } from '@school-book-storage/books/data-access';
 import { BookFormComponent } from '@school-book-storage/books/ui/book-form';
-import { SchoolClassStore } from '@school-book-storage/school-classes/data-access';
+import { selectSchoolClasses } from '@school-book-storage/school-classes/data-access';
 import {
   BookSchoolClass,
   BookStorage,
@@ -31,12 +31,7 @@ import { z } from 'zod';
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    BookStore,
-    BooksInSchoolClassStore,
-    BooksInStorageStore,
-    SchoolClassStore,
-  ],
+  providers: [BookStore, BooksInSchoolClassStore, BooksInStorageStore],
 })
 export class BookDetailsComponent {
   @ViewChild(BookFormComponent) bookForm!: BookFormComponent;
@@ -45,13 +40,7 @@ export class BookDetailsComponent {
 
   bookId = z.string().parse(this.route.snapshot.params['id']);
 
-  schoolId$ = this.store.select(selectSchoolId).pipe(
-    tap((schoolId) => {
-      if (schoolId && this.bookId) {
-        this.schoolClassStore.getAll(schoolId);
-      }
-    })
-  );
+  schoolId$ = this.store.select(selectSchoolId);
   book$ = this.store.select(selectBookById(this.bookId));
   availableStorages$ = combineLatest([
     this.book$,
@@ -67,7 +56,7 @@ export class BookDetailsComponent {
   );
   availableSchoolClasses$ = combineLatest([
     this.book$,
-    this.schoolClassStore.schoolClasses$,
+    this.store.select(selectSchoolClasses),
   ]).pipe(
     tap(([book, schoolClasses]) => console.log(book, schoolClasses)),
     map(([book, schoolClasses]) => {
@@ -89,7 +78,6 @@ export class BookDetailsComponent {
   constructor(
     private store: Store,
     private bookStore: BookStore,
-    private schoolClassStore: SchoolClassStore,
     private booksInStorageStore: BooksInStorageStore,
     private navCtrl: NavController,
     private route: ActivatedRoute

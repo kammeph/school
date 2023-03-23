@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SchoolClassStore } from '@school-book-storage/school-classes/data-access';
+import {
+  SchoolClassStore,
+  selectSchoolClassById,
+} from '@school-book-storage/school-classes/data-access';
 import { IonicModule, NavController } from '@ionic/angular';
 import { SchoolClassFormComponent } from '@school-book-storage/school-classes/ui/form';
-import { tap } from 'rxjs';
 import { selectSchoolId } from '@school-book-storage/auth/data-access';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
@@ -21,17 +23,9 @@ export class SchoolClassDetailsComponent {
   @ViewChild(SchoolClassFormComponent)
   schoolClassForm!: SchoolClassFormComponent;
 
-  schoolId$ = this.store.select(selectSchoolId).pipe(
-    tap((schoolId) => {
-      if (schoolId && this.schoolClassId)
-        this.schoolClassStore.getById({
-          schoolId,
-          schoolClassId: this.schoolClassId,
-        });
-    })
-  );
-  schoolClass$ = this.schoolClassStore.schoolClass$;
   private schoolClassId = this.route.snapshot.params['id'] as string;
+  schoolId$ = this.store.select(selectSchoolId);
+  schoolClass$ = this.store.select(selectSchoolClassById(this.schoolClassId));
 
   constructor(
     private store: Store,

@@ -24,6 +24,10 @@ import {
   StorageEffects,
   storageReducer,
 } from '@school-book-storage/storages/data-access';
+import {
+  SchoolClassEffects,
+  schoolClassReducer,
+} from '@school-book-storage/school-classes/data-access';
 
 @NgModule({
   imports: [
@@ -35,12 +39,14 @@ import {
       auth: authReducer,
       book: bookReducer,
       school: schoolReducer,
+      schoolClass: schoolClassReducer,
       storage: storageReducer,
     }),
     EffectsModule.forRoot([
       AuthEffects,
       BookEffects,
       SchoolEffects,
+      SchoolClassEffects,
       StorageEffects,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
