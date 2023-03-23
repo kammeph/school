@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StorageStore } from '@school-book-storage/storages/data-access';
+import {
+  selectStorageById,
+  StorageStore,
+} from '@school-book-storage/storages/data-access';
 import { IonicModule, IonModal, NavController } from '@ionic/angular';
 import { StorageFormComponent } from '@school-book-storage/storages/ui/form';
 import { Store } from '@ngrx/store';
 import { selectSchoolId } from '@school-book-storage/auth/data-access';
-import { combineLatest, map, tap } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { selectBooks } from '@school-book-storage/books/data-access';
 import { BooksInStorageStore } from '@school-book-storage/shared/data-access';
@@ -33,14 +36,9 @@ export class StorageDetailsComponent {
   @ViewChild(StorageFormComponent) storageForm!: StorageFormComponent;
   @ViewChild('booksInStorageModal') booksInStorageModal!: IonModal;
 
-  schoolId$ = this.store.select(selectSchoolId).pipe(
-    tap((schoolId) => {
-      if (schoolId && this.storageId) {
-        this.storageStore.getById({ schoolId, storageId: this.storageId });
-      }
-    })
-  );
-  storage$ = this.storageStore.storage$;
+  storageId = z.string().parse(this.route.snapshot.params['id']);
+  schoolId$ = this.store.select(selectSchoolId);
+  storage$ = this.store.select(selectStorageById(this.storageId));
   availableBooks$ = combineLatest([
     this.storage$,
     this.store.select(selectBooks),
@@ -53,7 +51,6 @@ export class StorageDetailsComponent {
       );
     })
   );
-  storageId = z.string().parse(this.route.snapshot.params['id']);
   selectedBook: StorageBook | undefined;
 
   constructor(

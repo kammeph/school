@@ -22,7 +22,7 @@ import {
   BooksInSchoolClassStore,
   BooksInStorageStore,
 } from '@school-book-storage/shared/data-access';
-import { StorageStore } from '@school-book-storage/storages/data-access';
+import { selectStorages } from '@school-book-storage/storages/data-access';
 import { combineLatest, map, tap } from 'rxjs';
 import { z } from 'zod';
 
@@ -36,7 +36,6 @@ import { z } from 'zod';
     BooksInSchoolClassStore,
     BooksInStorageStore,
     SchoolClassStore,
-    StorageStore,
   ],
 })
 export class BookDetailsComponent {
@@ -49,7 +48,6 @@ export class BookDetailsComponent {
   schoolId$ = this.store.select(selectSchoolId).pipe(
     tap((schoolId) => {
       if (schoolId && this.bookId) {
-        this.storageStore.getAll(schoolId);
         this.schoolClassStore.getAll(schoolId);
       }
     })
@@ -57,7 +55,7 @@ export class BookDetailsComponent {
   book$ = this.store.select(selectBookById(this.bookId));
   availableStorages$ = combineLatest([
     this.book$,
-    this.storageStore.storages$,
+    this.store.select(selectStorages),
   ]).pipe(
     map(([book, storages]) => {
       return storages.filter(
@@ -91,7 +89,6 @@ export class BookDetailsComponent {
   constructor(
     private store: Store,
     private bookStore: BookStore,
-    private storageStore: StorageStore,
     private schoolClassStore: SchoolClassStore,
     private booksInStorageStore: BooksInStorageStore,
     private navCtrl: NavController,

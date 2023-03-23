@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
-import { StorageStore } from '@school-book-storage/storages/data-access';
+import {
+  selectStorages,
+  StorageStore,
+} from '@school-book-storage/storages/data-access';
 import {
   ActionSheetController,
   IonicModule,
@@ -12,7 +15,7 @@ import { StorageFormComponent } from '@school-book-storage/storages/ui/form';
 import { Store } from '@ngrx/store';
 import { selectSchoolId } from '@school-book-storage/auth/data-access';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { combineLatest, map, startWith, tap } from 'rxjs';
+import { combineLatest, map, startWith } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -35,11 +38,9 @@ export class StorageListComponent {
   @ViewChild(StorageFormComponent) addStorageForm!: StorageFormComponent;
 
   filterCtrl = new FormControl<string>('');
-  schoolId$ = this.store
-    .select(selectSchoolId)
-    .pipe(tap((schoolId) => this.storageStore.getAll(schoolId)));
+  schoolId$ = this.store.select(selectSchoolId);
   storages$ = combineLatest([
-    this.storageStore.storages$,
+    this.store.select(selectStorages),
     this.filterCtrl.valueChanges.pipe(startWith('')),
   ]).pipe(
     map(([storages, filter]) =>

@@ -20,6 +20,10 @@ import {
   BookEffects,
   bookReducer,
 } from '@school-book-storage/books/data-access';
+import {
+  StorageEffects,
+  storageReducer,
+} from '@school-book-storage/storages/data-access';
 
 @NgModule({
   imports: [
@@ -27,12 +31,18 @@ import {
     SchoolBookStorageLibRoutingModule,
     IonicModule.forRoot(),
     StoreModule.forRoot({
-      auth: authReducer,
-      school: schoolReducer,
-      book: bookReducer,
       administration: administrationReducer,
+      auth: authReducer,
+      book: bookReducer,
+      school: schoolReducer,
+      storage: storageReducer,
     }),
-    EffectsModule.forRoot([AuthEffects, BookEffects, SchoolEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      BookEffects,
+      SchoolEffects,
+      StorageEffects,
+    ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 })
