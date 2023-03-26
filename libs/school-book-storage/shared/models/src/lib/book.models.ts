@@ -18,7 +18,7 @@ export enum BookType {
 
 export const BookStorage = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string().optional(),
   count: z.number(),
 });
 
@@ -26,7 +26,7 @@ export type BookStorage = z.infer<typeof BookStorage>;
 
 export const BookSchoolClass = z.object({
   id: z.string().optional(),
-  name: z.string(),
+  name: z.string().optional(),
   count: z.number(),
 });
 
@@ -41,24 +41,6 @@ export const Book = z.object({
   subject: z.nativeEnum(Subject).optional(),
   type: z.nativeEnum(BookType).optional(),
   grades: z.array(z.number()),
-  storages: z.array(BookStorage).optional(),
-  schoolClasses: z.array(BookSchoolClass).optional(),
 });
 
 export type Book = z.infer<typeof Book>;
-
-export const BooksInStorage = z.object({
-  storageId: z.string(),
-  bookId: z.string(),
-  count: z.number(),
-});
-
-export type BooksInStorage = z.infer<typeof BooksInStorage>;
-
-export const BooksInSchoolClass = z.object({
-  schoolClassId: z.string(),
-  bookId: z.string(),
-  count: z.number(),
-});
-
-export type BooksInSchoolClass = z.infer<typeof BooksInSchoolClass>;

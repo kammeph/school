@@ -10,7 +10,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  Book,
   BookSchoolClass,
+  BooksInSchoolClass,
+  BooksInStorage,
   BookStorage,
   SchoolClass,
 } from '@school-book-storage/shared-models';
@@ -22,10 +25,6 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import {
-  BooksInSchoolClassStore,
-  BooksInStorageStore,
-} from '@school-book-storage/shared/data-access';
 import { IonicModule, IonModal } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -43,13 +42,15 @@ export class BooksUiBooksInSchoolClassFormComponent
   @ViewChild('storageSelectModal') storageSelectModal!: IonModal;
   @ViewChild('schoolClassSelectModal') schoolClassSelectModal!: IonModal;
 
-  @Input() schoolId!: string;
   @Input() bookId!: string;
-  @Input() bookName!: string;
-  @Input() availableStorages!: BookStorage[] | undefined;
+  @Input() book!: Book;
+  @Input() availableStorages!: BookStorage[] | undefined | null;
   @Input() availableSchoolClasses$!: Observable<SchoolClass[]>;
   @Input() schoolClass?: BookSchoolClass;
-  @Output() saved = new EventEmitter();
+  @Output() saved = new EventEmitter<{
+    booksInStorage: BooksInStorage;
+    booksInSchoolClass: BooksInSchoolClass;
+  }>();
   @Output() cancel = new EventEmitter();
 
   booksInSchoolClassForm!: FormGroup<{
@@ -67,11 +68,7 @@ export class BooksUiBooksInSchoolClassFormComponent
   private subscription = new Subscription();
   private maxCount = 0;
 
-  constructor(
-    private fb: FormBuilder,
-    private booksInSchoolClassStore: BooksInSchoolClassStore,
-    private booksInStorageStore: BooksInStorageStore
-  ) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.booksInSchoolClassForm = this.fb.nonNullable.group({
@@ -148,28 +145,31 @@ export class BooksUiBooksInSchoolClassFormComponent
   }
 
   submit() {
-    if (this.booksInSchoolClassForm.valid) {
-      const {
-        bookId,
-        schoolClassId,
+    const {
+      storageId,
+      booksInStorageCount,
+      schoolClassId,
+      booksInSchoolClassCount,
+    } = this.booksInSchoolClassForm.value;
+    if (
+      !storageId ||
+      !schoolClassId ||
+      booksInStorageCount === undefined ||
+      booksInSchoolClassCount === undefined
+    )
+      return;
+    this.saved.emit({
+      booksInStorage: {
+        bookId: this.bookId,
         storageId,
-        booksInStorageCount,
-        booksInSchoolClassCount,
-      } = this.booksInSchoolClassForm.getRawValue();
-      this.booksInSchoolClassStore.set({
-        schoolId: this.schoolId,
-        booksInSchoolClass: {
-          bookId,
-          schoolClassId,
-          count: booksInSchoolClassCount,
-        },
-      });
-      this.booksInStorageStore.set({
-        schoolId: this.schoolId,
-        booksInStorage: { bookId, storageId, count: booksInStorageCount },
-      });
-      this.saved.emit();
-    }
+        count: booksInStorageCount,
+      },
+      booksInSchoolClass: {
+        bookId: this.bookId,
+        schoolClassId,
+        count: booksInSchoolClassCount,
+      },
+    });
   }
 
   increaseCount() {
@@ -187,7 +187,6 @@ export class BooksUiBooksInSchoolClassFormComponent
   }
 
   selectStorage(storage: BookStorage) {
-    console.log(storage);
     this.booksInSchoolClassForm.patchValue({
       storageId: storage.id,
       storageName: storage.name,

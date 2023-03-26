@@ -17,6 +17,7 @@ import { selectSchoolId } from '@school-book-storage/auth/data-access';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { combineLatest, map, startWith } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { selectBooksInStorages } from '@school-book-storage/inventory/data-access';
 
 @Component({
   selector: 'school-storage-list',
@@ -51,6 +52,7 @@ export class StorageListComponent {
       )
     )
   );
+  booksInStorages$ = this.store.select(selectBooksInStorages);
 
   constructor(
     private store: Store,
@@ -100,5 +102,15 @@ export class StorageListComponent {
 
   private deleteStorage(schoolId: string, storageId?: string) {
     if (storageId) this.storageStore.delete({ schoolId, storageId });
+  }
+
+  getBooksTotalCount(storageId?: string) {
+    return this.booksInStorages$.pipe(
+      map((booksInStorages) =>
+        booksInStorages
+          .filter((bookInStorage) => bookInStorage.storageId === storageId)
+          .reduce((acc, bookInStorage) => acc + bookInStorage.count, 0)
+      )
+    );
   }
 }

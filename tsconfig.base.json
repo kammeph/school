@@ -146,6 +146,9 @@
       ],
       "@school-book-storages/storages/ui/books-in-storage-form": [
         "libs/school-book-storage/storages/ui/books-in-storage-form/src/index.ts"
+      ],
+      "@school-book-storage/inventory/data-access": [
+        "libs/school-book-storage/inventory/data-access/src/index.ts"
       ]
     }
   },

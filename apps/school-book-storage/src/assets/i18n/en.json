@@ -70,5 +70,6 @@
   "language": "Language",
   "EN": "English",
   "DE": "German",
-  "selectSchoolClass": "Select school class"
+  "selectSchoolClass": "Select school class",
+  "comment": "Comment"
 }

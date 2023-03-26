@@ -70,5 +70,6 @@
   "language": "Sprache",
   "EN": "Englisch",
   "DE": "Deutsch",
-  "selectSchoolClass": "Klasse auswählen"
+  "selectSchoolClass": "Klasse auswählen",
+  "comment": "Kommentar"
 }

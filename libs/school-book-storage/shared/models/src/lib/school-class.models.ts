@@ -13,7 +13,6 @@ export const SchoolClass = z.object({
   grade: z.number(),
   letter: z.string(),
   pupilsCount: z.number(),
-  books: z.array(SchoolClassBook).optional(),
 });
 
 export type SchoolClass = z.infer<typeof SchoolClass>;
