@@ -13,7 +13,6 @@ export const Storage = z.object({
   name: z.string(),
   location: z.string(),
   totalCount: z.number().optional(),
-  books: z.array(StorageBook).optional(),
 });
 
 export type Storage = z.infer<typeof Storage>;

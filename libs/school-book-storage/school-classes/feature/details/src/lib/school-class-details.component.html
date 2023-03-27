@@ -1,24 +1,73 @@
 <ng-container *ngIf="schoolId$ | async as schoolId">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title *ngIf="schoolClass$ | async as schoolClass"
-        >{{ schoolClass?.grade }}{{ schoolClass?.letter }}</ion-title
-      >
-      <ion-buttons slot="end">
-        <ion-button (click)="updateSchoolClass(schoolId)">
-          <ion-icon slot="icon-only" name="save"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ng-container *ngIf="schoolClass$ | async as schoolClass">
-      <school-school-class-form
-        [schoolClass]="schoolClass"
-      ></school-school-class-form>
-    </ng-container>
-  </ion-content>
+  <ng-container *ngIf="schoolClass$ | async as schoolClass">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ schoolClass?.grade }}{{ schoolClass?.letter }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="updateSchoolClass(schoolId)">
+            <ion-icon slot="icon-only" name="save"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ng-container *ngIf="schoolClass$ | async as schoolClass">
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label translate>details</ion-label>
+          </ion-item-divider>
+          <school-school-class-form
+            [schoolClass]="schoolClass"
+          ></school-school-class-form>
+        </ion-item-group>
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label translate>books</ion-label>
+          </ion-item-divider>
+          <ion-item-sliding *ngFor="let book of schoolClassBooks$ | async">
+            <ion-item
+              [button]="true"
+              detail="true"
+              (click)="openBooksInStorageModal(book)"
+            >
+              <ion-label>{{ book.name }}</ion-label>
+              <ion-badge slot="end">{{ book.count }}</ion-badge>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option
+                color="danger"
+                (click)="deleteBooksInStorage(schoolId, book)"
+              >
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+          <ion-item
+            [button]="true"
+            detail="false"
+            (click)="openBooksInStorageModal()"
+          >
+            <ion-label translate>newEntry</ion-label>
+            <ion-icon slot="end" name="add"></ion-icon>
+          </ion-item>
+        </ion-item-group>
+      </ng-container>
+      <ion-modal #booksInSchoolClassModal>
+        <ng-template>
+          <school-books-storage-school-class-transfer-form
+            class="full-height"
+            [book]="selectedBook"
+            [schoolClassId]="schoolClassId"
+            [schoolClass]="schoolClass"
+            [availableBooks]="availableBooks$ | async"
+            (save)="executeTransaction(schoolId, $event)"
+            (cancel)="booksInSchoolClassModal.dismiss()"
+          ></school-books-storage-school-class-transfer-form>
+        </ng-template>
+      </ion-modal>
+    </ion-content>
+  </ng-container>
 </ng-container>

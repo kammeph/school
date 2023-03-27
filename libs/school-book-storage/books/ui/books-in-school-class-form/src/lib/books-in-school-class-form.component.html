@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel.emit()">
+        <ion-icon slot="icon-only" icon="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ book.name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        [disabled]="booksInSchoolClassForm.invalid"
+        (click)="submit()"
+      >
+        <ion-icon slot="icon-only" icon="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="booksInSchoolClassForm">
+    <ion-item button="true" detail="false" (click)="openStorageSelectModal()">
+      <ion-label *ngIf="!booksInSchoolClassForm.value.storageId" translate>
+        selectStorage
+      </ion-label>
+      <ng-container *ngIf="booksInSchoolClassForm.value.storageId">
+        <ion-label>{{ booksInSchoolClassForm.value.storageName }}</ion-label>
+        <ion-badge slot="end">
+          {{ booksInSchoolClassForm.value.booksInStorageCount }}
+        </ion-badge>
+      </ng-container>
+    </ion-item>
+    <ion-item
+      [button]="!schoolClass"
+      detail="false"
+      (click)="openSchoolClassSelectModal()"
+    >
+      <ion-label *ngIf="!booksInSchoolClassForm.value.schoolClassId" translate>
+        selectSchoolClass
+      </ion-label>
+      <ng-container *ngIf="booksInSchoolClassForm.value.schoolClassId">
+        <ion-label>{{
+          booksInSchoolClassForm.value.schoolClassName
+        }}</ion-label>
+        <ion-badge slot="end">
+          {{ booksInSchoolClassForm.value.booksInSchoolClassCount }}
+        </ion-badge>
+      </ng-container>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-fab>
+            <ion-fab-button
+              [disabled]="(canChangeCount$ | async) === false"
+              color="primary"
+              (click)="decreaseCount()"
+            >
+              <ion-icon name="remove"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-col>
+        <ion-col>
+          <ion-item
+            fill="outline"
+            [disabled]="(canChangeCount$ | async) === false"
+          >
+            <ion-input type="number" formControlName="count"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-fab>
+            <ion-fab-button
+              [disabled]="(canChangeCount$ | async) === false"
+              color="primary"
+              (click)="increaseCount()"
+            >
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <ion-modal #storageSelectModal>
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="storageSelectModal.dismiss()">
+              <ion-icon slot="icon-only" icon="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title translate>selectStorage</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item
+            *ngFor="let storage of availableStorages"
+            (click)="selectStorage(storage)"
+          >
+            <ion-label>{{ storage.name }}</ion-label>
+            <ion-badge slot="end">{{ storage.count }}</ion-badge>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-modal #schoolClassSelectModal>
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="schoolClassSelectModal.dismiss()">
+              <ion-icon slot="icon-only" icon="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title translate>selectSchoolClass</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item
+            *ngFor="let schoolClass of availableSchoolClasses$ | async"
+            (click)="selectSchoolClass(schoolClass)"
+          >
+            <ion-label
+              >{{ schoolClass.grade }}{{ schoolClass.letter }}</ion-label
+            >
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

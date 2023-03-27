@@ -13,7 +13,7 @@ import {
 } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { SchoolClass } from '@school-book-storage/school-classes/data-access';
+import { SchoolClass } from '@school-book-storage/shared-models';
 
 @Component({
   selector: 'school-school-class-form',
@@ -29,7 +29,7 @@ export class SchoolClassFormComponent implements OnInit {
   form!: FormGroup<{
     grade: FormControl<number>;
     letter: FormControl<string>;
-    numberOfPupils: FormControl<number>;
+    pupilsCount: FormControl<number>;
   }>;
 
   constructor(private fb: FormBuilder) {}
@@ -38,7 +38,7 @@ export class SchoolClassFormComponent implements OnInit {
     this.form = this.fb.nonNullable.group({
       grade: [this.schoolClass?.grade ?? 0],
       letter: [this.schoolClass?.letter ?? ''],
-      numberOfPupils: [this.schoolClass?.numberOfPupils ?? 0],
+      pupilsCount: [this.schoolClass?.pupilsCount ?? 0],
     });
   }
 }

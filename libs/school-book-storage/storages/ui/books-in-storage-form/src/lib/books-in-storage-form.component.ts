@@ -8,11 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import {
-  Book,
-  BooksInStorage,
-  StorageBook,
-} from '@school-book-storage/shared-models';
+import { Book, StorageBook } from '@school-book-storage/shared-models';
 import {
   FormBuilder,
   FormControl,
@@ -20,7 +16,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { BooksInStorageStore } from '@school-book-storage/shared/data-access';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -33,7 +28,6 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BooksInStorageFormComponent implements OnInit {
-  @Input() schoolId!: string;
   @Input() storageId!: string;
   @Input() storageName!: string;
   @Input() availableBooks$!: Observable<Book[]>;
@@ -45,18 +39,17 @@ export class BooksInStorageFormComponent implements OnInit {
     storageId: FormControl<string>;
     bookId: FormControl<string>;
     count: FormControl<number>;
+    comment: FormControl<string>;
   }>;
 
-  constructor(
-    private fb: FormBuilder,
-    private booksInStorageStore: BooksInStorageStore
-  ) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.booksInStorageForm = this.fb.nonNullable.group({
       storageId: [this.storageId ?? '', [Validators.required]],
       bookId: [this.book?.id ?? '', [Validators.required]],
       count: [this.book?.count ?? 0, [Validators.required, Validators.min(0)]],
+      comment: [''],
     });
   }
 
@@ -65,19 +58,9 @@ export class BooksInStorageFormComponent implements OnInit {
   }
 
   submit() {
-    const booksInStorage = BooksInStorage.parse(this.booksInStorageForm.value);
-    if (booksInStorage.count > 0) {
-      this.booksInStorageStore.set({
-        schoolId: this.schoolId,
-        booksInStorage,
-      });
-    } else {
-      this.booksInStorageStore.delete({
-        schoolId: this.schoolId,
-        booksInStorage,
-      });
-    }
-    this.saved.emit();
+    const { storageId, bookId, count, comment } = this.booksInStorageForm.value;
+    if (!storageId || !bookId || count === undefined) return;
+    this.saved.emit({ bookId, storageId, count, comment });
   }
 
   increaseCount() {

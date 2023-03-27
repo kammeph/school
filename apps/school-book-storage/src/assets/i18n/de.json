@@ -58,7 +58,7 @@
   "deleteSchoolClass": "Sind Sie sicher, dass Sie diese Klasse löschen möchten?",
   "grade": "Klasse",
   "letter": "Buchstabe",
-  "numberOfPupils": "Anzahl der Schüler",
+  "pupilsCount": "Anzahl der Schüler",
   "newEntry": "Neuer Eintrag",
   "selectStorage": "Lager auswählen",
   "selectBook": "Buch auswählen",
@@ -69,5 +69,7 @@
   "ATTACHMENTS": "Beilagen",
   "language": "Sprache",
   "EN": "Englisch",
-  "DE": "Deutsch"
+  "DE": "Deutsch",
+  "selectSchoolClass": "Klasse auswählen",
+  "comment": "Kommentar"
 }

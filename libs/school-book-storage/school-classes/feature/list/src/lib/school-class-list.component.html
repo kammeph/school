@@ -23,6 +23,9 @@
           <ion-label>
             <h2>{{ schoolClass.grade }}{{ schoolClass.letter }}</h2>
           </ion-label>
+          <ion-badge slot="end">{{
+            getSchoolClassTotalCount(schoolClass.id) | async
+          }}</ion-badge>
         </ion-item>
 
         <ion-item-options side="end">

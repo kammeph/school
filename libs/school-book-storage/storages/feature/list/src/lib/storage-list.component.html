@@ -23,12 +23,14 @@
           <ion-label>
             <h2>{{ storage.name }}</h2>
           </ion-label>
-          <ion-badge slot="end">{{ storage.totalCount }}</ion-badge>
+          <ion-badge slot="end">{{
+            getBooksTotalCount(storage.id) | async
+          }}</ion-badge>
         </ion-item>
 
         <ion-item-options
           side="end"
-          *ngIf="storage.totalCount !== undefined && storage.totalCount <= 0"
+          *ngIf="(getBooksTotalCount(storage.id) | async) === 0"
         >
           <ion-item-option
             color="danger"

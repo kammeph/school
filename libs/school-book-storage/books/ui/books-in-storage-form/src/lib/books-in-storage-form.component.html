@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" icon="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ bookName }}</ion-title>
+    <ion-title>{{ book.name }}</ion-title>
     <ion-buttons slot="end">
       <ion-button [disabled]="booksInStorageForm.invalid" (click)="submit()">
         <ion-icon slot="icon-only" icon="save"></ion-icon>
@@ -53,5 +53,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <ion-item>
+      <ion-label position="floating" translate>comment </ion-label>
+      <ion-textarea formControlName="comment"></ion-textarea>
+    </ion-item>
   </form>
 </ion-content>

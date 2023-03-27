@@ -58,7 +58,7 @@
   "deleteSchoolClass": "Are you sure you want to delete this school class?",
   "grade": "Grade",
   "letter": "Letter",
-  "numberOfPupils": "Number of pupils",
+  "pupilsCount": "Number of pupils",
   "newEntry": "New Entry",
   "selectStorage": "Select storage",
   "selectBook": "Select book",
@@ -69,5 +69,7 @@
   "ATTACHMENTS": "Attachments",
   "language": "Language",
   "EN": "English",
-  "DE": "German"
+  "DE": "German",
+  "selectSchoolClass": "Select school class",
+  "comment": "Comment"
 }

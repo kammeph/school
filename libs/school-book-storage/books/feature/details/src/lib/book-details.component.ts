@@ -7,13 +7,30 @@ import {
   selectGrades,
   selectSubjects,
 } from '@school-book-storage/administration/data-access';
-import { selectSchoolId } from '@school-book-storage/auth/data-access';
-import { BookStore } from '@school-book-storage/books/data-access';
+import {
+  selectSchoolId,
+  selectUid,
+} from '@school-book-storage/auth/data-access';
+import {
+  BookStore,
+  selectBookById,
+} from '@school-book-storage/books/data-access';
 import { BookFormComponent } from '@school-book-storage/books/ui/book-form';
-import { BookStorage } from '@school-book-storage/shared-models';
-import { BooksInStorageStore } from '@school-book-storage/shared/data-access';
-import { StorageStore } from '@school-book-storage/storages/data-access';
-import { combineLatest, map, tap } from 'rxjs';
+import {
+  InventoryStore,
+  selectBooksInSchoolClassesByBookId,
+  selectBooksInStoragesByBookId,
+} from '@school-book-storage/inventory/data-access';
+import { selectSchoolClasses } from '@school-book-storage/school-classes/data-access';
+import {
+  BookSchoolClass,
+  BooksInSchoolClass,
+  BooksInStorage,
+  BookStorage,
+  Inventory,
+} from '@school-book-storage/shared-models';
+import { selectStorages } from '@school-book-storage/storages/data-access';
+import { combineLatest, map } from 'rxjs';
 import { z } from 'zod';
 
 @Component({
@@ -21,44 +38,98 @@ import { z } from 'zod';
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [BookStore, StorageStore, BooksInStorageStore],
+  providers: [BookStore, InventoryStore],
 })
 export class BookDetailsComponent {
   @ViewChild(BookFormComponent) bookForm!: BookFormComponent;
   @ViewChild('booksInStorageModal') booksInStorageModal!: IonModal;
+  @ViewChild('booksInSchoolClassModal') booksInSchoolClassModal!: IonModal;
 
-  schoolId$ = this.store.select(selectSchoolId).pipe(
-    tap((schoolId) => {
-      if (schoolId && this.bookId) {
-        this.bookStore.getById({ schoolId, bookId: this.bookId });
-        this.storageStore.getAll(schoolId);
-      }
-    })
+  bookId = z.string().parse(this.route.snapshot.params['id']);
+
+  userId$ = this.store.select(selectUid);
+  schoolId$ = this.store.select(selectSchoolId);
+  book$ = this.store.select(selectBookById(this.bookId));
+  booksInStorages$ = this.store.select(
+    selectBooksInStoragesByBookId(this.bookId)
   );
-  book$ = this.bookStore.book$;
+  booksInSchoolClasses$ = this.store.select(
+    selectBooksInSchoolClassesByBookId(this.bookId)
+  );
+
   availableStorages$ = combineLatest([
-    this.book$,
-    this.storageStore.storages$,
+    this.booksInStorages$,
+    this.store.select(selectStorages),
   ]).pipe(
-    map(([book, storages]) => {
+    map(([booksInStorages, storages]) => {
       return storages.filter(
-        (storage) =>
-          !book?.storages?.length ||
-          book?.storages?.every((s) => s.id !== storage.id)
+        (s) =>
+          !booksInStorages?.length ||
+          booksInStorages?.every((b) => b.storageId !== s.id)
       );
     })
   );
+  availableSchoolClasses$ = combineLatest([
+    this.booksInSchoolClasses$,
+    this.store.select(selectSchoolClasses),
+  ]).pipe(
+    map(([booksInSchoolClasses, schoolClasses]) => {
+      return schoolClasses.filter(
+        (schoolClass) =>
+          !booksInSchoolClasses?.length ||
+          booksInSchoolClasses?.every((s) => s.schoolClassId !== schoolClass.id)
+      );
+    })
+  );
+
+  bookStorages$ = combineLatest([
+    this.booksInStorages$,
+    this.store.select(selectStorages),
+  ]).pipe(
+    map(([booksInStorages, storages]) => {
+      return booksInStorages?.map((bookInStorage) => {
+        const name =
+          storages.find((s) => s.id === bookInStorage.storageId)?.name ?? '';
+        return {
+          id: bookInStorage.storageId,
+          name,
+          count: bookInStorage.count,
+        };
+      });
+    })
+  );
+
+  bookSchoolClasses$ = combineLatest([
+    this.booksInSchoolClasses$,
+    this.store.select(selectSchoolClasses),
+  ]).pipe(
+    map(([booksInSchoolClasses, schoolClasses]) => {
+      return booksInSchoolClasses?.map((booksInSchoolClass) => {
+        const schoolClass = schoolClasses.find(
+          (s) => s.id === booksInSchoolClass.schoolClassId
+        );
+        const name = schoolClass
+          ? `${schoolClass.grade}${schoolClass.letter}`
+          : '';
+        return {
+          id: booksInSchoolClass.schoolClassId,
+          name,
+          count: booksInSchoolClass.count,
+        };
+      });
+    })
+  );
+
   subjects$ = this.store.select(selectSubjects);
   grades$ = this.store.select(selectGrades);
   bookTypes$ = this.store.select(selectBookTypes);
-  bookId = z.string().parse(this.route.snapshot.params['id']);
   selectedStorage: BookStorage | undefined;
+  selectedSchoolClass: BookSchoolClass | undefined;
 
   constructor(
     private store: Store,
     private bookStore: BookStore,
-    private storageStore: StorageStore,
-    private booksInStorageStore: BooksInStorageStore,
+    private inventoryStore: InventoryStore,
     private navCtrl: NavController,
     private route: ActivatedRoute
   ) {}
@@ -77,18 +148,50 @@ export class BookDetailsComponent {
     this.booksInStorageModal.present();
   }
 
-  saveBooksInStorage() {
+  saveBooksInStorage(
+    schoolId: string,
+    uid: string,
+    event: {
+      storageId: string;
+      bookId: string;
+      count: number;
+      comment?: string;
+    }
+  ) {
+    const inventory = Inventory.parse({
+      ...event,
+      createdBy: uid,
+      createdAt: new Date().getTime(),
+    });
+    this.inventoryStore.createInventories({
+      schoolId,
+      inventories: [inventory],
+    });
     this.booksInStorageModal.dismiss();
   }
 
   deleteBooksInStorage(schoolId: string, storage: BookStorage) {
-    this.booksInStorageStore.delete({
+    console.log(schoolId, storage);
+  }
+
+  openBooksInSchoolClassModal(schoolClass?: BookSchoolClass) {
+    this.selectedSchoolClass = schoolClass;
+    this.booksInSchoolClassModal.present();
+  }
+
+  executeTransaction(
+    schoolId: string,
+    event: {
+      booksInSchoolClass: BooksInSchoolClass;
+      booksInStorage: BooksInStorage;
+    }
+  ) {
+    const { booksInSchoolClass, booksInStorage } = event;
+    this.inventoryStore.executeTransactions({
       schoolId,
-      booksInStorage: {
-        bookId: this.bookId,
-        storageId: storage.id,
-        count: storage.count,
-      },
+      booksInStorages: [booksInStorage],
+      booksInSchoolClasses: [booksInSchoolClass],
     });
+    this.booksInSchoolClassModal.dismiss();
   }
 }

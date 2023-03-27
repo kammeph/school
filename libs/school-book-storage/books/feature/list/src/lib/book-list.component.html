@@ -15,28 +15,31 @@
   <ion-content>
     <ion-list>
       <ion-item-sliding *ngFor="let book of books$ | async">
-        <ion-item
-          [button]="true"
-          [detail]="true"
-          (click)="navigateToBookDetails(book?.id)"
-        >
-          <ion-label>
-            <h2>{{ book.name }}</h2>
-          </ion-label>
-          <ion-badge slot="end">{{ book.totalCount }}</ion-badge>
-        </ion-item>
-
-        <ion-item-options
-          side="end"
-          *ngIf="book.totalCount !== undefined && book.totalCount <= 0"
-        >
-          <ion-item-option
-            color="danger"
-            (click)="openDeleteBookSheet(schoolId, book.id)"
+        <ng-container>
+          <ion-item
+            [button]="true"
+            [detail]="true"
+            (click)="navigateToBookDetails(book?.id)"
           >
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
+            <ion-label>
+              <h2>{{ book.name }}</h2>
+            </ion-label>
+            <ion-badge slot="end">{{
+              getBookTotalCount(book.id) | async
+            }}</ion-badge>
+          </ion-item>
+          <ion-item-options
+            side="end"
+            *ngIf="(getBookTotalCount(book.id) | async) === 0"
+          >
+            <ion-item-option
+              color="danger"
+              (click)="openDeleteBookSheet(schoolId, book.id)"
+            >
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ng-container>
       </ion-item-sliding>
     </ion-list>
     <ion-modal>
