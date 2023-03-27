@@ -106,7 +106,7 @@
               [availableStorages]="bookStorages$ | async"
               [schoolClass]="selectedSchoolClass"
               [availableSchoolClasses$]="availableSchoolClasses$"
-              (saved)="executeTransaction(schoolId, $event)"
+              (save)="executeTransaction(schoolId, $event)"
               (cancel)="booksInSchoolClassModal.dismiss()"
             ></school-books-ui-books-in-school-class-form>
           </ng-template>

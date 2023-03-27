@@ -63,15 +63,19 @@ export class InventoryService {
     inventories.forEach((inventory) => {
       batch.set(doc(this.getInventoryCollection(schoolId), uuid()), inventory);
       const booksInStorageId = `${inventory.bookId}${inventory.storageId}`;
-      batch.set(
-        doc(this.getBooksInStorageCollection(schoolId), booksInStorageId),
-        {
-          storageId: inventory.storageId,
-          bookId: inventory.bookId,
-          count: inventory.count,
-        },
-        { merge: true }
-      );
+      inventory.count === 0
+        ? batch.delete(
+            doc(this.getBooksInStorageCollection(schoolId), booksInStorageId)
+          )
+        : batch.set(
+            doc(this.getBooksInStorageCollection(schoolId), booksInStorageId),
+            {
+              storageId: inventory.storageId,
+              bookId: inventory.bookId,
+              count: inventory.count,
+            },
+            { merge: true }
+          );
     });
     return from(batch.commit());
   }

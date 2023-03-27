@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const SchoolClassBook = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   name: z.string(),
   count: z.number(),
 });

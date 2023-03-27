@@ -18,7 +18,7 @@ export enum BookType {
 
 export const BookStorage = z.object({
   id: z.string(),
-  name: z.string().optional(),
+  name: z.string(),
   count: z.number(),
 });
 

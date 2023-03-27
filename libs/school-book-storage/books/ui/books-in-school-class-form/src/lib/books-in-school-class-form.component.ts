@@ -47,7 +47,7 @@ export class BooksUiBooksInSchoolClassFormComponent
   @Input() availableStorages!: BookStorage[] | undefined | null;
   @Input() availableSchoolClasses$!: Observable<SchoolClass[]>;
   @Input() schoolClass?: BookSchoolClass;
-  @Output() saved = new EventEmitter<{
+  @Output() save = new EventEmitter<{
     booksInStorage: BooksInStorage;
     booksInSchoolClass: BooksInSchoolClass;
   }>();
@@ -158,7 +158,7 @@ export class BooksUiBooksInSchoolClassFormComponent
       booksInSchoolClassCount === undefined
     )
       return;
-    this.saved.emit({
+    this.save.emit({
       booksInStorage: {
         bookId: this.bookId,
         storageId,
@@ -198,6 +198,7 @@ export class BooksUiBooksInSchoolClassFormComponent
   }
 
   openSchoolClassSelectModal() {
+    if (this.schoolClass) return;
     this.schoolClassSelectModal.present();
   }
 

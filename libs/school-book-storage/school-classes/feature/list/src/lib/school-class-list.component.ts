@@ -17,6 +17,7 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { selectSchoolId } from '@school-book-storage/auth/data-access';
 import { combineLatest, map, startWith } from 'rxjs';
+import { selectBooksInSchoolClasses } from '@school-book-storage/inventory/data-access';
 
 @Component({
   selector: 'school-school-class-list',
@@ -52,6 +53,7 @@ export class SchoolClassListComponent {
       )
     )
   );
+  booksInSchoolClasses$ = this.store.select(selectBooksInSchoolClasses);
 
   constructor(
     private store: Store,
@@ -102,5 +104,16 @@ export class SchoolClassListComponent {
   private deleteSchoolClass(schoolId: string, schoolClassId?: string) {
     if (schoolClassId)
       this.schoolClassStore.delete({ schoolId, schoolClassId });
+  }
+
+  getSchoolClassTotalCount(schoolClassId?: string) {
+    return this.booksInSchoolClasses$.pipe(
+      map((booksInSchoolClasses) => {
+        return booksInSchoolClasses.reduce((acc, booksInSchoolClass) => {
+          if (booksInSchoolClass.schoolClassId !== schoolClassId) return acc;
+          return acc + booksInSchoolClass.count;
+        }, 0);
+      })
+    );
   }
 }
