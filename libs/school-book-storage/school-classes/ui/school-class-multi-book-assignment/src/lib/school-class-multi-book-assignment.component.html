@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel.emit()">
+        <ion-icon slot="icon-only" icon="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ schoolClass?.grade }}{{ schoolClass?.letter }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [disabled]="form.invalid" (click)="submit()">
+        <ion-icon slot="icon-only" icon="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form" class="full-height">
+    <ion-item
+      button="true"
+      detail="false"
+      (click)="selectStorageModal.present()"
+    >
+      <ion-label *ngIf="!form.value.storageId" translate
+        >selectStorage</ion-label
+      >
+      <ion-label *ngIf="form.value.storageId">{{
+        form.value.storageName
+      }}</ion-label>
+    </ion-item>
+    <ion-item-divider *ngIf="form?.controls?.books?.controls?.length">
+      <ion-label translate>books</ion-label>
+    </ion-item-divider>
+    <ion-list>
+      <ion-item-sliding
+        *ngFor="let bookCtrl of form.controls.books.controls; let i = index"
+      >
+        <ion-item button="false" detail="false">
+          <ion-label>
+            <h2>{{ bookCtrl.value.bookName }}</h2>
+            <p
+              class="error"
+              *ngIf="bookCtrl.getError('notEnoughBooksInStorage')"
+              translate
+            >
+              notEnoughBooksInStorage
+            </p>
+          </ion-label>
+          <ion-badge slot="end">{{
+            bookCtrl.value.schoolClassCount
+          }}</ion-badge>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="removeBook(i)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ng-container>
+      <ion-modal #selectStorageModal>
+        <ng-template>
+          <ion-header>
+            <ion-toolbar color="primary">
+              <ion-buttons slot="start">
+                <ion-button (click)="selectStorageModal.dismiss()">
+                  <ion-icon slot="icon-only" icon="close"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+              <ion-title translate>selectStorage</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-list>
+              <ion-item
+                button="true"
+                detail="false"
+                *ngFor="let storage of storages$ | async"
+                (click)="selectStorage(storage)"
+              >
+                <ion-label>{{ storage.name }}</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </ng-container>
+  </form>
+</ion-content>

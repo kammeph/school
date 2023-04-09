@@ -72,5 +72,6 @@
   "DE": "German",
   "selectSchoolClass": "Select school class",
   "comment": "Comment",
-  "damagedBooks": "Damaged books"
+  "damagedBooks": "Damaged books",
+  "notEnoughBooksInStorage": "Not enough books in storage"
 }

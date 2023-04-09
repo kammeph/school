@@ -26,6 +26,7 @@ import {
 } from '@school-book-storage/shared-models';
 import { TranslateModule } from '@ngx-translate/core';
 import { SchoolClassDamagedBookListComponent } from '@school-book-storage/school-classes/ui/school-class-damaged-book-list';
+import { SchoolClassMultiBookAssignmentComponent } from '@school-book-storage/school-classes/ui/school-class-multi-book-assignment';
 
 @Component({
   selector: 'school-school-class-details',
@@ -36,6 +37,7 @@ import { SchoolClassDamagedBookListComponent } from '@school-book-storage/school
     IonicModule,
     SchoolClassFormComponent,
     SchoolClassDamagedBookListComponent,
+    SchoolClassMultiBookAssignmentComponent,
     TranslateModule,
   ],
   templateUrl: './school-class-details.component.html',
@@ -47,6 +49,7 @@ export class SchoolClassDetailsComponent {
   @ViewChild(SchoolClassFormComponent)
   schoolClassForm!: SchoolClassFormComponent;
   @ViewChild('booksInSchoolClassModal') booksInSchoolClassModal!: IonModal;
+  @ViewChild('multiBookAssignmentModal') multiBookAssignmentModal!: IonModal;
 
   schoolClassId = z.string().parse(this.route.snapshot.params['id']);
   schoolId$ = this.store.select(selectSchoolId);
@@ -136,17 +139,32 @@ export class SchoolClassDetailsComponent {
 
   executeTransaction(
     schoolId: string,
-    $event: {
+    event: {
       booksInStorage: BooksInStorage;
       booksInSchoolClass: BooksInSchoolClass;
     }
   ) {
     this.inventoryStore.executeTransactions({
       schoolId,
-      booksInStorages: [$event.booksInStorage],
-      booksInSchoolClasses: [$event.booksInSchoolClass],
+      booksInStorages: [event.booksInStorage],
+      booksInSchoolClasses: [event.booksInSchoolClass],
     });
     this.booksInSchoolClassModal.dismiss();
+  }
+
+  executeMultiBookAssignmentTransaction(
+    schoolId: string,
+    event: {
+      booksInStorage: BooksInStorage[];
+      booksInSchoolClass: BooksInSchoolClass[];
+    }
+  ) {
+    this.inventoryStore.executeTransactions({
+      schoolId,
+      booksInStorages: event.booksInStorage,
+      booksInSchoolClasses: event.booksInSchoolClass,
+    });
+    this.multiBookAssignmentModal.dismiss();
   }
 
   deleteBooksInStorage(schoolId: string, book: SchoolClassBook) {

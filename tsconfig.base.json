@@ -75,6 +75,9 @@
       "@school-book-storage/school-classes/ui/school-class-manage-damaged-books-modal": [
         "libs/school-book-storage/school-classes/ui/school-class-manage-damaged-books-modal/src/index.ts"
       ],
+      "@school-book-storage/school-classes/ui/school-class-multi-book-assignment": [
+        "libs/school-book-storage/school-classes/ui/school-class-multi-book-assignment/src/index.ts"
+      ],
       "@school-book-storage/schools/add": [
         "libs/school-book-storage/schools/feature/add/src/index.ts"
       ],
