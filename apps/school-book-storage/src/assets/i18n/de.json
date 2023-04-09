@@ -72,5 +72,6 @@
   "DE": "Deutsch",
   "selectSchoolClass": "Klasse auswählen",
   "comment": "Kommentar",
-  "damagedBooks": "Beschädigte Bücher"
+  "damagedBooks": "Beschädigte Bücher",
+  "notEnoughBooksInStorage": "Nicht genügend Bücher im Lager"
 }

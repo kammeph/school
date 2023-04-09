@@ -7,6 +7,9 @@
         </ion-buttons>
         <ion-title>{{ schoolClass?.grade }}{{ schoolClass?.letter }}</ion-title>
         <ion-buttons slot="end">
+          <ion-button (click)="multiBookAssignmentModal.present()">
+            <ion-icon slot="icon-only" name="library"></ion-icon>
+          </ion-button>
           <ion-button (click)="updateSchoolClass(schoolId)">
             <ion-icon slot="icon-only" name="save"></ion-icon>
           </ion-button>
@@ -76,6 +79,18 @@
             (save)="executeTransaction(schoolId, $event)"
             (cancel)="booksInSchoolClassModal.dismiss()"
           ></school-books-storage-school-class-transfer-form>
+        </ng-template>
+      </ion-modal>
+      <ion-modal #multiBookAssignmentModal>
+        <ng-template>
+          <school-school-class-multi-book-assignment
+            class="full-height"
+            [schoolClassId]="schoolClassId"
+            [schoolClass]="schoolClass"
+            [books]="books$ | async"
+            (save)="executeMultiBookAssignmentTransaction(schoolId, $event)"
+            (cancel)="multiBookAssignmentModal.dismiss()"
+          ></school-school-class-multi-book-assignment>
         </ng-template>
       </ion-modal>
     </ion-content>
