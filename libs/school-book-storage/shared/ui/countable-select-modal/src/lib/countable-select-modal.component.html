@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel.emit()">
+        <ion-icon slot="icon-only" icon="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title translate>selectStorage</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of items$ | async" (click)="selectItem(item)">
+      <ion-label>{{ item.name }}</ion-label>
+      <ion-badge slot="end">{{ item.count }}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

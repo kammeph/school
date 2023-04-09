@@ -89,4 +89,35 @@ export class InventoryEffects {
       )
     );
   });
+
+  loadDamagedBooks$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(InventoryActions.loadDamagedBooks),
+      switchMap(({ schoolId }) => {
+        if (schoolId) {
+          return this.inventoryService.getDamagedBooksBySchool(schoolId);
+        }
+        return throwError(() => new Error('User not assigned to a school'));
+      }),
+      map((damagedBooks) =>
+        InventoryActions.loadDamagedBooksSuccess({ damagedBooks })
+      ),
+      catchError((error: Error) =>
+        of(
+          InventoryActions.loadDamagedBooksFailure({
+            error: error.message,
+          })
+        )
+      )
+    );
+  });
+
+  authenticationSuccessLoadDamagedBooks$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.authenticationSuccess),
+      map(({ user }) =>
+        InventoryActions.loadDamagedBooks({ schoolId: user.schoolId })
+      )
+    );
+  });
 }

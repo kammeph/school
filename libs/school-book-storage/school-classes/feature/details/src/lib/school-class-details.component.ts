@@ -16,7 +16,7 @@ import {
 } from '@school-book-storage/inventory/data-access';
 import { selectBooks } from '@school-book-storage/books/data-access';
 import { z } from 'zod';
-import { combineLatest, map, tap, withLatestFrom } from 'rxjs';
+import { combineLatest, map, withLatestFrom } from 'rxjs';
 import { selectStorages } from '@school-book-storage/storages/data-access';
 import { BooksStorageSchoolClassTransferFormComponent } from '@school-book-storage/school-classes/ui/books-storage-school-class-transfer-form';
 import {
@@ -25,6 +25,7 @@ import {
   SchoolClassBook,
 } from '@school-book-storage/shared-models';
 import { TranslateModule } from '@ngx-translate/core';
+import { SchoolClassDamagedBookListComponent } from '@school-book-storage/school-classes/ui/school-class-damaged-book-list';
 
 @Component({
   selector: 'school-school-class-details',
@@ -34,6 +35,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     IonicModule,
     SchoolClassFormComponent,
+    SchoolClassDamagedBookListComponent,
     TranslateModule,
   ],
   templateUrl: './school-class-details.component.html',
@@ -98,7 +100,6 @@ export class SchoolClassDetailsComponent {
     this.booksInStorages$,
   ]).pipe(
     map(([booksInSchoolClasses, booksInStorages]) => {
-      console.log(booksInSchoolClasses, booksInStorages);
       return booksInStorages?.filter((booksInStorage) =>
         booksInSchoolClasses?.some(
           (booksInSchoolClass) =>
@@ -106,7 +107,6 @@ export class SchoolClassDetailsComponent {
         )
       );
     }),
-    tap((booksInStorages) => console.log(booksInStorages)),
     withLatestFrom(this.storages$)
   );
 

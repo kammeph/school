@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel.emit()">
+        <ion-icon slot="icon-only" icon="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ schoolClass?.grade }}{{ schoolClass?.letter }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [disabled]="form.invalid" (click)="submit()">
+        <ion-icon slot="icon-only" icon="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form" class="full-height">
+    <ion-item [button]="!book" detail="false" (click)="openSelectBookModal()">
+      <ion-label *ngIf="!form.value.bookName" translate>selectBook</ion-label>
+      <ion-label *ngIf="form.value.bookName">{{
+        form.value.bookName
+      }}</ion-label>
+      <ion-badge
+        slot="end"
+        *ngIf="bookCountInSchoolClass$ | async; let bookCountInSchoolClass"
+        >{{ bookCountInSchoolClass }}</ion-badge
+      >
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-fab>
+            <ion-fab-button
+              [disabled]="!form.value.bookId"
+              color="primary"
+              (click)="decreaseCount()"
+            >
+              <ion-icon name="remove"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-col>
+        <ion-col>
+          <ion-item fill="outline" [disabled]="!form.value.bookId">
+            <ion-input type="number" formControlName="count"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-fab>
+            <ion-fab-button
+              [disabled]="!form.value.bookId"
+              color="primary"
+              (click)="increaseCount()"
+            >
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ng-container>
+      <ion-modal #selectBookModal>
+        <ng-template>
+          <school-countable-select-modal
+            class="full-height"
+            [items$]="availableBooks$"
+            (selectionChange)="bookSelected($event)"
+            (cancel)="selectBookModal.dismiss()"
+          >
+          </school-countable-select-modal>
+        </ng-template>
+      </ion-modal>
+    </ng-container>
+  </form>
+</ion-content>

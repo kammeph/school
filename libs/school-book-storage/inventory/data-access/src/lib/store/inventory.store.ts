@@ -69,4 +69,29 @@ export class InventoryStore extends ComponentStore<InventoryState> {
       );
     }
   );
+
+  readonly markDamagedBooks = this.effect(
+    (
+      data$: Observable<{
+        schoolId: string;
+        booksInSchoolClasses: BooksInSchoolClass[];
+        damagedBooks: BooksInSchoolClass[];
+      }>
+    ) => {
+      return data$.pipe(
+        tap(() => this.patchState({ pending: true, success: false })),
+        switchMap(({ schoolId, booksInSchoolClasses, damagedBooks }) =>
+          this.inventorySerrvice
+            .markDamagedBooks(schoolId, damagedBooks, booksInSchoolClasses)
+            .pipe(
+              tapResponse(
+                () => this.patchState({ pending: false, success: true }),
+                (error: Error) =>
+                  this.patchState({ error: error.message, pending: false })
+              )
+            )
+        )
+      );
+    }
+  );
 }

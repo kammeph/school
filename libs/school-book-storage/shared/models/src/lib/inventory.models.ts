@@ -27,3 +27,11 @@ export const BooksInSchoolClass = z.object({
 });
 
 export type BooksInSchoolClass = z.infer<typeof BooksInSchoolClass>;
+
+export const DamagedBooks = z.object({
+  schoolClassId: z.string(),
+  bookId: z.string(),
+  count: z.number(),
+});
+
+export type DamagedBooks = z.infer<typeof DamagedBooks>;

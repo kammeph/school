@@ -11,6 +11,7 @@ import {
 import {
   BooksInSchoolClass,
   BooksInStorage,
+  DamagedBooks,
   Inventory,
 } from '@school-book-storage/shared-models';
 import { from, of } from 'rxjs';
@@ -43,6 +44,13 @@ export class InventoryService {
     ) as CollectionReference<BooksInSchoolClass>;
   }
 
+  private getDamagedBooksCollection(schoolId: string) {
+    return collection(
+      this.firestore,
+      `schools/${schoolId}/damaged-books`
+    ) as CollectionReference<DamagedBooks>;
+  }
+
   getInventoriesBySchool(schoolId?: string) {
     if (!schoolId) return of([]);
     return collectionData(this.getInventoryCollection(schoolId));
@@ -56,6 +64,11 @@ export class InventoryService {
   getBooksInSchoolClassesBySchool(schoolId?: string) {
     if (!schoolId) return of([]);
     return collectionData(this.getBooksInSchoolClassCollection(schoolId));
+  }
+
+  getDamagedBooksBySchool(schoolId?: string) {
+    if (!schoolId) return of([]);
+    return collectionData(this.getDamagedBooksCollection(schoolId));
   }
 
   createInventories(schoolId: string, inventories: Inventory[]) {
@@ -95,6 +108,44 @@ export class InventoryService {
         : batch.set(
             doc(this.getBooksInStorageCollection(schoolId), booksInStorageId),
             bookInStorage
+          );
+    });
+    booksInSchoolClass.forEach((bookInSchoolClass) => {
+      const booksInSchoolClassId = `${bookInSchoolClass.bookId}${bookInSchoolClass.schoolClassId}`;
+      bookInSchoolClass.count === 0
+        ? batch.delete(
+            doc(
+              this.getBooksInSchoolClassCollection(schoolId),
+              booksInSchoolClassId
+            )
+          )
+        : batch.set(
+            doc(
+              this.getBooksInSchoolClassCollection(schoolId),
+              booksInSchoolClassId
+            ),
+            bookInSchoolClass
+          );
+    });
+    return from(batch.commit());
+  }
+
+  markDamagedBooks(
+    schoolId: string,
+    damagedBooks: DamagedBooks[],
+    booksInSchoolClass: BooksInSchoolClass[]
+  ) {
+    const batch = writeBatch(this.firestore);
+    damagedBooks.forEach((damagedBook) => {
+      const damagedBooksId = `${damagedBook.bookId}${damagedBook.schoolClassId}`;
+      damagedBook.count === 0
+        ? batch.delete(
+            doc(this.getDamagedBooksCollection(schoolId), damagedBooksId)
+          )
+        : batch.set(
+            doc(this.getDamagedBooksCollection(schoolId), damagedBooksId),
+
+            damagedBook
           );
     });
     booksInSchoolClass.forEach((bookInSchoolClass) => {
