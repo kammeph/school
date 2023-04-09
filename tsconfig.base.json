@@ -69,6 +69,12 @@
       "@school-book-storage/school-classes/ui/form": [
         "libs/school-book-storage/school-classes/ui/form/src/index.ts"
       ],
+      "@school-book-storage/school-classes/ui/school-class-damaged-book-list": [
+        "libs/school-book-storage/school-classes/ui/school-class-damaged-book-list/src/index.ts"
+      ],
+      "@school-book-storage/school-classes/ui/school-class-manage-damaged-books-modal": [
+        "libs/school-book-storage/school-classes/ui/school-class-manage-damaged-books-modal/src/index.ts"
+      ],
       "@school-book-storage/schools/add": [
         "libs/school-book-storage/schools/feature/add/src/index.ts"
       ],
@@ -107,6 +113,9 @@
       ],
       "@school-book-storage/shared/ui/change-password-form": [
         "libs/school-book-storage/shared/ui/change-password-form/src/index.ts"
+      ],
+      "@school-book-storage/shared/ui/countable-select-modal": [
+        "libs/school-book-storage/shared/ui/countable-select-modal/src/index.ts"
       ],
       "@school-book-storage/shell": [
         "libs/school-book-storage/shell/feature/shell/src/index.ts"

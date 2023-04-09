@@ -13,6 +13,11 @@ export const selectBookById = (id: string) =>
     state.books.find((b) => b.id === id)
   );
 
+export const selectBooksByIds = (ids: string[]) =>
+  createSelector(selectBookState, (state) =>
+    state.books.filter((b) => b.id && ids.includes(b.id))
+  );
+
 export const selectBookError = createSelector(
   selectBookState,
   (state) => state.error

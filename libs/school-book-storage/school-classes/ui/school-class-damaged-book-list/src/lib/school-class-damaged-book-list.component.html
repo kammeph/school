@@ -1,0 +1,27 @@
+<ion-item-sliding *ngFor="let book of damagedBooks$ | async">
+  <ion-item
+    button="true"
+    detail="true"
+    (click)="openManageDamagedBooksModal(book)"
+  >
+    <ion-label>{{ book.name }}</ion-label>
+    <ion-badge slot="end" color="danger">{{ book.count }}</ion-badge>
+  </ion-item>
+</ion-item-sliding>
+<ion-item button="true" detail="false" (click)="openManageDamagedBooksModal()">
+  <ion-label translate>newEntry</ion-label>
+  <ion-icon slot="end" name="add"></ion-icon>
+</ion-item>
+<ion-modal #manageDamagedBooksModal>
+  <ng-template>
+    <school-school-class-manage-damaged-books-modal
+      class="full-height"
+      [book]="selectedBook"
+      [books]="books"
+      [schoolClassId]="schoolClassId"
+      [schoolClass]="schoolClass$ | async"
+      (cancel)="closeManageDamagedBooksModal()"
+      (save)="saveDamagedBooks($event)"
+    ></school-school-class-manage-damaged-books-modal>
+  </ng-template>
+</ion-modal>

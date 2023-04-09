@@ -3,6 +3,7 @@ import {
   Inventory,
   BooksInStorage,
   BooksInSchoolClass,
+  DamagedBooks,
 } from '@school-book-storage/shared-models';
 
 export const InventoryActions = createActionGroup({
@@ -21,5 +22,8 @@ export const InventoryActions = createActionGroup({
       booksInSchoolClass: BooksInSchoolClass[];
     }>(),
     'Load Books In School Class Failure': props<{ error: string }>(),
+    'Load Damaged Books': props<{ schoolId?: string }>(),
+    'Load Damaged Books Success': props<{ damagedBooks: DamagedBooks[] }>(),
+    'Load Damaged Books Failure': props<{ error: string }>(),
   },
 });
