@@ -7,6 +7,15 @@
     <ion-label>{{ book.name }}</ion-label>
     <ion-badge slot="end" color="danger">{{ book.count }}</ion-badge>
   </ion-item>
+
+  <ion-item-options side="end" *ngIf="canDeleteDamagedBook$ | async">
+    <ion-item-option
+      color="danger"
+      (click)="openDeleteDamagedBookActionSheet(book.id)"
+    >
+      <ion-icon slot="icon-only" name="trash"></ion-icon>
+    </ion-item-option>
+  </ion-item-options>
 </ion-item-sliding>
 <ion-item button="true" detail="false" (click)="openManageDamagedBooksModal()">
   <ion-label translate>newEntry</ion-label>

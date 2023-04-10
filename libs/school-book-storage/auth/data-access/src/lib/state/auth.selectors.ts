@@ -49,3 +49,11 @@ export const selectIsStudent = createSelector(
   selectAuth,
   (state: AuthState) => state?.user?.roles?.includes(UserRole.Student) ?? false
 );
+
+export const selectCanDeleteDamagedBook = createSelector(
+  selectAuth,
+  (state: AuthState) =>
+    state?.user?.roles?.includes(UserRole.Admin) ||
+    state?.user?.roles?.includes(UserRole.Warehouser) ||
+    false
+);

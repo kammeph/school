@@ -73,5 +73,6 @@
   "selectSchoolClass": "Select school class",
   "comment": "Comment",
   "damagedBooks": "Damaged books",
-  "notEnoughBooksInStorage": "Not enough books in storage"
+  "notEnoughBooksInStorage": "Not enough books in storage",
+  "deleteDamagedBook": "Are you sure you want to delete this damaged book?"
 }

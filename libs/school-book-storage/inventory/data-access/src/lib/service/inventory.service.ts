@@ -11,7 +11,7 @@ import {
 import {
   BooksInSchoolClass,
   BooksInStorage,
-  DamagedBooks,
+  DamagedBook,
   Inventory,
 } from '@school-book-storage/shared-models';
 import { from, of } from 'rxjs';
@@ -48,7 +48,7 @@ export class InventoryService {
     return collection(
       this.firestore,
       `schools/${schoolId}/damaged-books`
-    ) as CollectionReference<DamagedBooks>;
+    ) as CollectionReference<DamagedBook>;
   }
 
   getInventoriesBySchool(schoolId?: string) {
@@ -132,7 +132,7 @@ export class InventoryService {
 
   markDamagedBooks(
     schoolId: string,
-    damagedBooks: DamagedBooks[],
+    damagedBooks: DamagedBook[],
     booksInSchoolClass: BooksInSchoolClass[]
   ) {
     const batch = writeBatch(this.firestore);
@@ -171,5 +171,10 @@ export class InventoryService {
   deleteBooksInStorage(schoolId: string, bookId: string, storageId: string) {
     const id = `${bookId}${storageId}`;
     return from(deleteDoc(doc(this.getBooksInStorageCollection(schoolId), id)));
+  }
+
+  deleteDamagedBooks(schoolId: string, bookId: string, schoolClassId: string) {
+    const id = `${bookId}${schoolClassId}`;
+    return from(deleteDoc(doc(this.getDamagedBooksCollection(schoolId), id)));
   }
 }

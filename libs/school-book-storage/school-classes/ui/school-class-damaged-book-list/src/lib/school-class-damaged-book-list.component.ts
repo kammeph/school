@@ -16,14 +16,15 @@ import {
   Book,
   BooksInSchoolClass,
   Countable,
-  DamagedBooks,
+  DamagedBook,
   SchoolClass,
   SchoolClassBook,
 } from '@school-book-storage/shared-models';
-import { IonicModule, IonModal } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import { ActionSheetController, IonicModule, IonModal } from '@ionic/angular';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { SchoolClassManageDamagedBooksModalComponent } from '@school-book-storage/school-classes/ui/school-class-manage-damaged-books-modal';
 import { selectSchoolClassById } from '@school-book-storage/school-classes/data-access';
+import { selectCanDeleteDamagedBook } from '@school-book-storage/auth/data-access';
 
 @Component({
   selector: 'school-school-class-damaged-book-list',
@@ -37,7 +38,7 @@ import { selectSchoolClassById } from '@school-book-storage/school-classes/data-
   templateUrl: './school-class-damaged-book-list.component.html',
   styleUrls: ['./school-class-damaged-book-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [InventoryStore],
+  providers: [InventoryStore, TranslatePipe],
 })
 export class SchoolClassDamagedBookListComponent implements OnInit {
   @ViewChild('manageDamagedBooksModal') manageDamagedBooksModal!: IonModal;
@@ -49,8 +50,14 @@ export class SchoolClassDamagedBookListComponent implements OnInit {
   schoolClass$!: Observable<SchoolClass | undefined>;
   damagedBooks$!: Observable<SchoolClassBook[]>;
   selectedBook?: Countable;
+  canDeleteDamagedBook$ = this.store.select(selectCanDeleteDamagedBook);
 
-  constructor(private store: Store, private inventoryStore: InventoryStore) {}
+  constructor(
+    private store: Store,
+    private inventoryStore: InventoryStore,
+    private actionSheetCtrl: ActionSheetController,
+    private translatePipe: TranslatePipe
+  ) {}
 
   ngOnInit(): void {
     this.damagedBooks$ = this.store
@@ -84,14 +91,42 @@ export class SchoolClassDamagedBookListComponent implements OnInit {
   }
 
   saveDamagedBooks(event: {
-    damagedBooks: DamagedBooks;
+    damagedBook: DamagedBook;
     booksInSchoolClass: BooksInSchoolClass;
   }) {
     this.inventoryStore.markDamagedBooks({
       schoolId: this.schoolId,
-      damagedBooks: [event.damagedBooks],
+      damagedBooks: [event.damagedBook],
       booksInSchoolClasses: [event.booksInSchoolClass],
     });
     this.closeManageDamagedBooksModal();
+  }
+
+  async openDeleteDamagedBookActionSheet(bookId: string) {
+    const sheet = await this.actionSheetCtrl.create({
+      header: this.translatePipe.transform('deleteDamagedBook'),
+      buttons: [
+        {
+          text: this.translatePipe.transform('yes'),
+          role: 'destructive',
+          handler: () => {
+            this.deleteDamagedBooks(bookId);
+          },
+        },
+        {
+          text: this.translatePipe.transform('no'),
+          role: 'cancel',
+        },
+      ],
+    });
+    await sheet.present();
+  }
+
+  private deleteDamagedBooks(bookId: string) {
+    this.inventoryStore.deleteDamagedBook({
+      schoolId: this.schoolId,
+      bookId,
+      schoolClassId: this.schoolClassId,
+    });
   }
 }

@@ -73,5 +73,6 @@
   "selectSchoolClass": "Klasse auswählen",
   "comment": "Kommentar",
   "damagedBooks": "Beschädigte Bücher",
-  "notEnoughBooksInStorage": "Nicht genügend Bücher im Lager"
+  "notEnoughBooksInStorage": "Nicht genügend Bücher im Lager",
+  "deleteDamagedBook": "Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?"
 }
