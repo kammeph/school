@@ -21,7 +21,7 @@ import {
   Book,
   BooksInSchoolClass,
   Countable,
-  DamagedBooks,
+  DamagedBook,
   SchoolClass,
 } from '@school-book-storage/shared-models';
 import { CountableSelectModalComponent } from '@school-book-storage/shared/ui/countable-select-modal';
@@ -57,7 +57,7 @@ export class SchoolClassManageDamagedBooksModalComponent implements OnInit {
   @Input() schoolClass?: SchoolClass | null;
   @Output() save = new EventEmitter<{
     booksInSchoolClass: BooksInSchoolClass;
-    damagedBooks: DamagedBooks;
+    damagedBook: DamagedBook;
   }>();
   @Output() cancel = new EventEmitter();
 
@@ -151,7 +151,7 @@ export class SchoolClassManageDamagedBooksModalComponent implements OnInit {
       schoolClassId: this.schoolClassId,
       count: undamagedCount - (count - (this.book?.count || 0)),
     };
-    this.save.emit({ booksInSchoolClass, damagedBooks });
+    this.save.emit({ booksInSchoolClass, damagedBook: damagedBooks });
   }
 
   bookSelected(book: Countable) {

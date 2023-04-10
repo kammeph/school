@@ -3,6 +3,7 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import {
   BooksInSchoolClass,
   BooksInStorage,
+  DamagedBook,
   Inventory,
 } from '@school-book-storage/shared-models';
 import { Observable, switchMap, tap } from 'rxjs';
@@ -75,7 +76,7 @@ export class InventoryStore extends ComponentStore<InventoryState> {
       data$: Observable<{
         schoolId: string;
         booksInSchoolClasses: BooksInSchoolClass[];
-        damagedBooks: BooksInSchoolClass[];
+        damagedBooks: DamagedBook[];
       }>
     ) => {
       return data$.pipe(
@@ -83,6 +84,31 @@ export class InventoryStore extends ComponentStore<InventoryState> {
         switchMap(({ schoolId, booksInSchoolClasses, damagedBooks }) =>
           this.inventorySerrvice
             .markDamagedBooks(schoolId, damagedBooks, booksInSchoolClasses)
+            .pipe(
+              tapResponse(
+                () => this.patchState({ pending: false, success: true }),
+                (error: Error) =>
+                  this.patchState({ error: error.message, pending: false })
+              )
+            )
+        )
+      );
+    }
+  );
+
+  readonly deleteDamagedBook = this.effect(
+    (
+      data$: Observable<{
+        schoolId: string;
+        bookId: string;
+        schoolClassId: string;
+      }>
+    ) => {
+      return data$.pipe(
+        tap(() => this.patchState({ pending: true, success: false })),
+        switchMap(({ schoolId, bookId, schoolClassId }) =>
+          this.inventorySerrvice
+            .deleteDamagedBooks(schoolId, bookId, schoolClassId)
             .pipe(
               tapResponse(
                 () => this.patchState({ pending: false, success: true }),

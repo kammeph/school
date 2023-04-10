@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   BooksInSchoolClass,
   BooksInStorage,
-  DamagedBooks,
+  DamagedBook,
   Inventory,
 } from '@school-book-storage/shared-models';
 import { InventoryActions } from './inventory.actions';
@@ -11,7 +11,7 @@ export type InventoryState = {
   inventories: Inventory[];
   booksInStorages: BooksInStorage[];
   booksInSchoolClasses: BooksInSchoolClass[];
-  damagedBooks: DamagedBooks[];
+  damagedBooks: DamagedBook[];
   error?: string;
 };
 
